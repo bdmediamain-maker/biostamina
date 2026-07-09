@@ -1,0 +1,288 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { useTranslations, localePath, type Lang } from '@/lib/i18n';
+import { site } from '@/config/site';
+import { ratingFor } from '@/data/reviews';
+import IndicazioniList from '@/components/product/IndicazioniList.astro';
+import HealingTimeline from '@/components/signature/HealingTimeline.astro';
+import ProReviews from '@/components/social/ProReviews.astro';
+import YouTubeFeed from '@/components/social/YouTubeFeed.astro';
+import ReviewStars from '@/components/product/ReviewStars.astro';
+import GlowCard from '@/components/ui/GlowCard.astro';
+// Foto casi clinici — ritagliate da biorigeneradental.com (depliant + articolo Infomedix 3/2019)
+import casoPre from '@/assets/products/dental-caso-gengiva-pre.jpg';
+import casoPost from '@/assets/products/dental-caso-gengiva-post.jpg';
+import casoStudio from '@/assets/products/dental-studio.jpg';
+import casoImpianto from '@/assets/products/dental-caso-impianto.jpg';
+import showcase from '@/assets/products/dental-showcase.jpg';
+import bannerOzono from '@/assets/products/dental-banner-ozono.jpg';
+
+export async function getStaticPaths() {
+  return [{ params: { lang: 'it' } }, { params: { lang: 'en' } }];
+}
+
+const lang = Astro.params.lang as Lang;
+const t = useTranslations(lang);
+const it = lang === 'it';
+
+// Prodotto Dental: indicazioni/avvertenze VERBATIM dal bugiardino (compliance)
+const products = await getCollection('products');
+const dental = products.find((p) => p.id === 'dental')!;
+const d = dental.data;
+const loc = d[lang];
+const rating = ratingFor('dental');
+
+/**
+ * Copy pillar — TUTTO il contenuto di biorigeneradental.com/it/biorigenera-dental/.
+ * Note compliance: entità "Biostamina Ltd"→KFT (SSOT); "antibiotiche"→"antibatteriche"
+ * (termine del bugiardino ufficiale, difendibile per classe IIa). Indicazioni/avvertenze
+ * dal bugiardino. Claim forti del sito (48/72h, MMP1, "risultati terapeutici",
+ * resistenza agli antibiotici) inclusi come da richiesta — ⚠️ da vagliare col legale.
+ */
+const c = it
+  ? {
+      heroTitle: 'Bio RIGENERA® O3 Dental',
+      heroLead: 'Gel orale all’ozono 100% naturale per le lesioni della bocca. Lipogel gengivale arricchito con ozono: allevia il dolore, favorisce la guarigione e la rigenerazione tissutale.',
+      intro: [
+        'Biostamina è un’azienda specializzata nella produzione di dispositivi medici con formulazione fitoterapica medicamentosa, al 100% naturale. Il lipogel Bio RIGENERA® O3 Dental è un prodotto altamente concentrato arricchito con molecole di ozono O3, in formulazione anidra completamente priva di acqua. Prodotto sicuro, efficace e naturale, privo di sostanze tossiche: non contiene sostanze chimiche o petrolati e non è tossico all’ingestione accidentale.',
+        'Biostamina dispone di laboratori specializzati associati ai più importanti ricercatori scientifici internazionali e svolge intensi programmi di ricerca, finalizzati alla realizzazione di prodotti fitoterapici sicuri, naturali e completamente vegetali, in grado di ridurre i tempi di guarigione attraverso la stimolazione dei processi rigenerativi.',
+      ],
+      whatTitle: 'Che cos’è',
+      what: loc.description, // = descrizione bugiardino
+      mechanismTitle: 'Meccanismo d’azione',
+      mechanism: [
+        'Grazie alla sua formulazione densa e viscosa, Bio RIGENERA® O3 Dental svolge un’azione di emostasi sulla ferita sanguinante, facendo regredire velocemente la sintomatologia dolorosa.',
+        'Aderisce e permane a lungo sulla ferita, creando una membrana che la isola dall’ambiente esterno e la protegge da infezioni batteriche o virali e dall’infiammazione.',
+        'Grazie alle sue proprietà antibatteriche naturali, antinfiammatorie, antiedemigene e cicatrizzanti, Bio RIGENERA® O3 Dental già nelle 48/72 ore favorisce il processo di vascolarizzazione, creando un micro ambiente umido favorevole alla proliferazione cellulare e ottimale per i processi fisiologici di guarigione. I principi attivi delle piante medicinali al suo interno stimolano la rigenerazione tissutale e favoriscono un veloce processo di guarigione.',
+        'La formulazione naturale si differenzia dalle molecole chimiche artificiali in quanto risulta meno aggressiva e priva di controindicazioni, pur mantenendo analoghi risultati. È molto apprezzata per il crescente interesse, in Europa, verso l’uso di sostanze naturali, specie in odontoiatria, dove è ormai nota la resistenza agli antibiotici.',
+      ],
+      benefitsTitle: 'Benefici',
+      benefits: [
+        'Elevate proprietà bio-rigeneranti e bio-riparatrici',
+        'Da utilizzarsi in occasione di intervento chirurgico',
+        'Riduce l’edema, allevia il dolore e favorisce la guarigione',
+        'Formula densa e viscosa studiata per aderire sulla mucosa: crea un micro film protettivo sulla lesione isolandola dall’ambiente esterno e proteggendola da processi infettivi, virali ed infiammatori',
+        'Azione di barriera ed emostasi sulla ferita sanguinante',
+        'Si applica su mucosa orale lesa o affetta da processi patologici, quali afte e ferite',
+        'Stimola la veloce cicatrizzazione e riepitelizzazione della mucosa orale riducendo i tempi di guarigione',
+        'Le proprietà dei semi di pompelmo e dell’ozono svolgono un’azione antibatterica e contribuiscono a una veloce e corretta rigenerazione gengivale e delle mucose del cavo orale',
+        'Prodotto naturale di gradevole sapore, non tossico all’ingestione accidentale: non contiene petrolati o sostanze chimiche, ma solo ingredienti 100% naturali di piante medicinali',
+      ],
+      scienceTitle: 'La scienza · Fitoterapia',
+      science: [
+        'Gli oli vegetali possono stimolare le cellule presenti nel nostro corpo che, pur mantenendo le loro potenzialità rigeneranti e riparatrici, con il passare del tempo rallentano la loro funzione di rinnovamento. Le proprietà degli oli essenziali consistono nel ridurre la formazione di MMP1, enzimi deputati alla degradazione del collagene e all’infiammazione del parodonto.',
+        loc.phyto ?? '',
+      ],
+      antropos: 'Clinicamente testato da “Antropos”, Istituto Svizzero di Ricerca Scientifica e Universitaria, CH 6900 Lugano.',
+      timelineTitle: 'Come agisce',
+      timeline: [
+        { phase: 'Applicazione', title: 'Si applica sulla lesione', desc: 'Con le dita o uno spazzolino morbido, 2-3 volte al giorno sulla parte da trattare.' },
+        { phase: 'Emostasi', title: 'Effetto barriera', desc: 'Aderisce alla mucosa, crea una membrana protettiva e svolge un’azione di emostasi che allevia il dolore.' },
+        { phase: '48/72 ore', title: 'Vascolarizzazione', desc: 'Favorisce il processo di vascolarizzazione, creando un micro ambiente umido ottimale per la proliferazione cellulare.' },
+        { phase: 'Guarigione', title: 'Rigenerazione dei tessuti', desc: 'I principi attivi stimolano la rigenerazione tissutale e favoriscono un veloce processo di guarigione.' },
+      ],
+      indicTitle: 'Indicazioni ufficiali',
+      indicNote: 'Indicazioni e avvertenze riportate fedelmente dal bugiardino ufficiale (dispositivo medico CE, classe IIa).',
+      galleryTitle: 'Casi clinici',
+      galleryNote: 'Casi clinici documentati (fonte: materiale Biostamina). Le immagini illustrano esperienze individuali e non costituiscono garanzia di risultato.',
+      ctaBuy: 'Acquista il Dental',
+      ctaWhats: t('cta.whatsapp'),
+      proTitle: 'Cosa dicono i dentisti',
+    }
+  : {
+      heroTitle: 'Bio RIGENERA® O3 Dental',
+      heroLead: '100% natural ozone oral gel for mouth lesions. Ozone-enriched gingival lipogel: relieves pain, promotes healing and tissue regeneration.',
+      intro: [
+        'Biostamina is a company specialised in the production of medical devices with a 100% natural, medicated phytotherapeutic formulation. The Bio RIGENERA® O3 Dental lipogel is a highly concentrated product enriched with O3 ozone molecules, in an anhydrous formulation completely free of water. A safe, effective and natural product, free of toxic substances: it contains no chemicals or petrolatum and is non-toxic if accidentally ingested.',
+        'Biostamina has specialised laboratories working alongside leading international scientific researchers and carries out intensive research programmes aimed at safe, natural and fully plant-based phytotherapeutic products, able to reduce healing times by stimulating regenerative processes.',
+      ],
+      whatTitle: 'What it is',
+      what: loc.description,
+      mechanismTitle: 'Mechanism of action',
+      mechanism: [
+        'Thanks to its dense, viscous formulation, Bio RIGENERA® O3 Dental performs a haemostatic action on a bleeding wound, rapidly reducing painful symptoms.',
+        'It adheres to and remains on the wound, creating a membrane that isolates it from the external environment and protects it from bacterial or viral infections and inflammation.',
+        'Thanks to its natural antibacterial, anti-inflammatory, anti-oedema and cicatrizing properties, Bio RIGENERA® O3 Dental already within 48/72 hours promotes the vascularisation process, creating a moist micro-environment favourable to cell proliferation and optimal for the physiological healing processes. The active ingredients of the medicinal plants it contains stimulate tissue regeneration and promote a fast healing process.',
+        'The natural formulation differs from artificial chemical molecules in that it is less aggressive and free of contraindications, while maintaining comparable results. It is highly valued given the growing interest, in Europe, in the use of natural substances, especially in dentistry, where antibiotic resistance is now well known.',
+      ],
+      benefitsTitle: 'Benefits',
+      benefits: [
+        'High bio-regenerating and bio-repairing properties',
+        'To be used on the occasion of surgery',
+        'Reduces oedema, relieves pain and promotes healing',
+        'Dense, viscous formula designed to adhere to the mucosa: it creates a protective micro-film on the lesion, isolating it from the external environment and protecting it from infective, viral and inflammatory processes',
+        'Barrier and haemostatic action on a bleeding wound',
+        'Applied to injured oral mucosa or mucosa affected by pathological processes such as ulcers and wounds',
+        'Stimulates fast cicatrization and reepithelization of the oral mucosa, reducing healing times',
+        'The properties of grapefruit seeds and ozone perform an antibacterial action and contribute to fast, correct regeneration of the gums and oral mucosa',
+        'Natural product with a pleasant taste, non-toxic if accidentally ingested: it contains no petrolatum or chemicals, only 100% natural medicinal-plant ingredients',
+      ],
+      scienceTitle: 'The science · Phytotherapy',
+      science: [
+        'Vegetable oils can stimulate the cells in our body which, while keeping their regenerating and repairing potential, over time slow down their renewal function. The properties of the essential oils consist in reducing the formation of MMP1, enzymes responsible for the degradation of collagen and for inflammation of the periodontium.',
+        loc.phyto ?? '',
+      ],
+      antropos: 'Clinically tested by “Antropos”, Swiss Institute of Scientific and University Research, CH 6900 Lugano.',
+      timelineTitle: 'How it works',
+      timeline: [
+        { phase: 'Application', title: 'Applied to the lesion', desc: 'With fingers or a soft toothbrush, 2-3 times a day on the area to be treated.' },
+        { phase: 'Haemostasis', title: 'Barrier effect', desc: 'Adheres to the mucosa, creates a protective membrane and performs a haemostatic action that relieves pain.' },
+        { phase: '48/72 hours', title: 'Vascularisation', desc: 'Promotes the vascularisation process, creating a moist micro-environment optimal for cell proliferation.' },
+        { phase: 'Healing', title: 'Tissue regeneration', desc: 'The active ingredients stimulate tissue regeneration and promote a fast healing process.' },
+      ],
+      indicTitle: 'Official indications',
+      indicNote: 'Indications and warnings faithfully reported from the official IFU (CE medical device, class IIa).',
+      galleryTitle: 'Clinical cases',
+      galleryNote: 'Documented clinical cases (source: Biostamina material). The images show individual experiences and do not constitute a guarantee of results.',
+      ctaBuy: 'Buy the Dental',
+      ctaWhats: t('cta.whatsapp'),
+      proTitle: 'What dentists say',
+    };
+
+// Galleria casi clinici (foto reali + didascalie neutre; claim di esito → disclaimer)
+const gallery = [
+  { img: casoPre, cap: it ? 'Recessione gengivale — pre-trattamento' : 'Gingival recession — before treatment' },
+  { img: casoPost, cap: it ? 'A due mesi dal trattamento' : 'Two months after treatment' },
+  { img: casoImpianto, cap: it ? 'Guarigione peri-implantare' : 'Peri-implant healing' },
+  { img: casoStudio, cap: it ? 'Uso professionale in studio' : 'Professional use in the practice' },
+];
+
+const waText = encodeURIComponent(it ? 'Ciao, vorrei informazioni su Bio RIGENERA® O3 Dental' : "Hello, I'd like info about Bio RIGENERA® O3 Dental");
+const waHref = `https://wa.me/${site.whatsapp.number}?text=${waText}`;
+const productHref = localePath(lang, 'prodotto/dental');
+---
+<BaseLayout
+  title={`Bio RIGENERA® O3 Dental — ${it ? 'lipogel gengivale fitoterapico' : 'phytotherapeutic gingival lipogel'} · Biostamina`}
+  description={c.heroLead.slice(0, 158)}
+>
+  <!-- HERO -->
+  <section class="border-b border-hairline">
+    <div class="mx-auto max-w-7xl px-5 pt-12 pb-14 md:pt-16 grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+      <div>
+        <p class="label-mono text-primary mb-3">{t('product.class')} IIa · {t('product.medicalDevice')} · KFT</p>
+        <h1 class="text-4xl md:text-5xl leading-[1.05]">{c.heroTitle}</h1>
+        <p class="mt-5 text-lg text-muted leading-relaxed">{c.heroLead}</p>
+        {rating && <div class="mt-4"><ReviewStars rating={rating.average} count={rating.count} /></div>}
+        <div class="mt-7 flex flex-wrap gap-3">
+          <a href={productHref} class="inline-flex items-center gap-2 rounded-full bg-primary text-white px-6 py-3.5 text-sm font-medium hover:bg-primary-dark transition">{c.ctaBuy} →</a>
+          <a href={waHref} target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full border border-[#25D366] text-[#128C4B] px-6 py-3.5 text-sm font-medium hover:bg-[#25D366]/10 transition">{c.ctaWhats}</a>
+        </div>
+      </div>
+      <div class="relative rounded-[--radius-card] bg-surface border border-hairline overflow-hidden shadow-soft">
+        <Image src={showcase} alt={loc.name} width={800} height={719} class="w-full h-auto" loading="eager" />
+        <!-- VideoHero: sostituire con il video showcase quando fornito -->
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO AZIENDA + COS'È -->
+  <section class="mx-auto max-w-3xl px-5 py-16">
+    <div class="space-y-4" data-reveal>
+      {c.intro.map((p) => <p class="text-ink/80 leading-relaxed">{p}</p>)}
+    </div>
+    <h2 class="text-2xl md:text-3xl mt-10 mb-4" data-reveal>{c.whatTitle}</h2>
+    <p class="text-ink/80 leading-relaxed" data-reveal>{c.what}</p>
+  </section>
+
+  <!-- MECCANISMO D'AZIONE -->
+  <section class="bg-tint/40 border-y border-hairline">
+    <div class="mx-auto max-w-3xl px-5 py-16">
+      <h2 class="text-2xl md:text-3xl mb-5" data-reveal>{c.mechanismTitle}</h2>
+      <div class="space-y-4">
+        {c.mechanism.map((p) => <p class="text-ink/80 leading-relaxed" data-reveal>{p}</p>)}
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFICI (lista completa) — bento interattivo -->
+  <section class="mx-auto max-w-7xl px-5 py-16">
+    <h2 class="text-2xl md:text-3xl mb-8" data-reveal>{c.benefitsTitle}</h2>
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {c.benefits.map((b) => (
+        <GlowCard as="article" class="rounded-[--radius-card] bg-surface border border-hairline p-5" data-reveal>
+          <div class="flex gap-3 items-start">
+            <span class="w-7 h-7 rounded-full bg-primary/10 text-primary grid place-items-center shrink-0 mt-0.5">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M4 12l5 5L20 6" /></svg>
+            </span>
+            <p class="text-sm text-ink/85 leading-relaxed">{b}</p>
+          </div>
+        </GlowCard>
+      ))}
+    </div>
+  </section>
+
+  <!-- Banner ozono (foto dal sito sorgente) -->
+  <Image src={bannerOzono} alt="Bio RIGENERA® O3 Dental — lipogel gengivale arricchito con ozono, 100% naturale" widths={[768, 1280, 2098]} sizes="100vw" class="w-full h-auto" loading="lazy" />
+
+  <!-- SCIENZA / FITOTERAPIA -->
+  <section class="mx-auto max-w-3xl px-5 py-16">
+    <h2 class="text-2xl md:text-3xl mb-4" data-reveal>{c.scienceTitle}</h2>
+    <div class="space-y-4" data-reveal>
+      {c.science.filter(Boolean).map((p) => <p class="text-ink/80 leading-relaxed">{p}</p>)}
+    </div>
+    <div class="mt-6 rounded-[--radius-card] border border-hairline bg-tint/50 p-5 flex gap-3 items-start" data-reveal>
+      <span class="label-mono grid place-items-center w-9 h-9 rounded-full bg-surface text-primary shrink-0">CH</span>
+      <p class="text-sm text-ink/85 leading-snug">{c.antropos}</p>
+    </div>
+  </section>
+
+  <!-- COME AGISCE (HealingTimeline) -->
+  <section class="bg-tint/40 border-y border-hairline">
+    <div class="mx-auto max-w-7xl px-5 py-16">
+      <HealingTimeline steps={c.timeline} title={c.timelineTitle} />
+    </div>
+  </section>
+
+  <!-- INDICAZIONI UFFICIALI (bugiardino) -->
+  <section class="mx-auto max-w-3xl px-5 py-16">
+    <IndicazioniList items={loc.indications} />
+    <div class="mt-6 space-y-4">
+      <p class="text-xs text-muted italic">{c.indicNote}</p>
+      {loc.warnings && (
+        <details class="rounded-[--radius-card] border border-hairline bg-surface">
+          <summary class="cursor-pointer px-4 py-3 text-sm font-medium">{t('product.warnings')}</summary>
+          <p class="px-4 pb-4 text-sm text-muted leading-relaxed">{loc.warnings}</p>
+        </details>
+      )}
+      <a href={productHref} class="inline-block text-sm text-azure hover:underline">{t('product.specs')} · INCI · {t('cta.viewProduct')} →</a>
+    </div>
+  </section>
+
+  <!-- PROVA SOCIALE: dentisti -->
+  <ProReviews product="dental" title={c.proTitle} />
+
+  <!-- GALLERIA casi clinici (placeholder) -->
+  <section class="mx-auto max-w-7xl px-5 py-16" aria-labelledby="gallery-h">
+    <h2 id="gallery-h" class="text-2xl md:text-3xl mb-6" data-reveal>{c.galleryTitle}</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4" data-reveal>
+      {gallery.map((g) => (
+        <figure class="rounded-[--radius-card] overflow-hidden border border-hairline bg-surface">
+          <div class="aspect-[4/3] overflow-hidden">
+            <Image src={g.img} alt={g.cap} width={480} height={360} class="w-full h-full object-cover" />
+          </div>
+          <figcaption class="px-3 py-2.5 text-xs text-muted leading-snug">{g.cap}</figcaption>
+        </figure>
+      ))}
+    </div>
+    <p class="mt-4 text-xs text-muted italic">{c.galleryNote}</p>
+  </section>
+
+  <!-- YOUTUBE -->
+  <YouTubeFeed />
+
+  <!-- CTA finale -->
+  <section class="mx-auto max-w-7xl px-5 pb-20">
+    <div class="rounded-[--radius-card] bg-primary text-white p-10 md:p-14 flex flex-col md:flex-row md:items-center justify-between gap-6" data-reveal>
+      <div>
+        <h2 class="text-2xl md:text-3xl text-white">{c.heroTitle}</h2>
+        <p class="mt-2 text-white/80 max-w-xl">{it ? 'Disponibile online. Per informazioni scrivici su WhatsApp.' : 'Available online. For information, message us on WhatsApp.'}</p>
+      </div>
+      <div class="flex flex-wrap gap-3 shrink-0">
+        <a href={productHref} class="inline-flex items-center gap-2 rounded-full bg-white text-primary px-6 py-3.5 text-sm font-medium hover:bg-tint transition">{c.ctaBuy} →</a>
+        <a href={waHref} target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full border border-white/40 text-white px-6 py-3.5 text-sm font-medium hover:bg-white/10 transition">{c.ctaWhats}</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

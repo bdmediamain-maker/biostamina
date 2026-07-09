@@ -1,0 +1,28 @@
+---
+/**
+ * GlowCard — wrapper card interattivo riutilizzabile.
+ * Effetti (spotlight verde + border-glow + tilt 3D) definiti in global.css
+ * e attivati dal JS globale in BaseLayout (guard: hover-capable + reduced-motion).
+ *
+ * Uso:
+ *   <GlowCard as="article" class="rounded-[--radius-card] bg-surface border border-hairline p-6">
+ *     ...contenuto...
+ *   </GlowCard>
+ *
+ * Le classi di stile (bg, bordo, padding, radius) vanno passate via `class`:
+ * finiscono sul wrapper che inclina, così bordo e sfondo si muovono con la card.
+ */
+interface Props {
+  class?: string;
+  /** tag del wrapper (default div). Es. 'article', 'a' */
+  as?: keyof HTMLElementTagNameMap;
+  [key: string]: unknown;
+}
+const { class: className = '', as = 'div', ...rest } = Astro.props;
+const Tag = as as any;
+---
+<Tag class:list={['glow-card', className]} {...rest}>
+  <span class="glow-card__spot" aria-hidden="true"></span>
+  <span class="glow-card__border" aria-hidden="true"></span>
+  <div class="glow-card__content"><slot /></div>
+</Tag>

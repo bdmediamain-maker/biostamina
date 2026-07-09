@@ -1,0 +1,140 @@
+{
+  "_meta": {
+    "source": "schede prodotto biostamina.net + farmaciaigea.com",
+    "extracted": "2026-07-08",
+    "total": 30,
+    "average": 4.9,
+    "note": "Verbatim. I claim di esito forti NON vanno usati come headline. Mostrare sempre disclaimer esiti individuali. Consenso GDPR da confermare per Dr. Morella, Dental Bios Srl e Dr. Nicola Marrone. Recensioni con source 'farmaciaigea.com' sono di terze parti (rivenditore farmaceutico).",
+    "lang": "it"
+  },
+  "reviews": [
+    {
+      "product": "dental",
+      "author": "Massimo Rossi",
+      "role": "cliente",
+      "professional": false,
+      "verified": false,
+      "rating": 5,
+      "date": "2026-06-14",
+      "lang": "it",
+      "text": "Consigliato dal mio dentista, che l'ha messo dopo un'estrazione, su sua prescrizione terapeutica ho continuato ad usarlo nei seguenti, devo dire che già dopo il primo trattamento sono scomparsi dolore e gonfiore, inoltre devo dire che il profumo e il sapore sono molto gradevoli."
+    },
+    {
+      "product": "dental",
+      "author": "Dr. Emanuele Morella",
+      "role": "dentista",
+      "roleUrl": "https://studiodrmorella.com",
+      "professional": true,
+      "verified": true,
+      "consentPending": true,
+      "rating": 5,
+      "date": "2026-06-16",
+      "lang": "it",
+      "text": "Ottimo prodotto lo do a tutti i miei Pazienti, nella cura di gengiviti (piorrea), mucositi e nel post chirurgia per la rigenerazione dei tessuti, diminuendo edema e dolore. Dr Emanuele Morella."
+    },
+    {
+      "product": "dental",
+      "author": "Filippo d'Alfonso",
+      "role": "cliente",
+      "professional": false,
+      "verified": true,
+      "rating": 5,
+      "date": "2026-06-18",
+      "lang": "it",
+      "text": "Un gel davvero molto efficace, applicato quotidianamente mi ha ridotto sensibilmente i sintomi di una parodontite piuttosto aggressiva. Consigliato!"
+    },
+    {
+      "product": "dental",
+      "author": "Dental Bios Srl",
+      "role": "studio odontoiatrico",
+      "professional": true,
+      "verified": true,
+      "consentPending": true,
+      "rating": 5,
+      "date": "2026-06-23",
+      "lang": "it",
+      "text": "Nella nostra esperienza clinica, Biorigenera Gel si è dimostrato un valido alleato nella gestione dei tessuti nei casi post-intervento. L'applicazione è semplice e contribuisce a creare condizioni favorevoli ai naturali processi di guarigione. Lo utilizziamo frequentemente dopo procedure chirurgiche odontoiatriche e abbiamo osservato un decorso post-operatorio più confortevole per il paziente, con un efficace supporto alla guarigione dei tessuti. Un prodotto affidabile e di facile utilizzo, che si integra perfettamente nei protocolli clinici quotidiani e rappresenta un valido supporto nella gestione del post-operatorio."
+    },
+    {
+      "product": "cicatren",
+      "author": "Clara Sordini",
+      "role": "caregiver",
+      "professional": false,
+      "verified": false,
+      "strongClaim": true,
+      "rating": 5,
+      "date": "2026-06-15",
+      "lang": "it",
+      "text": "Ho provato questo prodotto Fitoterapico naturale con ozono con ottimi risultati su mia zia diabetica, allettata da mesi da un importante decubito sacrale, dove non guariva con le classiche medicazioni, inoltre si era formata l'escara quella brutta crosta sopra la ferita con un effetto tappo e sotto infiammata, impedendo così la penetrazione delle medicazioni! Chiamato lo specialista vascolare dopo aver rimosso chirurgicamente la brutta crosta sopra la lesione siamo ripartiti da zero consigliandoci vi fare le medicicazioni unicamente con questo prodotto. Devo dire che fin dalle prime medicazioni la ferita ha reagito con notevoli risultati restringendo giorno dopo giorno la circonferenza della lesione alla cicatrizzazione e senza formazione dell'escara guarendo in soli 40 giorni! anzichè molti mesi. Ottimo prodotto naturale, lo consiglio vivamente a chi a questo tipo di lesioni."
+    },
+    {
+      "product": "cicatren",
+      "author": "roberto merone",
+      "role": "cliente",
+      "professional": false,
+      "verified": false,
+      "rating": 5,
+      "date": "2026-06-17",
+      "lang": "it",
+      "text": "Ho provato il prodotto dopo un intervento con una cicatrice piuttosto estesa. Il risultato è stato davvero oltre ogni previsione. I tessuti si sono rigenerati molto rapidamente, lasciando minime tracce della cicatrice."
+    },
+    {
+      "product": "cicatren",
+      "author": "Federica",
+      "role": "caregiver",
+      "professional": false,
+      "verified": false,
+      "strongClaim": true,
+      "rating": 5,
+      "date": "2026-06-29",
+      "lang": "it",
+      "text": "Prodotto eccezionale, l'ho usato su mio papà con piaghe da decubito. Ed in pochi giorni la ferita si è rimarginata. Ottimo."
+    },
+    {
+      "product": "dermal",
+      "author": "Paola",
+      "role": "paziente",
+      "professional": false,
+      "verified": false,
+      "rating": 4,
+      "date": "2026-06-16",
+      "lang": "it",
+      "text": "Consigliato dalla mia dermatologa per la Psoriasi dopo aver provato tutti i prodotti in commercio, devo dire che è stato molto efficace!! Da consigliare."
+    },
+    {
+      "product": "pet",
+      "author": "Danilo",
+      "role": "proprietario",
+      "professional": false,
+      "verified": false,
+      "rating": 5,
+      "date": "2026-06-16",
+      "lang": "it",
+      "text": "Ho provato questo prodotto sull'ulcera della zampa del mio cane, aggravata dal suo leccamento sulla ferita. Devo dire che mi ha stupito, è guarito molto in fretta. Fortunatamente, benché a volte si sia leccato la ferita, essendo al 100% naturale non ha portato nessun problema l'ingestione accidentale. Lo consiglio. Pacco ben fatto, ricevuto in 48 ore dall'ordine."
+    },
+
+    { "product": "dental", "author": "Natascia M.", "role": "cliente", "verified": true, "rating": 5, "date": "2024-12-13", "lang": "it", "source": "farmaciaigea.com", "text": "Il prodotto e' appena arrivato, massima collaborazione dall'azienda in un problema generato nella spedizione, ancora da testare, utilizzato per ora solo una volta ed e' gradevole ,prezzo un po alto e spero che funzioni , spedizione veloce azienda seria" },
+    { "product": "dental", "author": "Timea L.", "role": "cliente", "verified": true, "rating": 4, "date": "2024-11-10", "lang": "it", "source": "farmaciaigea.com", "text": "Ho acquistato questo Bio RIGENERA Dental O3 che è un lipogel gengivale, Bioriparatore e Biorigenerante. Con La sua formulazione, ricca di oli essenziali, svolge un'azione di accelerazione del processo di riparazione tissutale. Usato con costanza sulle gengive , mattina e sera ho notato un notevole miglioramento della gingivite. Il Formato non è neanche tanto piccolino pur essendo un Tubetto da 25 ml……….." },
+    { "product": "dental", "author": "Giuseppe S.", "role": "cliente", "verified": true, "rating": 5, "date": "2024-10-24", "lang": "it", "source": "farmaciaigea.com", "text": "Ottimo prodotto. Acquistato ad un prezzo conveniente stante il prezzo di partenza, oltre alla possibilità di avvalersi dello sconto newsletter. Buono!" },
+    { "product": "dental", "author": "Chiara P.", "role": "cliente", "verified": true, "rating": 4, "date": "2024-09-27", "lang": "it", "source": "farmaciaigea.com", "text": "Buono anche come sapore, e' un supporto alla sistemazione dei tessuti gengivali. Ci vuole pazienza e applicarlo spesso. I costi son medio alti ma è un prodotto naturale e non ha controindicazioni. Se applicato prima di dormire, assicura un maggiore permanenza in bocca durante la notte. Meglio evitare di bere o spazzolarsi i denti subito dopo." },
+    { "product": "dental", "author": "Andrea P.", "role": "cliente", "verified": true, "strongClaim": true, "rating": 5, "date": "2024-09-11", "lang": "it", "source": "farmaciaigea.com", "text": "Per uno come me che dopo un trapianto è obbligato a prendere antisoppressivi, questo è il prodotto che mi risolve il gonfiore delle gengive, ritornate normali" },
+    { "product": "dental", "author": "Cristina N.", "role": "cliente", "verified": true, "rating": 5, "date": "2024-08-05", "lang": "it", "source": "farmaciaigea.com", "text": "Consegna celere e puntuale, il lipogel Biostamina mi è stato consegnato in una confezione adatta a non subire danni durante il viaggio. Il prodotto è eccezionale davvero." },
+    { "product": "dental", "author": "Luca T.", "role": "cliente", "verified": true, "strongClaim": true, "rating": 5, "date": "2024-06-08", "lang": "it", "source": "farmaciaigea.com", "text": "Ottimo prodotto, consigliato! Permette la riduzione dell'infiammazione delle gengive riparandola dai batteri, tartaro e dalla placca. Rapporto qualità - prezzo ottimo" },
+    { "product": "dental", "author": "Lorenza S.", "role": "cliente", "verified": true, "strongClaim": true, "rating": 5, "date": "2024-05-12", "lang": "it", "source": "farmaciaigea.com", "text": "Valutazione positiva. Ottimo prodotto, utilizzato con costanza sfiamma e rigenera le gengive. Molto soddisfatta. Lo consiglio a chi ha infiammazioni gengivali, anche tasche." },
+    { "product": "dental", "author": "Milena P.", "role": "cliente", "verified": true, "strongClaim": true, "rating": 5, "date": "2024-01-11", "lang": "it", "source": "farmaciaigea.com", "text": "Valuto positivamente. Prodotto ottimo aiuta a ripristinare le gengive che si ritirano. Lo uso da pochi giorni ma già si vedono i risultati. Super soddisfatta. Consegnato in pochi giorni. Lo consiglio." },
+    { "product": "dental", "author": "Paola C.", "role": "cliente", "verified": true, "strongClaim": true, "rating": 5, "date": "2024-01-02", "lang": "it", "source": "farmaciaigea.com", "text": "Ottimo per le gengive. Elimina infiammazione e rigenera veramente i tessuti gengivali. Una volta applicato rimane sulle gengive avendo una consistenza pastosa. Ha un sapore non eccessivamente gradevole, ma i risultati sono incredibili." },
+    { "product": "dental", "author": "Claudia M.", "role": "cliente", "verified": true, "rating": 5, "date": "2023-11-25", "lang": "it", "source": "farmaciaigea.com", "text": "Sto usando questo gel da circa dieci giorni. Devo dire che è un ottimo antinfiammatorio gengivale e soprattutto non macchia i denti come la clorexidina." },
+    { "product": "dental", "author": "Lombardo M.", "role": "cliente", "verified": true, "rating": 5, "date": "2021-03-21", "lang": "it", "source": "farmaciaigea.com", "text": "Ottimo gel..molto molto utile" },
+    { "product": "dental", "author": "Giovanna P.", "role": "cliente", "verified": true, "rating": 5, "date": "2021-02-14", "lang": "it", "source": "farmaciaigea.com", "text": "Buon prodotto" },
+
+    { "product": "dermal", "author": "Marco M.", "role": "cliente", "verified": true, "strongClaim": true, "rating": 5, "date": "2024-12-09", "lang": "it", "source": "farmaciaigea.com", "text": "La ferita era in una posizione che non poteva stare scoperta, pertanto era necessario che stesse a contatto con tessuti (garza o indumento che fosse), con conseguente attaccamento della ferita al tessuto, che pertanto non poteva essere cambiato senza produrre danni. Il gel Bio-Rigenera O3 Dermal ha consentito di gestire la bendatura con garze sterili senza il rischio che la garza rimanesse attaccata alla ferita, pregiudicandone la guarigione." },
+    { "product": "dermal", "author": "Davide T.", "role": "cliente", "verified": true, "strongClaim": true, "rating": 5, "date": "2024-10-14", "lang": "it", "source": "farmaciaigea.com", "text": "Prodoto ottimo. Gel a rapido assorbimento, applicato regolarmente sulla parte infiammata o ferita garantisce, oltre ad un'azione antibatterica, una rapida guarigione, eliminando anche il rossore che rimane al termine per processo di cicatrizzazione. Consigliato." },
+    { "product": "dermal", "author": "Enrico V.", "role": "cliente", "verified": true, "rating": 5, "date": "2021-08-29", "lang": "it", "source": "farmaciaigea.com", "text": "Il prodotto è arrivato in tempi brevissimi! Farmacia Igea è una sicurezza!" },
+    { "product": "dermal", "author": "Giuseppe P.", "role": "cliente", "verified": true, "strongClaim": true, "rating": 5, "date": "2021-07-04", "lang": "it", "source": "farmaciaigea.com", "text": "Lo sto utilizzando su delle smagliature comparse sulla schiena di mio figlio. Già dopo i primi trattamenti si nota un risultato. Le stesse si sono schiarite e sono meno rosse. Molto gradevole la profumazione" },
+    { "product": "dermal", "author": "Stefano D.", "role": "cliente", "verified": true, "strongClaim": true, "rating": 5, "date": "2021-06-17", "lang": "it", "source": "farmaciaigea.com", "text": "Il prodotto lo reputo eccezionale, per la qualità degli ingredienti, tutti naturali, associati all'Ozono che è un antibatterico, antimicotico e virustatico eccezionale. Permette la guarigione delle sintomatologie irritative cutanee sostenute da microrganismi permettendo il recupero in breve tempo." },
+
+    { "product": "cicatren", "author": "Michela C.", "role": "cliente", "verified": true, "rating": 5, "date": "2024-05-20", "lang": "it", "source": "farmaciaigea.com", "text": "Ottima crema in gel con una texture che si applica bene sulla pelle . Aiuta la pelle a rigenerarsi e la fortifica rendendola allo stesso tempo idratata" },
+    { "product": "cicatren", "author": "Dr. Nicola Marrone", "role": "medico", "professional": true, "verified": true, "consentPending": true, "strongClaim": true, "rating": 5, "date": "2024-04-10", "lang": "it", "source": "farmaciaigea.com", "text": "CONOSCEVO BIORIGENERA 03 CICATTREN LIPOGEL IN QUANTO PRODOTTO TESTATO IN SVIZZERA DALL'ISTITUTO ANTROPOS - LUGANO HO PROVATO AD UTILIZZARLO PER LA IDROSADENITE SUPPORATIVA . OTTIMI RISULTATI. DI PARTICOLARE IMPORTANZA E' CHE ALLEVIA IL DOLORE E IL PRURITO. OVVIAMENTE LA CURA E' LUNGA ,MA LE PRTOPSETTIVA SONO BUONE. Dr. Nicola Marrone" },
+    { "product": "cicatren", "author": "Ing. Giuseppe C.", "role": "cliente", "verified": true, "strongClaim": true, "rating": 5, "date": "2024-03-28", "lang": "it", "source": "farmaciaigea.com", "text": "Dopo aver conosciuto l'ideatore del cicatren sono stato subito incuriosito dal prodotto ed in prima analisi l'ho provato letteralmente \"sulla mia pelle\", su un escoriazione a livello della tibia (dolorosissima) e,come per magia, già dalla prima applicazione il risultato è stato sorprendente. Dopo appena due giorni avevo le crosticine formate e già in distacco. Per non parlare di una piaga sulla schiena di mia nonna oramai in cura da due anni...risultato: dopo una settimana era chiusa e totalmente guarita. Ve lo consiglio vivamente." }
+  ]
+}

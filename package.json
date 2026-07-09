@@ -1,0 +1,25 @@
+{
+  "name": "biostamina-sito",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.2.1",
+    "@fontsource-variable/fraunces": "^5.1.0",
+    "@fontsource-variable/hanken-grotesk": "^5.1.0",
+    "@fontsource/jetbrains-mono": "^5.1.0",
+    "@tailwindcss/vite": "^4.1.11",
+    "astro": "^5.12.0",
+    "gsap": "^3.13.0",
+    "lenis": "^1.3.4",
+    "sharp": "^0.34.2",
+    "tailwindcss": "^4.1.11"
+  }
+}

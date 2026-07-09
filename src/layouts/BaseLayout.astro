@@ -1,0 +1,115 @@
+---
+import '@/styles/global.css';
+import { getLangFromUrl, useTranslations } from '@/lib/i18n';
+import { canonical, alternates, orgSchema } from '@/lib/seo';
+import { aggregateRating } from '@/data/reviews';
+import Header from '@/components/nav/Header.astro';
+import Footer from '@/components/layout/Footer.astro';
+import WhatsAppFab from '@/components/layout/WhatsAppFab.astro';
+import AssistantSlot from '@/components/layout/AssistantSlot.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  type?: 'website' | 'article' | 'product';
+  noindex?: boolean;
+  jsonLd?: Record<string, unknown>[]; // schema.org aggiuntivi (Product, Breadcrumb, Article…)
+}
+
+const { title, description, ogImage = '/og-default.jpg', type = 'website', noindex = false, jsonLd = [] } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const path = Astro.url.pathname;
+const alts = alternates(path);
+const org = orgSchema(aggregateRating());
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="canonical" href={canonical(path)} />
+    {alts.map((a) => <link rel="alternate" hreflang={a.lang} href={a.href} />)}
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical(path)} />
+    <meta property="og:image" content={canonical(ogImage)} />
+    <meta property="og:locale" content={lang === 'it' ? 'it_IT' : 'en_GB'} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <script type="application/ld+json" set:html={JSON.stringify(org)} />
+    {jsonLd.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
+  </head>
+  <body>
+    <a href="#main" class="skip-link">{t('skip')}</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <WhatsAppFab />
+    <AssistantSlot />
+
+    <!-- Lenis smooth scroll + GSAP reveal (rispetta reduced-motion) -->
+    <script>
+      import Lenis from 'lenis';
+      import { gsap } from 'gsap';
+      import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (!reduce) {
+        gsap.registerPlugin(ScrollTrigger);
+        const lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
+        function raf(time: number) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+        lenis.on('scroll', ScrollTrigger.update);
+
+        document.querySelectorAll('[data-reveal]').forEach((el) => {
+          ScrollTrigger.create({
+            trigger: el,
+            start: 'top 85%',
+            once: true,
+            onEnter: () => el.classList.add('is-visible'),
+          });
+        });
+      } else {
+        document.querySelectorAll('[data-reveal]').forEach((el) => el.classList.add('is-visible'));
+      }
+
+      // GlowCard: spotlight tracking + tilt 3D leggero.
+      // Solo su dispositivi con mouse (hover:hover) e senza reduced-motion.
+      const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      if (!reduce && canHover) {
+        document.querySelectorAll<HTMLElement>('.glow-card').forEach((card) => {
+          card.addEventListener('mousemove', (e) => {
+            const r = card.getBoundingClientRect();
+            const x = e.clientX - r.left;
+            const y = e.clientY - r.top;
+            card.style.setProperty('--mx', `${x}px`);
+            card.style.setProperty('--my', `${y}px`);
+            const rotateX = ((y - r.height / 2) / (r.height / 2)) * -5;
+            const rotateY = ((x - r.width / 2) / (r.width / 2)) * 5;
+            gsap.to(card, { rotateX, rotateY, duration: 0.2, ease: 'power2.out', transformPerspective: 1000 });
+          });
+          card.addEventListener('mouseleave', () => {
+            gsap.to(card, { rotateX: 0, rotateY: 0, duration: 0.4, ease: 'power2.out' });
+          });
+        });
+      }
+    </script>
+  </body>
+</html>

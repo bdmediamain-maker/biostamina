@@ -1,0 +1,46 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { type Lang } from '@/lib/i18n';
+import { site } from '@/config/site';
+
+type PageKey = 'privacy' | 'termini' | 'rimborsi' | 'cookie';
+
+export function getStaticPaths() {
+  const pages = ['privacy', 'termini', 'rimborsi', 'cookie'] as const;
+  const langs = ['it', 'en'] as const;
+  return langs.flatMap((lang) => pages.map((page) => ({ params: { lang, page } })));
+}
+
+const lang = Astro.params.lang as Lang;
+const page = Astro.params.page as PageKey;
+const it = lang === 'it';
+
+const titles: Record<PageKey, { it: string; en: string }> = {
+  privacy: { it: 'Privacy Policy', en: 'Privacy Policy' },
+  termini: { it: 'Termini e Condizioni', en: 'Terms & Conditions' },
+  rimborsi: { it: 'Rimborsi e Resi', en: 'Refunds & Returns' },
+  cookie: { it: 'Cookie Policy', en: 'Cookie Policy' },
+};
+const title = titles[page][lang];
+
+// Nota specifica resi: riscritti per dispositivo medico (no template generico)
+const refundNote = it
+  ? 'Trattandosi di dispositivi medici sigillati, il diritto di recesso non si applica ai prodotti aperti o sigillo rimosso per motivi di igiene e sicurezza (art. 59 Cod. Consumo). Per prodotti integri, il reso è possibile entro 14 giorni.'
+  : 'As these are sealed medical devices, the right of withdrawal does not apply to products that have been opened or whose seal has been removed for hygiene and safety reasons. For intact products, returns are possible within 14 days.';
+---
+<BaseLayout title={`${title} — Biostamina`} description={title} noindex={true}>
+  <div class="mx-auto max-w-3xl px-5 py-14 prose-clinical">
+    <h1 class="text-4xl mb-6">{title}</h1>
+
+    {page === 'rimborsi' ? (
+      <p>{refundNote}</p>
+    ) : (
+      <p class="text-muted">{it ? 'Contenuto legale da finalizzare con revisione.' : 'Legal content to be finalized with review.'}</p>
+    )}
+
+    <p class="text-sm text-muted mt-8">
+      {it ? 'Titolare del trattamento / venditore:' : 'Data controller / seller:'} {site.seller.name}, {site.seller.addr} — P.IVA {site.seller.vat} — {site.seller.email}
+    </p>
+    <!-- ⚠️ TODO cliente: testi legali definitivi (privacy, termini, cookie) + revisione legale resi DM -->
+  </div>
+</BaseLayout>

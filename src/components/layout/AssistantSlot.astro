@@ -1,0 +1,25 @@
+---
+/**
+ * Slot IA futura (§8 brief). OGGI: bottone "coming soon" disattivato.
+ * Posizione e stile già definiti così l'assistente RAG si aggancia qui domani.
+ * NON costruire la logica ora — solo lo slot.
+ */
+import { getLangFromUrl, useTranslations } from '@/lib/i18n';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+<button
+  type="button"
+  disabled
+  class="fixed bottom-5 right-5 z-40 inline-flex items-center gap-2 rounded-full bg-surface border border-hairline text-muted pl-3 pr-4 py-3 shadow-soft cursor-not-allowed opacity-80"
+  aria-label={t('assistant.soon')}
+  title={t('assistant.soon')}
+  data-assistant-slot
+>
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+    <path d="M12 3a7 7 0 0 0-7 7c0 2 .9 3.4 2 4.5V18a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-3.5c1.1-1.1 2-2.5 2-4.5a7 7 0 0 0-7-7Z" />
+    <path d="M9 22h6" />
+  </svg>
+  <span class="hidden sm:inline text-xs">{t('assistant.soon')}</span>
+</button>

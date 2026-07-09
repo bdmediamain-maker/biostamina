@@ -1,0 +1,18 @@
+---
+import { getCollection } from 'astro:content';
+import ProductLayout from '@/layouts/ProductLayout.astro';
+
+export async function getStaticPaths() {
+  const products = await getCollection('products', (p) => !p.data.draft);
+  const langs = ['it', 'en'] as const;
+  return langs.flatMap((lang) =>
+    products.map((product) => {
+      const related = products.filter((p) => p.id !== product.id).slice(0, 3);
+      return { params: { lang, slug: product.id }, props: { product, related } };
+    }),
+  );
+}
+
+const { product, related } = Astro.props;
+---
+<ProductLayout product={product} related={related} />

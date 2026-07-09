@@ -1,0 +1,39 @@
+# Netlify — deploy sito statico Astro (SSG)
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  # Astro 5 richiede Node >= 18.20.8 / 20.3 / 22 — pin su LTS 20
+  NODE_VERSION = "20"
+
+# ------------------------------------------------------------------
+# Root "/" → lingua: EN se il browser è inglese, altrimenti IT.
+# force = true così bypassa /index.html (meta-refresh di fallback).
+# ------------------------------------------------------------------
+[[redirects]]
+  from = "/"
+  to = "/en/"
+  status = 302
+  conditions = { Language = ["en"] }
+  force = true
+
+[[redirects]]
+  from = "/"
+  to = "/it/"
+  status = 302
+  force = true
+
+# Header di sicurezza di base (niente CSP restrittiva: rompeva YouTube/font)
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options = "SAMEORIGIN"
+
+# Cache lunga per asset con hash (immutabili)
+[[headers]]
+  for = "/_astro/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

@@ -1,0 +1,51 @@
+---
+import { Image } from 'astro:assets';
+import { getLangFromUrl, useTranslations, localePath } from '@/lib/i18n';
+import { ratingFor } from '@/data/reviews';
+import ReviewStars from './ReviewStars.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props { product: CollectionEntry<'products'> }
+const { product } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const d = product.data;
+const loc = d[lang];
+const href = localePath(lang, `prodotto/${product.id}`);
+const rating = ratingFor(product.id);
+const isCosmetic = d.class === 'cosmetico';
+const classBadge = isCosmetic ? t('product.cosmetic') : `${t('product.class')} ${d.class}`;
+const onSale = d.price != null && d.priceList != null && d.priceList > d.price;
+const fmt = (n: number) => new Intl.NumberFormat(lang === 'it' ? 'it-IT' : 'en-GB', { style: 'currency', currency: 'EUR' }).format(n);
+---
+<a href={href} data-category={d.category} class="product-item group flex flex-col rounded-[--radius-card] border border-hairline bg-surface overflow-hidden hover:shadow-soft transition-shadow" data-reveal>
+  <div class="aspect-[4/3] bg-tint/50 grid place-items-center relative overflow-hidden">
+    {d.heroImage ? (
+      <Image src={d.heroImage} alt={loc.name} width={480} height={360} class="w-full h-full object-contain p-4 group-hover:scale-[1.03] transition-transform duration-500" />
+    ) : (
+      <!-- placeholder immagine finché arrivano gli asset cliente -->
+      <span class="font-display text-2xl text-primary/40">Bio RIGENERA®</span>
+    )}
+    <span class="absolute top-3 left-3 label-mono px-2 py-1 rounded-full bg-surface/90 border border-hairline text-primary">{classBadge}</span>
+    {onSale && (
+      <span class="absolute top-3 right-3 label-mono px-2 py-1 rounded-full bg-azure text-white normal-case tracking-normal">{lang === 'it' ? 'In offerta' : 'On sale'}</span>
+    )}
+  </div>
+  <div class="p-5 flex flex-col gap-2 flex-1">
+    <h3 class="text-lg leading-tight text-ink group-hover:text-primary transition-colors">{loc.name}</h3>
+    {d.format && <p class="text-xs text-muted">{d.format}</p>}
+    {rating && <ReviewStars rating={rating.average} count={rating.count} size={14} />}
+    <div class="mt-auto pt-3 flex items-center justify-between gap-2">
+      {d.price != null ? (
+        <span class="flex items-baseline gap-2">
+          {onSale && <span class="text-sm text-muted line-through">{fmt(d.priceList!)}</span>}
+          <span class="font-display text-xl text-ink">{fmt(d.price)}</span>
+        </span>
+      ) : (
+        <span class="text-sm text-muted italic">{lang === 'it' ? 'Su richiesta' : 'On request'}</span>
+      )}
+      <span class="text-sm text-azure font-medium shrink-0">{t('cta.viewProduct')} →</span>
+    </div>
+  </div>
+</a>

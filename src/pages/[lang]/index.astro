@@ -1,0 +1,116 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import dentalShowcase from '@/assets/products/dental-showcase.jpg';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { useTranslations, localePath, type Lang } from '@/lib/i18n';
+import { site } from '@/config/site';
+import TrustRow from '@/components/layout/TrustRow.astro';
+import ProductCard from '@/components/product/ProductCard.astro';
+import ProReviews from '@/components/social/ProReviews.astro';
+import YouTubeFeed from '@/components/social/YouTubeFeed.astro';
+import GlowCard from '@/components/ui/GlowCard.astro';
+import NeonButton from '@/components/ui/NeonButton.astro';
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'it' } }, { params: { lang: 'en' } }];
+}
+
+const lang = Astro.params.lang as Lang;
+const t = useTranslations(lang);
+
+const products = (await getCollection('products', (p) => !p.data.draft)).sort((a, b) => a.data.order - b.data.order);
+
+const heroTitle = lang === 'it'
+  ? 'La rigenerazione tissutale, con l’ozono.'
+  : 'Tissue regeneration, powered by ozone.';
+const heroSub = lang === 'it'
+  ? 'Bio RIGENERA® O3 — dispositivi medici fitoterapici CE a base di oli essenziali arricchiti con ozono. Sviluppati da Biostamina KFT, testati e certificati.'
+  : 'Bio RIGENERA® O3 — CE phytotherapeutic medical devices based on ozone-enriched essential oils. Developed by Biostamina KFT, tested and certified.';
+
+const problems = lang === 'it'
+  ? [
+      { t: 'Odontoiatria', d: 'Post-chirurgia, gengiviti, parodontiti, impianti.', slug: 'dental' },
+      { t: 'Cicatrizzazione', d: 'Ferite, ustioni, piaghe da decubito, ulcere.', slug: 'cicatren' },
+      { t: 'Dermatologia', d: 'Acne, psoriasi, dermatiti, eritemi.', slug: 'dermal' },
+    ]
+  : [
+      { t: 'Dentistry', d: 'Post-surgery, gingivitis, parodontitis, implants.', slug: 'dental' },
+      { t: 'Wound healing', d: 'Wounds, burns, pressure sores, ulcers.', slug: 'cicatren' },
+      { t: 'Dermatology', d: 'Acne, psoriasis, dermatitis, erythema.', slug: 'dermal' },
+    ];
+---
+<BaseLayout title="Biostamina — Bio RIGENERA® O3 · Dispositivi medici fitoterapici CE" description={site.tagline[lang]}>
+  <!-- HERO -->
+  <section class="relative overflow-hidden">
+    <div class="mx-auto max-w-7xl px-5 pt-16 pb-20 md:pt-24 md:pb-28 grid lg:grid-cols-[1fr_1.15fr] gap-12 items-center">
+      <div>
+        <p class="label-mono text-primary mb-4" data-reveal>{t('product.medicalDevice')} · CE · KFT</p>
+        <h1 class="text-4xl md:text-6xl leading-[1.05]" data-reveal>{heroTitle}</h1>
+        <p class="mt-6 text-lg text-muted max-w-xl leading-relaxed" data-reveal>{heroSub}</p>
+        <div class="mt-8 flex flex-wrap gap-3" data-reveal>
+          <NeonButton href={localePath(lang, 'negozio')} variant="solid">{t('cta.discover')} →</NeonButton>
+          <NeonButton href={localePath(lang, 'certificazioni')} variant="default">{t('nav.certifications')}</NeonButton>
+        </div>
+      </div>
+      <div class="relative rounded-[--radius-card] bg-surface border border-hairline shadow-soft overflow-hidden" data-reveal>
+        <Image
+          src={dentalShowcase}
+          alt="Bio RIGENERA® O3 Dental — confezione e prodotto"
+          width={880}
+          height={791}
+          class="w-full h-auto"
+          loading="eager"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST -->
+  <section class="mx-auto max-w-7xl px-5 pb-16">
+    <TrustRow />
+  </section>
+
+  <!-- PRODUCT GRID -->
+  <section class="mx-auto max-w-7xl px-5 py-16">
+    <div class="flex items-end justify-between gap-4 mb-8">
+      <h2 class="text-3xl md:text-4xl" data-reveal>{t('nav.products')}</h2>
+      <a href={localePath(lang, 'negozio')} class="text-sm text-azure hover:underline shrink-0" data-reveal>{t('cta.allProducts')} →</a>
+    </div>
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {products.map((p) => <ProductCard product={p} />)}
+    </div>
+  </section>
+
+  <!-- PROBLEM / SOLUTION -->
+  <section class="bg-tint/40 border-y border-hairline">
+    <div class="mx-auto max-w-7xl px-5 py-16">
+      <h2 class="text-3xl md:text-4xl mb-3" data-reveal>{lang === 'it' ? 'Una linea, quattro ambiti clinici.' : 'One range, four clinical fields.'}</h2>
+      <p class="text-muted mb-10 max-w-2xl" data-reveal>{lang === 'it' ? 'Ogni formulazione nasce dallo stesso principio rigenerante, calibrata per il tessuto da trattare.' : 'Every formula shares the same regenerating principle, calibrated for the target tissue.'}</p>
+      <div class="grid gap-5 md:grid-cols-3">
+        {problems.map((p) => (
+          <GlowCard as="a" href={localePath(lang, `prodotto/${p.slug}`)} class="block rounded-[--radius-card] bg-surface border border-hairline p-6 transition-shadow group" data-reveal>
+            <h3 class="text-xl text-ink group-hover:text-primary transition-colors">{p.t}</h3>
+            <p class="mt-2 text-sm text-muted leading-relaxed">{p.d}</p>
+            <span class="mt-4 inline-block text-sm text-azure font-medium">{t('cta.viewProduct')} →</span>
+          </GlowCard>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <ProReviews />
+
+  <!-- PROFESSIONALS CTA -->
+  <section class="mx-auto max-w-7xl px-5 py-16">
+    <div class="rounded-[--radius-card] bg-primary text-white p-10 md:p-14 flex flex-col md:flex-row md:items-center justify-between gap-6" data-reveal>
+      <div>
+        <h2 class="text-3xl text-white">{lang === 'it' ? 'Sei un professionista?' : 'Are you a professional?'}</h2>
+        <p class="mt-2 text-white/80 max-w-xl">{lang === 'it' ? 'Campioni, listino dedicato e protocolli clinici per studi odontoiatrici, dermatologi e strutture sanitarie.' : 'Samples, dedicated pricing and clinical protocols for dental practices, dermatologists and healthcare facilities.'}</p>
+      </div>
+      <NeonButton href={localePath(lang, 'professionisti')} variant="light" line="via-primary" class="shrink-0">{t('nav.professionals')} →</NeonButton>
+    </div>
+  </section>
+
+  <YouTubeFeed />
+</BaseLayout>

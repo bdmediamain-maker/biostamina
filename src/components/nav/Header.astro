@@ -1,0 +1,234 @@
+---
+import { getLangFromUrl, useTranslations, localePath } from '@/lib/i18n';
+import Logo from './Logo.astro';
+import LangSwitcher from './LangSwitcher.astro';
+import CartButton from './CartButton.astro';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const path = Astro.url.pathname;
+
+const nav = [
+  { href: localePath(lang, 'negozio'), label: t('nav.shop') },
+  { href: localePath(lang, 'certificazioni'), label: t('nav.certifications') },
+  { href: localePath(lang, 'come-si-usa'), label: t('nav.howto') },
+  { href: localePath(lang, 'professionisti'), label: t('nav.professionals') },
+  { href: localePath(lang, 'chi-siamo'), label: t('nav.about') },
+  { href: localePath(lang, 'blog'), label: t('nav.blog') },
+  { href: localePath(lang, 'contatti'), label: t('nav.contact') },
+];
+const isActive = (href: string) => path === href || path === href + '/';
+---
+<header
+  class="sticky top-0 z-50 bg-paper/85 backdrop-blur-md border-b border-hairline"
+  style="--base:#1c3c6e; --base-dark:#152c52; --pill-bg:#ffffff; --pill-text:#14192b; --hover-text:#ffffff;"
+>
+  <div class="mx-auto max-w-7xl px-5 h-16 flex items-center justify-between gap-3">
+    <!-- Logo (ruota all'hover) -->
+    <div data-logo class="shrink-0">
+      <Logo height={44} class="h-10 md:h-11" />
+    </div>
+
+    <!-- Pill nav bar (desktop) -->
+    <nav data-navbar class="navpill-bar hidden xl:flex items-center rounded-full p-1.5" aria-label="Primaria">
+      <ul data-navlist class="list-none flex items-center gap-1 m-0 p-0">
+        {nav.map((n) => (
+          <li>
+            <a
+              href={n.href}
+              class:list={['pill', isActive(n.href) && 'is-active']}
+              aria-current={isActive(n.href) ? 'page' : undefined}
+            >
+              <span class="hover-circle" aria-hidden="true"></span>
+              <span class="label-stack">
+                <span class="pill-label">{n.label}</span>
+                <span class="pill-label-hover" aria-hidden="true">{n.label}</span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="flex items-center gap-2 shrink-0">
+      <LangSwitcher />
+      <CartButton />
+      <button
+        type="button"
+        class="xl:hidden inline-flex items-center justify-center w-10 h-10 rounded-full text-white bg-[--base] hover:bg-[--base-dark] transition-colors"
+        aria-label="Apri menu"
+        aria-expanded="false"
+        data-menu-toggle
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M3 6h18M3 12h18M3 18h18" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div data-mobile-menu hidden class="xl:hidden border-t border-hairline bg-paper">
+    <nav class="px-5 py-4 flex flex-col gap-1" aria-label="Menu mobile">
+      {nav.map((n) => (
+        <a
+          href={n.href}
+          class:list={[
+            'py-2.5 px-3 rounded-xl text-base border-b border-hairline/40 transition-colors',
+            isActive(n.href) ? 'bg-tint text-azure font-medium' : 'text-ink/90 hover:bg-tint/60 hover:text-primary',
+          ]}
+          aria-current={isActive(n.href) ? 'page' : undefined}
+        >{n.label}</a>
+      ))}
+    </nav>
+  </div>
+</header>
+
+<style>
+  .navpill-bar { background: var(--base); }
+
+  .pill {
+    position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    padding: 0 15px;
+    border-radius: 9999px;
+    background: var(--pill-bg);
+    color: var(--pill-text);
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    text-decoration: none;
+  }
+  .pill.is-active {
+    background: var(--base-dark);
+    color: #fff;
+  }
+
+  .hover-circle {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    z-index: 1;
+    display: block;
+    border-radius: 9999px;
+    background: var(--base);
+    pointer-events: none;
+    will-change: transform;
+  }
+  .label-stack {
+    position: relative;
+    z-index: 2;
+    display: inline-block;
+    line-height: 1;
+    overflow: hidden;
+    padding: 4px 0;
+  }
+  .pill-label {
+    position: relative;
+    z-index: 2;
+    display: inline-block;
+    will-change: transform;
+  }
+  .pill-label-hover {
+    position: absolute;
+    left: 0;
+    top: 4px;
+    z-index: 3;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    color: var(--hover-text);
+    will-change: transform, opacity;
+  }
+
+  /* Fallback senza animazioni: highlight semplice */
+  @media (prefers-reduced-motion: reduce) {
+    .hover-circle, .pill-label-hover { display: none; }
+    .pill:hover { background: var(--base); color: var(--hover-text); }
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const ease = 'power3.out';
+
+  // Mobile menu toggle (sempre attivo)
+  const toggle = document.querySelector('[data-menu-toggle]');
+  const menu = document.querySelector('[data-mobile-menu]');
+  toggle?.addEventListener('click', () => {
+    const open = menu?.hasAttribute('hidden');
+    if (open) menu?.removeAttribute('hidden');
+    else menu?.setAttribute('hidden', '');
+    toggle.setAttribute('aria-expanded', String(open));
+  });
+
+  if (!reduce) {
+    const pills = Array.from(document.querySelectorAll<HTMLElement>('.pill'));
+    const timelines = new Map<HTMLElement, gsap.core.Timeline>();
+    const active = new Map<HTMLElement, gsap.core.Tween>();
+
+    const layout = () => {
+      pills.forEach((pill) => {
+        const circle = pill.querySelector<HTMLElement>('.hover-circle');
+        if (!circle) return;
+        const { width: w, height: h } = pill.getBoundingClientRect();
+        if (!w || !h) return;
+
+        // Raggio del cerchio che "sale" a riempire la pill
+        const R = ((w * w) / 4 + h * h) / (2 * h);
+        const D = Math.ceil(2 * R) + 2;
+        const delta = Math.ceil(R - Math.sqrt(Math.max(0, R * R - (w * w) / 4))) + 1;
+        const originY = D - delta;
+
+        circle.style.width = `${D}px`;
+        circle.style.height = `${D}px`;
+        circle.style.bottom = `-${delta}px`;
+        gsap.set(circle, { xPercent: -50, scale: 0, transformOrigin: `50% ${originY}px` });
+
+        const label = pill.querySelector<HTMLElement>('.pill-label');
+        const white = pill.querySelector<HTMLElement>('.pill-label-hover');
+        if (label) gsap.set(label, { y: 0 });
+        if (white) gsap.set(white, { y: Math.ceil(h + 20), opacity: 0 });
+
+        timelines.get(pill)?.kill();
+        const tl = gsap.timeline({ paused: true });
+        tl.to(circle, { scale: 1.2, xPercent: -50, duration: 0.8, ease, overwrite: 'auto' }, 0);
+        if (label) tl.to(label, { y: -(h + 8), duration: 0.6, ease, overwrite: 'auto' }, 0);
+        if (white) tl.to(white, { y: 0, opacity: 1, duration: 0.6, ease, overwrite: 'auto' }, 0);
+        timelines.set(pill, tl);
+      });
+    };
+
+    layout();
+    window.addEventListener('resize', layout);
+    if (document.fonts) document.fonts.ready.then(layout).catch(() => {});
+
+    pills.forEach((pill) => {
+      pill.addEventListener('mouseenter', () => {
+        const tl = timelines.get(pill);
+        if (!tl) return;
+        active.get(pill)?.kill();
+        active.set(pill, tl.tweenTo(tl.duration(), { duration: 0.4, ease, overwrite: 'auto' }));
+      });
+      pill.addEventListener('mouseleave', () => {
+        const tl = timelines.get(pill);
+        if (!tl) return;
+        active.get(pill)?.kill();
+        active.set(pill, tl.tweenTo(0, { duration: 0.3, ease, overwrite: 'auto' }));
+      });
+    });
+
+    // Animazione d'ingresso
+    const logoWrap = document.querySelector('[data-logo]');
+    if (logoWrap) gsap.fromTo(logoWrap, { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.8, ease: 'back.out(1.7)' });
+    const lis = document.querySelectorAll('[data-navlist] li');
+    if (lis.length) gsap.fromTo(lis, { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.6, stagger: 0.05, ease: 'power2.out', delay: 0.2 });
+  }
+</script>

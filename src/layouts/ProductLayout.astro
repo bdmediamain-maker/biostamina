@@ -1,0 +1,168 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import BaseLayout from './BaseLayout.astro';
+import { getLangFromUrl, useTranslations, localePath } from '@/lib/i18n';
+import { reviewsFor, ratingFor } from '@/data/reviews';
+import { canonical, breadcrumbSchema } from '@/lib/seo';
+import { site } from '@/config/site';
+import PriceBlock from '@/components/product/PriceBlock.astro';
+import AddToCart from '@/components/product/AddToCart.astro';
+import IndicazioniList from '@/components/product/IndicazioniList.astro';
+import SpecTable from '@/components/product/SpecTable.astro';
+import INCIList from '@/components/product/INCIList.astro';
+import ReviewList from '@/components/product/ReviewList.astro';
+import ReviewStars from '@/components/product/ReviewStars.astro';
+import ProductCard from '@/components/product/ProductCard.astro';
+
+interface Props {
+  product: CollectionEntry<'products'>;
+  related: CollectionEntry<'products'>[];
+}
+const { product, related } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const d = product.data;
+const loc = d[lang];
+const reviews = reviewsFor(product.id);
+const rating = ratingFor(product.id);
+const isCosmetic = d.class === 'cosmetico';
+const classBadge = isCosmetic ? t('product.cosmetic') : `${t('product.class')} ${d.class} · ${t('product.medicalDevice')}`;
+const path = Astro.url.pathname;
+
+// schema.org Product + AggregateRating (dalle recensioni reali)
+const productSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: loc.name,
+  description: loc.description,
+  brand: { '@type': 'Brand', name: 'Bio RIGENERA®' },
+  manufacturer: { '@type': 'Organization', name: d.manufacturer },
+  category: d.category,
+  ...(d.price != null
+    ? {
+        offers: {
+          '@type': 'Offer',
+          price: d.price,
+          priceCurrency: 'EUR',
+          availability: d.inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
+          url: canonical(path),
+          seller: { '@type': 'Organization', name: site.seller.name },
+        },
+      }
+    : {}),
+  ...(rating
+    ? { aggregateRating: { '@type': 'AggregateRating', ratingValue: rating.average, reviewCount: rating.count, bestRating: 5 } }
+    : {}),
+};
+
+const crumbs = breadcrumbSchema([
+  { name: t('nav.home'), url: localePath(lang) },
+  { name: t('nav.shop'), url: localePath(lang, 'negozio') },
+  { name: loc.name, url: path },
+]);
+---
+<BaseLayout title={`${loc.name} — Biostamina`} description={loc.description.slice(0, 158)} type="product" jsonLd={[productSchema, crumbs]}>
+  <article class="mx-auto max-w-7xl px-5 py-10 md:py-14">
+    <!-- breadcrumb -->
+    <nav class="text-sm text-muted mb-6" aria-label="Breadcrumb">
+      <a href={localePath(lang)} class="hover:text-primary">{t('nav.home')}</a>
+      <span class="mx-1.5">/</span>
+      <a href={localePath(lang, 'negozio')} class="hover:text-primary">{t('nav.shop')}</a>
+      <span class="mx-1.5">/</span>
+      <span class="text-ink/70">{loc.name}</span>
+    </nav>
+
+    <div class="grid lg:grid-cols-2 gap-10 lg:gap-16">
+      <!-- Gallery -->
+      <div class="lg:sticky lg:top-24 self-start">
+        <div class="aspect-square rounded-[--radius-card] bg-tint/50 border border-hairline grid place-items-center relative overflow-hidden">
+          {d.heroImage ? (
+            <Image src={d.heroImage} alt={loc.name} width={720} height={720} class="w-full h-full object-contain p-8" />
+          ) : (
+            <span class="font-display text-3xl text-primary/40">Bio RIGENERA®</span>
+          )}
+          <span class="absolute top-4 left-4 label-mono px-2.5 py-1 rounded-full bg-surface/90 border border-hairline text-primary">{isCosmetic ? t('product.cosmetic') : `${t('product.class')} ${d.class}`}</span>
+        </div>
+        {d.images.length > 1 && (
+          <div class="mt-4 grid grid-cols-4 gap-3">
+            {d.images.map((img, i) => (
+              <div class="aspect-square rounded-lg bg-tint/40 border border-hairline overflow-hidden">
+                <Image src={img} alt={`${loc.name} — ${i + 1}`} width={160} height={160} class="w-full h-full object-contain p-2" />
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <!-- Info -->
+      <div class="flex flex-col gap-6">
+        <div>
+          <p class="label-mono text-primary mb-2">{classBadge}</p>
+          <h1 class="text-3xl md:text-4xl">{loc.name}</h1>
+          {rating && <div class="mt-3"><ReviewStars rating={rating.average} count={rating.count} /></div>}
+        </div>
+
+        <p class="text-ink/80 leading-relaxed">{loc.description}</p>
+
+        <PriceBlock price={d.price} priceList={d.priceList} inStock={d.inStock} />
+        <AddToCart wooId={d.wooId} productName={loc.name} inStock={d.inStock} />
+
+        {product.id === 'dental' && (
+          <a href={localePath(lang, 'bio-rigenera-dental')} class="inline-flex items-center gap-2 text-sm text-azure hover:underline">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3a7 7 0 0 0-4 12.7V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-1.3A7 7 0 0 0 12 3Z"/><path d="M9 21h6"/></svg>
+            {lang === 'it' ? 'Scopri la scienza, i benefici e i casi clinici del Dental' : 'Discover the science, benefits and clinical cases of Dental'} →
+          </a>
+        )}
+
+        <div class="border-t border-hairline pt-6 space-y-8">
+          <IndicazioniList items={loc.indications} />
+          {loc.properties && (
+            <section data-reveal>
+              <h2 class="text-xl mb-3">{t('product.properties')}</h2>
+              <p class="text-sm text-ink/85 leading-relaxed">{loc.properties}</p>
+            </section>
+          )}
+          {loc.phyto && (
+            <section data-reveal>
+              <h2 class="text-xl mb-3">{t('product.phyto')}</h2>
+              <p class="text-sm text-ink/85 leading-relaxed">{loc.phyto}</p>
+            </section>
+          )}
+          {loc.usage && (
+            <section data-reveal>
+              <h2 class="text-xl mb-3">{t('product.usage')}</h2>
+              <p class="text-sm text-ink/85 leading-relaxed">{loc.usage}</p>
+            </section>
+          )}
+          <SpecTable productClass={d.class} deviceType={d.deviceType} format={d.format} manufacturer={d.manufacturer} sku={d.sku} />
+          <INCIList inci={d.inci} />
+          {loc.warnings && (
+            <section data-reveal aria-labelledby="warn-h">
+              <h2 id="warn-h" class="text-xl mb-3">{t('product.warnings')}</h2>
+              <p class="text-sm text-muted leading-relaxed bg-tint/40 border border-hairline rounded-[--radius-card] p-4">{loc.warnings}</p>
+            </section>
+          )}
+        </div>
+      </div>
+    </div>
+
+    <!-- Reviews -->
+    {reviews.length > 0 && (
+      <div class="mt-16 max-w-3xl">
+        <ReviewList reviews={reviews} />
+      </div>
+    )}
+
+    <!-- Related -->
+    {related.length > 0 && (
+      <div class="mt-20">
+        <h2 class="text-2xl mb-6">{t('product.related')}</h2>
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {related.map((p) => <ProductCard product={p} />)}
+        </div>
+      </div>
+    )}
+  </article>
+</BaseLayout>

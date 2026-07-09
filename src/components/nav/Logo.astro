@@ -1,0 +1,29 @@
+---
+/**
+ * Logo Biostamina — asset unico ottimizzato (astro:assets).
+ * Usato da Header e Footer. Per cambiarlo: sostituire il file in
+ * src/assets/logo/biostamina-logo.png (mantiene lo sfondo trasparente).
+ */
+import { Image } from 'astro:assets';
+import logo from '@/assets/logo/biostamina-logo.png';
+import { getLangFromUrl, localePath } from '@/lib/i18n';
+
+interface Props {
+  /** altezza in px (default 48) */
+  height?: number;
+  class?: string;
+  /** se false, rende solo l'immagine senza link (per il footer) */
+  linked?: boolean;
+}
+const { height = 48, class: className = '', linked = true } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const alt = 'Biostamina — The future of Cosmetics & Medical Devices · Made in Italy';
+const width = Math.round((height * logo.width) / logo.height);
+---
+{linked ? (
+  <a href={localePath(lang)} aria-label="Biostamina — home" class="inline-flex items-center shrink-0">
+    <Image src={logo} alt={alt} height={height} width={width} class:list={['w-auto', className]} loading="eager" />
+  </a>
+) : (
+  <Image src={logo} alt={alt} height={height} width={width} class:list={['w-auto', className]} loading="eager" />
+)}

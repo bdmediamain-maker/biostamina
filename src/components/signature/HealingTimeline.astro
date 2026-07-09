@@ -1,0 +1,35 @@
+---
+/**
+ * HealingTimeline — elemento signature. Mostra le FASI D'AZIONE del lipogel
+ * descritte nel bugiardino (effetto barriera → sollievo → riepitelizzazione →
+ * guarigione). NON promette tempi garantiti (es. "guarito in 24h"): sarebbe
+ * un claim non difendibile per un dispositivo classe IIa. Testi allineati al
+ * bugiardino + disclaimer esiti individuali.
+ */
+import { getLangFromUrl, useTranslations } from '@/lib/i18n';
+
+interface Step { phase: string; title: string; desc: string }
+interface Props { steps: Step[]; title?: string }
+const { steps, title } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+<section class="my-4" aria-labelledby="timeline-h" data-reveal>
+  {title && <h2 id="timeline-h" class="text-2xl md:text-3xl mb-8">{title}</h2>}
+  <ol class="grid gap-6 md:grid-cols-4 relative">
+    {steps.map((s, i) => (
+      <li class="relative">
+        <div class="flex items-center gap-3 mb-3">
+          <span class="label-mono grid place-items-center w-9 h-9 rounded-full bg-primary text-white shrink-0">{i + 1}</span>
+          <span class="label-mono text-primary">{s.phase}</span>
+          {i < steps.length - 1 && (
+            <span class="hidden md:block flex-1 h-px bg-hairline" aria-hidden="true"></span>
+          )}
+        </div>
+        <h3 class="text-lg mb-1.5">{s.title}</h3>
+        <p class="text-sm text-muted leading-relaxed">{s.desc}</p>
+      </li>
+    ))}
+  </ol>
+  <p class="mt-6 text-xs text-muted italic">{t('reviews.disclaimer')}</p>
+</section>

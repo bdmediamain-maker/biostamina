@@ -1,0 +1,62 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { useTranslations, type Lang } from '@/lib/i18n';
+import { site } from '@/config/site';
+import NeonButton from '@/components/ui/NeonButton.astro';
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'it' } }, { params: { lang: 'en' } }];
+}
+const lang = Astro.params.lang as Lang;
+const t = useTranslations(lang);
+const it = lang === 'it';
+const waHref = `https://wa.me/${site.whatsapp.number}`;
+---
+<BaseLayout title={`${t('nav.contact')} — Biostamina`} description={it ? 'Contatta Biostamina: WhatsApp, email e modulo di contatto.' : 'Contact Biostamina: WhatsApp, email and contact form.'}>
+  <div class="mx-auto max-w-5xl px-5 py-14 grid lg:grid-cols-2 gap-12">
+    <div>
+      <h1 class="text-4xl md:text-5xl mb-4">{t('nav.contact')}</h1>
+      <p class="text-muted mb-8 leading-relaxed">{it ? 'Per informazioni sui prodotti, il canale più rapido è WhatsApp.' : 'For product information, the fastest channel is WhatsApp.'}</p>
+
+      <a href={waHref} target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full bg-[#25D366] text-white px-6 py-3.5 text-sm font-medium hover:brightness-95 transition mb-8">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Z"/></svg>
+        {site.whatsapp.label[lang]}
+      </a>
+
+      <dl class="space-y-4 text-sm">
+        <div>
+          <dt class="label-mono text-muted">Email</dt>
+          <dd><a href={`mailto:${site.seller.email}`} class="text-azure hover:underline">{site.seller.email}</a></dd>
+        </div>
+        <div>
+          <dt class="label-mono text-muted">{t('footer.seller')}</dt>
+          <dd class="text-ink/80">{site.seller.name} — {site.seller.addr}</dd>
+        </div>
+        <div>
+          <dt class="label-mono text-muted">{t('footer.manufacturer')}</dt>
+          <dd class="text-ink/80">{site.manufacturer.name} — {site.manufacturer.addr}</dd>
+        </div>
+      </dl>
+    </div>
+
+    <form action={site.formspree.contatti} method="POST" class="flex flex-col gap-4">
+      <input type="hidden" name="_subject" value="Contatto — biostamina.net" />
+      <label class="flex flex-col gap-1.5">
+        <span class="text-sm text-ink/80">{it ? 'Nome' : 'Name'} *</span>
+        <input required name="nome" class="rounded-lg border border-hairline bg-surface px-4 py-2.5 text-sm focus:border-primary outline-none" />
+      </label>
+      <label class="flex flex-col gap-1.5">
+        <span class="text-sm text-ink/80">Email *</span>
+        <input required type="email" name="email" class="rounded-lg border border-hairline bg-surface px-4 py-2.5 text-sm focus:border-primary outline-none" />
+      </label>
+      <label class="flex flex-col gap-1.5">
+        <span class="text-sm text-ink/80">{it ? 'Messaggio' : 'Message'} *</span>
+        <textarea required name="messaggio" rows="5" class="rounded-lg border border-hairline bg-surface px-4 py-2.5 text-sm focus:border-primary outline-none"></textarea>
+      </label>
+      <NeonButton type="submit" variant="solid" class="justify-self-start self-start">
+        {it ? 'Invia' : 'Send'} →
+      </NeonButton>
+      <p class="text-xs text-muted">⚠️ Formspree endpoint da configurare in <code>src/config/site.ts</code>.</p>
+    </form>
+  </div>
+</BaseLayout>

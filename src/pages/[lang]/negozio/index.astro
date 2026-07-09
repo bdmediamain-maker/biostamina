@@ -1,0 +1,76 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { useTranslations, localePath, type Lang } from '@/lib/i18n';
+import ProductCard from '@/components/product/ProductCard.astro';
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'it' } }, { params: { lang: 'en' } }];
+}
+
+const lang = Astro.params.lang as Lang;
+const t = useTranslations(lang);
+const products = (await getCollection('products', (p) => !p.data.draft)).sort((a, b) => a.data.order - b.data.order);
+
+// categorie presenti (per il filtro)
+const categories = [...new Set(products.map((p) => p.data.category))];
+---
+<BaseLayout title={`${t('nav.shop')} — Biostamina`} description={lang === 'it' ? 'La linea Bio RIGENERA® O3: dispositivi medici fitoterapici CE per odontoiatria, cicatrizzazione e dermatologia.' : 'The Bio RIGENERA® O3 range: CE phytotherapeutic medical devices for dentistry, wound healing and dermatology.'}>
+  <div class="mx-auto max-w-7xl px-5 py-12">
+    <nav class="text-sm text-muted mb-4" aria-label="Breadcrumb">
+      <a href={localePath(lang)} class="hover:text-primary">{t('nav.home')}</a>
+      <span class="mx-1.5">/</span><span class="text-ink/70">{t('nav.shop')}</span>
+    </nav>
+    <h1 class="text-4xl md:text-5xl mb-3">{t('nav.shop')}</h1>
+    <p class="text-muted max-w-2xl mb-6">{lang === 'it' ? 'Tutti i dispositivi Bio RIGENERA® O3 disponibili. Copy e indicazioni dai bugiardini ufficiali.' : 'All available Bio RIGENERA® O3 devices. Copy and indications from official IFUs.'}</p>
+
+    <div class="flex flex-wrap gap-2 mb-8" role="group" aria-label="Filtro categorie">
+      <button type="button" class="cat-btn label-mono px-3 py-1.5 rounded-full" data-filter="all" aria-pressed="true">{lang === 'it' ? 'Tutti' : 'All'}</button>
+      {categories.map((c) => (
+        <button type="button" class="cat-btn label-mono px-3 py-1.5 rounded-full normal-case tracking-normal" data-filter={c} aria-pressed="false">{c}</button>
+      ))}
+    </div>
+
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" data-product-grid>
+      {products.map((p) => <ProductCard product={p} />)}
+    </div>
+
+    <p data-no-results hidden class="text-muted mt-8">{lang === 'it' ? 'Nessun prodotto in questa categoria.' : 'No products in this category.'}</p>
+  </div>
+
+  <style>
+    .cat-btn {
+      border: 1px solid var(--color-hairline);
+      color: var(--color-muted);
+      background: transparent;
+      cursor: pointer;
+      transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+    .cat-btn:hover { border-color: var(--color-primary); color: var(--color-primary); }
+    .cat-btn[aria-pressed="true"] {
+      background: var(--color-primary);
+      color: #fff;
+      border-color: transparent;
+    }
+  </style>
+
+  <script>
+    const buttons = Array.from(document.querySelectorAll<HTMLButtonElement>('.cat-btn'));
+    const items = Array.from(document.querySelectorAll<HTMLElement>('[data-product-grid] .product-item'));
+    const noResults = document.querySelector<HTMLElement>('[data-no-results]');
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const filter = btn.dataset.filter;
+        buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+        let visible = 0;
+        items.forEach((it) => {
+          const show = filter === 'all' || it.dataset.category === filter;
+          it.style.display = show ? '' : 'none';
+          if (show) visible++;
+        });
+        if (noResults) noResults.hidden = visible > 0;
+      });
+    });
+  </script>
+</BaseLayout>

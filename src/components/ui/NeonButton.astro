@@ -1,0 +1,64 @@
+---
+/**
+ * NeonButton — adattamento Astro del "neon-button" (React/shadcn/CVA) ai colori
+ * del sito clinico BLU. Effetto neon = due linee gradiente (azure/primary):
+ * quella inferiore visibile a riposo, quella superiore appare all'hover.
+ *
+ * Varianti:
+ *  - solid : pieno primary (CTA principale)
+ *  - default: tenue con bordo primary (CTA secondaria su fondo chiaro)
+ *  - light : bianco su testo primary (per CTA su sezioni a fondo blu)
+ *  - ghost : trasparente
+ *
+ * Colori neon dai token del sito (via-azure / via-primary), NON blue-500.
+ * Rende <a> se passi `href`, altrimenti <button> (con `type`).
+ */
+interface Props {
+  href?: string;
+  type?: 'button' | 'submit';
+  variant?: 'solid' | 'default' | 'light' | 'ghost';
+  size?: 'sm' | 'default' | 'lg';
+  neon?: boolean;
+  /** classe gradiente della linea neon (default azure; su bottone bianco usa via-primary) */
+  line?: string;
+  class?: string;
+  [key: string]: unknown;
+}
+const {
+  href,
+  type = 'button',
+  variant = 'default',
+  size = 'default',
+  neon = true,
+  line = 'via-azure',
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+const base =
+  'nbtn group relative inline-flex items-center justify-center gap-2 text-center rounded-full border font-medium transition-all duration-200';
+
+const variants: Record<string, string> = {
+  solid: 'bg-primary hover:bg-primary-dark text-white border-transparent',
+  default: 'bg-primary/5 hover:bg-primary/0 text-ink border-primary/25 hover:border-primary/50',
+  light: 'bg-white hover:bg-tint text-primary border-transparent',
+  ghost: 'bg-transparent text-ink border-transparent hover:border-hairline hover:bg-primary/5',
+};
+
+const sizes: Record<string, string> = {
+  sm: 'px-4 py-1.5 text-sm',
+  default: 'px-6 py-3 text-sm',
+  lg: 'px-10 py-3.5 text-base',
+};
+
+const cls = [base, variants[variant], sizes[size], className].join(' ');
+const lineBase =
+  'pointer-events-none absolute inset-x-0 h-px w-3/4 mx-auto bg-gradient-to-r from-transparent to-transparent transition-opacity duration-500 ease-in-out';
+
+const Tag = (href ? 'a' : 'button') as any;
+---
+<Tag class={cls} href={href} type={href ? undefined : type} {...rest}>
+  {neon && <span class:list={[lineBase, line, 'top-0 opacity-0 group-hover:opacity-100']} aria-hidden="true"></span>}
+  <span class="relative z-[1] inline-flex items-center gap-2"><slot /></span>
+  {neon && <span class:list={[lineBase, line, '-bottom-px opacity-90 group-hover:opacity-30']} aria-hidden="true"></span>}
+</Tag>

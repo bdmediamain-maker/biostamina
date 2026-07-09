@@ -1,0 +1,17 @@
+---
+import { getLangFromUrl, useTranslations } from '@/lib/i18n';
+
+interface Props { inci: string[] }
+const { inci } = Astro.props;
+const t = useTranslations(getLangFromUrl(Astro.url));
+---
+{inci.length > 0 && (
+  <section aria-labelledby="inci-h" data-reveal>
+    <h2 id="inci-h" class="text-xl mb-4">{t('product.inci')}</h2>
+    <ul class="flex flex-wrap gap-2">
+      {inci.map((i) => (
+        <li class="label-mono lowercase-none px-2.5 py-1 rounded-full border border-hairline bg-surface text-muted normal-case tracking-normal text-[0.72rem]">{i}</li>
+      ))}
+    </ul>
+  </section>
+)}

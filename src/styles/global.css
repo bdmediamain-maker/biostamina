@@ -1,0 +1,197 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Self-hosted fonts (@fontsource) — sistema "Clinical Botanical"
+   Fraunces (display) · Hanken Grotesk (body) · JetBrains Mono (label)
+   ============================================================ */
+@import "@fontsource-variable/fraunces";
+@import "@fontsource-variable/hanken-grotesk";
+@import "@fontsource/jetbrains-mono/400.css";
+@import "@fontsource/jetbrains-mono/500.css";
+
+/* ============================================================
+   Design tokens (Tailwind 4 @theme → genera utilities)
+   Palette clinica BLU — allineata al brand reale (packaging Dental navy).
+   Tipografia invariata (Fraunces / Hanken Grotesk / JetBrains Mono).
+   ============================================================ */
+@theme {
+  --color-ink: #14192b;         /* testo — ink-navy profondo */
+  --color-paper: #f7f9fc;       /* bg pagina — porcellana fredda */
+  --color-surface: #ffffff;     /* card / pannelli */
+  --color-primary: #1c3c6e;     /* blu clinico profondo — brand */
+  --color-primary-dark: #152c52;/* hover / pressed */
+  --color-azure: #3466b0;       /* blu medio — link / highlight / stati interattivi */
+  --color-accent: #5f7e68;      /* verde-salvia — SOLO accenti fito/ozono, col contagocce */
+  --color-tint: #eaf0f8;        /* bg sezione tenue — azzurro pallido */
+  --color-muted: #5a657a;       /* testo secondario — blu-grigio */
+  --color-hairline: #dce3ed;    /* bordi 1px */
+
+  /* semantici (stati UI) */
+  --color-success: #2e9e6b;
+  --color-warning: #c9832e;
+  --color-danger: #c2493f;
+
+  --font-display: "Fraunces Variable", Georgia, "Times New Roman", serif;
+  --font-body: "Hanken Grotesk Variable", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  --radius-card: 14px;
+}
+
+/* ============================================================
+   Base
+   ============================================================ */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
+/* Label monospace (CE / INCI / O3 / classe) */
+.label-mono {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   Lenis smooth-scroll baseline
+   ============================================================ */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* ============================================================
+   Reveal-on-scroll (GSAP toggles [data-reveal].is-visible).
+   Fallback: se JS non gira, contenuto visibile di default.
+   ============================================================ */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(22px);
+  will-change: opacity, transform;
+}
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Accessibilità: rispetta reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  [data-reveal] { opacity: 1 !important; transform: none !important; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Focus visibile (WCAG) */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Skip-link */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: var(--color-primary);
+  color: #fff;
+  padding: 0.6rem 1rem;
+  border-radius: 0 0 8px 0;
+}
+.skip-link:focus { left: 0; }
+
+/* Ombre morbide condivise */
+.shadow-soft  { box-shadow: 0 10px 40px -14px rgba(20, 25, 43, 0.14); }
+.shadow-float { box-shadow: 0 30px 70px -22px rgba(20, 25, 43, 0.26); }
+
+/* ============================================================
+   GlowCard — card interattiva (spotlight + border-glow + tilt)
+   Adattata al brand: light + verde. JS in BaseLayout (guard hover+reduced-motion).
+   Le variabili --mx/--my sono impostate dal JS al movimento del mouse.
+   ============================================================ */
+.glow-card {
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.glow-card:hover {
+  border-color: rgba(28, 60, 110, 0.35);
+  box-shadow: 0 18px 50px -22px rgba(28, 60, 110, 0.3);
+}
+.glow-card__content { position: relative; z-index: 2; }
+/* Spotlight: bagliore verde che segue il cursore */
+.glow-card__spot {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: radial-gradient(
+    var(--spot-r, 260px) circle at var(--mx, 50%) var(--my, 50%),
+    rgba(28, 60, 110, 0.12),
+    transparent 72%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.glow-card:hover .glow-card__spot { opacity: 1; }
+/* Border glow reattivo (mask trick) */
+.glow-card__border {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(
+    var(--spot-r, 260px) circle at var(--mx, 50%) var(--my, 50%),
+    rgba(28, 60, 110, 0.55),
+    transparent 45%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.glow-card:hover .glow-card__border { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .glow-card__spot, .glow-card__border { display: none; }
+  .glow-card:hover { box-shadow: none; }
+}
+
+/* Prose (blog / testi lunghi) */
+.prose-clinical { max-width: 68ch; }
+.prose-clinical h2 { margin-top: 2.2em; margin-bottom: 0.6em; font-size: 1.6rem; }
+.prose-clinical h3 { margin-top: 1.6em; margin-bottom: 0.4em; font-size: 1.2rem; }
+.prose-clinical p  { margin-bottom: 1.1em; line-height: 1.7; color: var(--color-ink); }
+.prose-clinical a  { color: var(--color-azure); text-decoration: underline; text-underline-offset: 3px; }
+.prose-clinical ul { margin: 1em 0 1.2em 1.2em; list-style: disc; }
+.prose-clinical li { margin-bottom: 0.4em; line-height: 1.6; }

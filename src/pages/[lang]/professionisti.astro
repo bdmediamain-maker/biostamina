@@ -1,0 +1,53 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { useTranslations, type Lang } from '@/lib/i18n';
+import { site } from '@/config/site';
+import ProReviews from '@/components/social/ProReviews.astro';
+import NeonButton from '@/components/ui/NeonButton.astro';
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'it' } }, { params: { lang: 'en' } }];
+}
+const lang = Astro.params.lang as Lang;
+const t = useTranslations(lang);
+const it = lang === 'it';
+---
+<BaseLayout title={`${t('nav.professionals')} — Biostamina`} description={it ? 'Campioni, listino dedicato e protocolli clinici Bio RIGENERA® per dentisti, dermatologi e strutture sanitarie.' : 'Samples, dedicated pricing and Bio RIGENERA® clinical protocols for dentists, dermatologists and healthcare facilities.'}>
+  <div class="mx-auto max-w-4xl px-5 py-14">
+    <p class="label-mono text-primary mb-3">B2B</p>
+    <h1 class="text-4xl md:text-5xl mb-4">{t('nav.professionals')}</h1>
+    <p class="text-lg text-muted mb-10 max-w-2xl leading-relaxed">{it
+      ? 'Dentisti, studi odontoiatrici, dermatologi e strutture sanitarie: richiedi campioni, il listino professionale e i protocolli d’uso.'
+      : 'Dentists, dental practices, dermatologists and healthcare facilities: request samples, professional pricing and usage protocols.'}</p>
+
+    <form action={site.formspree.professionisti} method="POST" class="grid sm:grid-cols-2 gap-4 mb-4">
+      <input type="hidden" name="_subject" value="Richiesta professionista — biostamina.net" />
+      <label class="flex flex-col gap-1.5">
+        <span class="text-sm text-ink/80">{it ? 'Nome e cognome' : 'Full name'} *</span>
+        <input required name="nome" class="rounded-lg border border-hairline bg-surface px-4 py-2.5 text-sm focus:border-primary outline-none" />
+      </label>
+      <label class="flex flex-col gap-1.5">
+        <span class="text-sm text-ink/80">{it ? 'Studio / struttura' : 'Practice / facility'}</span>
+        <input name="studio" class="rounded-lg border border-hairline bg-surface px-4 py-2.5 text-sm focus:border-primary outline-none" />
+      </label>
+      <label class="flex flex-col gap-1.5">
+        <span class="text-sm text-ink/80">Email *</span>
+        <input required type="email" name="email" class="rounded-lg border border-hairline bg-surface px-4 py-2.5 text-sm focus:border-primary outline-none" />
+      </label>
+      <label class="flex flex-col gap-1.5">
+        <span class="text-sm text-ink/80">{it ? 'Telefono' : 'Phone'}</span>
+        <input name="telefono" class="rounded-lg border border-hairline bg-surface px-4 py-2.5 text-sm focus:border-primary outline-none" />
+      </label>
+      <label class="flex flex-col gap-1.5 sm:col-span-2">
+        <span class="text-sm text-ink/80">{it ? 'Messaggio' : 'Message'}</span>
+        <textarea name="messaggio" rows="4" class="rounded-lg border border-hairline bg-surface px-4 py-2.5 text-sm focus:border-primary outline-none"></textarea>
+      </label>
+      <NeonButton type="submit" variant="solid" class="sm:col-span-2 justify-self-start">
+        {it ? 'Invia richiesta' : 'Send request'} →
+      </NeonButton>
+    </form>
+    <p class="text-xs text-muted mb-4">⚠️ Formspree endpoint da configurare in <code>src/config/site.ts</code>.</p>
+  </div>
+
+  <ProReviews />
+</BaseLayout>

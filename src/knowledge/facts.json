@@ -1,0 +1,53 @@
+{
+  "_meta": {
+    "purpose": "Fatti verificati per KB IA futura. Solo fonti ufficiali (brief v2 + bugiardini + certificazioni). NON aggiungere claim non verificati.",
+    "updated": "2026-07-07"
+  },
+  "brand": {
+    "name": "Biostamina",
+    "line": "Bio RIGENERA® O3",
+    "technology": "Oli essenziali arricchiti con ozono (O3), fitoterapici",
+    "history": "20+ anni di esperienza, brevetti rigenerazione 2017"
+  },
+  "entities": {
+    "manufacturer": {
+      "role": "Fabbricante legale dispositivi medici",
+      "name": "Biostamina KFT",
+      "address": "HU 1143 Budapest, Stefánia út 81",
+      "site": "biostamina.org"
+    },
+    "seller": {
+      "role": "Venditore/distributore IT (checkout, fatturazione) — DA CONFERMARE come venditore di record",
+      "name": "Cosmos Srls",
+      "address": "Via del Divino Amore 22/A, 00047 Marino (RM)",
+      "vat": "IT13542421006",
+      "email": "info@biostamina.net"
+    }
+  },
+  "certifications": {
+    "ce": "Marcatura CE (dispositivi medici)",
+    "ministry": "Notifica al Ministero della Salute",
+    "testing": "Test Antropos, Lugano (Svizzera)",
+    "patents": "Brevetti rigenerazione 2017"
+  },
+  "products": [
+    { "slug": "dental", "class": "IIa", "type": "dispositivo-medico", "use": "odontoiatria / cavo orale", "copySource": "bugiardino ufficiale rev.06 12/2020" },
+    { "slug": "cicatren", "class": "IIb", "type": "dispositivo-medico", "use": "ferite, ustioni, piaghe da decubito, ulcere", "copySource": "bugiardino ufficiale rev.06 12/2020" },
+    { "slug": "dermal", "class": "IIb", "type": "dispositivo-medico", "use": "dermatologia (acne, psoriasi, dermatiti)", "copySource": "bugiardino ufficiale rev.06 12/2020" },
+    { "slug": "pet", "class": "IIb", "type": "dispositivo-medico", "use": "veterinario", "price": 38.40, "copySource": "PARZIALE — nome/prezzo dal sito; bugiardino ufficiale mancante" },
+    { "slug": "antiage", "class": "cosmetico", "type": "cosmetico", "use": "anti-age siero strong 25ml (registro cosmetico, no claim medici)", "price": 37.80, "copySource": "PARZIALE — nome/prezzo dal sito; INCI mancante" },
+    { "slug": "siero-staminali", "class": "cosmetico", "type": "cosmetico", "use": "anti-age crema cellule staminali vegetali 15ml (registro cosmetico)", "price": null, "copySource": "PARZIALE — nome dal sito; prezzo e INCI mancanti" }
+  ],
+  "inci_common": [
+    "Hypericum Perforatum Oil", "Prunus Amygdalus Dulcis Ozonated Oil", "Calendula Officinalis Oil",
+    "Hydrogenated Castor Oil", "Citrus Medica Limonum Peel Oil", "Lavandula Angustifolia Oil",
+    "Citrus Grandis Peel Oil", "Camomilla Recutita Oil", "Geranium Maculatum Oil", "Silica",
+    "Echinacea Angustifolia Oil", "Manganese Gluconate", "Tocopheryl Acetate"
+  ],
+  "compliance_rules": [
+    "Copy indicazioni/avvertenze/INCI sempre verbatim dai bugiardini.",
+    "Disclaimer recensioni: esiti individuali, nessuna garanzia di risultato.",
+    "Anti-age = cosmetico: linguaggio 'migliora/illumina/rigenera l'aspetto', mai 'cura'.",
+    "Dispositivo medico (KFT, CE IIa/IIb) ≠ cosmetico."
+  ]
+}

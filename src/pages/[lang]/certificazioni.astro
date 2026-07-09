@@ -1,0 +1,56 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { useTranslations, localePath, type Lang } from '@/lib/i18n';
+import TrustRow from '@/components/layout/TrustRow.astro';
+import GlowCard from '@/components/ui/GlowCard.astro';
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'it' } }, { params: { lang: 'en' } }];
+}
+const lang = Astro.params.lang as Lang;
+const t = useTranslations(lang);
+
+const it = lang === 'it';
+const items = it
+  ? [
+      { h: 'Marcatura CE', d: 'Tutti i dispositivi della linea Bio RIGENERA® O3 sono marcati CE come dispositivi medici.' },
+      { h: 'Classe IIa / IIb', d: 'Dental è classe IIa; Cicatren e Dermal sono classe IIb. La classe indica il livello di rischio e il percorso di conformità del dispositivo.' },
+      { h: 'Notifica al Ministero della Salute', d: 'Dispositivi notificati secondo la normativa italiana sui dispositivi medici.' },
+      { h: 'Test Antropos · Lugano', d: 'Verifiche condotte presso il laboratorio Antropos di Lugano (Svizzera).' },
+      { h: 'Brevetti di rigenerazione (2017)', d: 'La tecnologia degli oli essenziali ozonizzati è coperta da brevetti depositati.' },
+    ]
+  : [
+      { h: 'CE marking', d: 'All Bio RIGENERA® O3 devices are CE-marked as medical devices.' },
+      { h: 'Class IIa / IIb', d: 'Dental is class IIa; Cicatren and Dermal are class IIb. The class reflects the risk level and conformity route of the device.' },
+      { h: 'Notified to the Ministry of Health', d: 'Devices notified under Italian medical device regulation.' },
+      { h: 'Antropos test · Lugano', d: 'Testing carried out at the Antropos laboratory in Lugano (Switzerland).' },
+      { h: 'Regeneration patents (2017)', d: 'The ozonated essential-oil technology is covered by filed patents.' },
+    ];
+---
+<BaseLayout title={`${t('nav.certifications')} — Biostamina`} description={it ? 'CE, classe IIa/IIb, notifica al Ministero, test Antropos di Lugano e brevetti di rigenerazione.' : 'CE, class IIa/IIb, Ministry notification, Antropos Lugano testing and regeneration patents.'}>
+  <div class="mx-auto max-w-4xl px-5 py-14">
+    <p class="label-mono text-primary mb-3">E-E-A-T</p>
+    <h1 class="text-4xl md:text-5xl mb-4">{t('nav.certifications')}</h1>
+    <p class="text-muted mb-10 max-w-2xl">{it ? 'La credibilità di Bio RIGENERA® poggia su certificazioni verificabili e test indipendenti.' : 'The credibility of Bio RIGENERA® rests on verifiable certifications and independent testing.'}</p>
+
+    <div class="mb-12"><TrustRow /></div>
+
+    <div class="space-y-4">
+      {items.map((i) => (
+        <GlowCard as="article" class="rounded-[--radius-card] border border-hairline bg-surface p-6" data-reveal>
+          <h2 class="text-xl mb-2">{i.h}</h2>
+          <p class="text-sm text-ink/80 leading-relaxed">{i.d}</p>
+        </GlowCard>
+      ))}
+    </div>
+
+    <div class="mt-12 rounded-[--radius-card] bg-tint/50 border border-hairline p-6" data-reveal>
+      <h2 class="text-lg mb-2">{it ? 'Dispositivo medico vs cosmetico' : 'Medical device vs cosmetic'}</h2>
+      <p class="text-sm text-muted leading-relaxed">{it
+        ? 'La linea Bio RIGENERA® O3 (Dental, Cicatren, Dermal, Pet) è composta da dispositivi medici CE. Il prodotto Anti-Age è invece un cosmetico: migliora l’aspetto della pelle, senza finalità terapeutiche.'
+        : 'The Bio RIGENERA® O3 range (Dental, Cicatren, Dermal, Pet) consists of CE medical devices. The Anti-Age product is instead a cosmetic: it improves the appearance of the skin, with no therapeutic purpose.'}</p>
+    </div>
+
+    <!-- ⚠️ TODO cliente: caricare PDF/immagini certificati reali in /public/certificazioni -->
+  </div>
+</BaseLayout>

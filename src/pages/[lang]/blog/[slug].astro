@@ -1,0 +1,78 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { useTranslations, localePath, type Lang } from '@/lib/i18n';
+import { canonical, breadcrumbSchema } from '@/lib/seo';
+import { site } from '@/config/site';
+import ProductCard from '@/components/product/ProductCard.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', (p) => !p.data.draft);
+  const langs = ['it', 'en'] as const;
+  return langs.flatMap((lang) => posts.map((post) => ({ params: { lang, slug: post.id }, props: { post } })));
+}
+
+const { post } = Astro.props;
+const lang = Astro.params.lang as Lang;
+const t = useTranslations(lang);
+const it = lang === 'it';
+const loc = post.data[lang];
+const { Content } = await render(post);
+const path = Astro.url.pathname;
+
+const fmtDate = (d: Date) =>
+  new Intl.DateTimeFormat(it ? 'it-IT' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' }).format(d);
+
+// Prodotti correlati
+const allProducts = await getCollection('products', (p) => !p.data.draft);
+const related = allProducts.filter((p) => post.data.relatedProducts.includes(p.id));
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: loc.title,
+  description: loc.description,
+  datePublished: post.data.pubDate.toISOString(),
+  ...(post.data.updatedDate ? { dateModified: post.data.updatedDate.toISOString() } : {}),
+  author: { '@type': 'Organization', name: site.name },
+  publisher: { '@type': 'Organization', name: site.manufacturer.name },
+  mainEntityOfPage: canonical(path),
+};
+const crumbs = breadcrumbSchema([
+  { name: t('nav.home'), url: localePath(lang) },
+  { name: t('nav.blog'), url: localePath(lang, 'blog') },
+  { name: loc.title, url: path },
+]);
+---
+<BaseLayout title={`${loc.title} — Biostamina`} description={loc.description} type="article" jsonLd={[articleSchema, crumbs]}>
+  <article class="mx-auto max-w-3xl px-5 py-14">
+    <nav class="text-sm text-muted mb-6" aria-label="Breadcrumb">
+      <a href={localePath(lang)} class="hover:text-azure">{t('nav.home')}</a>
+      <span class="mx-1.5">/</span>
+      <a href={localePath(lang, 'blog')} class="hover:text-azure">{t('nav.blog')}</a>
+    </nav>
+
+    <p class="label-mono text-azure mb-3">{post.data.cluster}</p>
+    <h1 class="text-3xl md:text-5xl leading-[1.08] mb-4">{loc.title}</h1>
+    <p class="text-sm text-muted">{fmtDate(post.data.pubDate)}</p>
+
+    {!it && (
+      <p class="mt-6 text-sm text-muted bg-tint/60 border border-hairline rounded-[--radius-card] px-4 py-3">
+        This article is available in Italian.
+      </p>
+    )}
+
+    <div class="prose-clinical mt-8">
+      <Content />
+    </div>
+
+    {related.length > 0 && (
+      <div class="mt-16 not-prose">
+        <h2 class="text-2xl mb-6">{t('product.related')}</h2>
+        <div class="grid gap-6 sm:grid-cols-2">
+          {related.map((p) => <ProductCard product={p} />)}
+        </div>
+      </div>
+    )}
+  </article>
+</BaseLayout>

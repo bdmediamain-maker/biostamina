@@ -1,0 +1,42 @@
+---
+import { getLangFromUrl, useTranslations } from '@/lib/i18n';
+import type { Review } from '@/data/reviews';
+import ReviewStars from './ReviewStars.astro';
+
+interface Props { reviews: Review[]; heading?: boolean }
+const { reviews, heading = true } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const fmtDate = (iso: string) =>
+  new Intl.DateTimeFormat(lang === 'it' ? 'it-IT' : 'en-GB', { day: '2-digit', month: 'short', year: 'numeric' }).format(new Date(iso));
+---
+{reviews.length > 0 && (
+  <section aria-labelledby="rev-h" data-reveal>
+    {heading && <h2 id="rev-h" class="text-xl mb-5">{t('product.reviews')}</h2>}
+    <ul class="space-y-4">
+      {reviews.map((r) => (
+        <li class="rounded-[--radius-card] border border-hairline bg-surface p-5">
+          <div class="flex items-center justify-between gap-3 flex-wrap mb-2">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="font-medium text-ink">{r.author}</span>
+              <span class="text-sm text-muted">· {r.role}</span>
+              {r.professional && (
+                <span class="label-mono px-2 py-0.5 rounded-full bg-primary/10 text-primary">{t('reviews.professional')}</span>
+              )}
+              {r.verified && (
+                <span class="label-mono px-2 py-0.5 rounded-full bg-tint text-primary inline-flex items-center gap-1">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg>
+                  {t('reviews.verified')}
+                </span>
+              )}
+            </div>
+            <ReviewStars rating={r.rating} showCount={false} size={14} />
+          </div>
+          <p class="text-sm text-ink/85 leading-relaxed">{r.text}</p>
+          <p class="mt-2 text-xs text-muted">{fmtDate(r.date)}</p>
+        </li>
+      ))}
+    </ul>
+    <p class="mt-4 text-xs text-muted italic">{t('reviews.disclaimer')}</p>
+  </section>
+)}

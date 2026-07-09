@@ -1,0 +1,23 @@
+---
+import { getLangFromUrl, useTranslations } from '@/lib/i18n';
+
+interface Props { compact?: boolean }
+const { compact = false } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const items = [
+  { key: t('trust.ce'), sub: 'CE' },
+  { key: t('trust.ministry'), sub: 'IT' },
+  { key: t('trust.antropos'), sub: 'CH' },
+  { key: t('trust.manufacturer'), sub: 'KFT' },
+];
+---
+<div class:list={['grid gap-3', compact ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-2 md:grid-cols-4']}>
+  {items.map((it) => (
+    <div class="flex items-center gap-3 rounded-[--radius-card] border border-hairline bg-surface px-4 py-3" data-reveal>
+      <span class="label-mono grid place-items-center w-9 h-9 rounded-full bg-tint text-primary shrink-0">{it.sub}</span>
+      <span class="text-sm leading-snug text-ink/85">{it.key}</span>
+    </div>
+  ))}
+</div>

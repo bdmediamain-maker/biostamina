@@ -1,0 +1,161 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { useTranslations, type Lang } from '@/lib/i18n';
+import { site } from '@/config/site';
+import GlowCard from '@/components/ui/GlowCard.astro';
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'it' } }, { params: { lang: 'en' } }];
+}
+const lang = Astro.params.lang as Lang;
+const t = useTranslations(lang);
+const it = lang === 'it';
+
+// Copy istituzionale ufficiale (dalla home del sito attuale).
+// ⚠️ La versione EN è una traduzione fedele — da far revisionare.
+const c = it
+  ? {
+      intro: [
+        'BIOSTAMINA è un’azienda specializzata nella produzione di Dispositivi Medici Fitoterapici medicamentosi, per tutte le lesioni del Derma e del cavo orale, con autorizzazioni CE e sito produttivo in Italia. Da più di vent’anni collabora con i più rinomati medici internazionali per la ricerca e l’innovazione tecnologica nel campo della Medicina Scientifica.',
+        'BIOSTAMINA dispone di laboratori specializzati, associati ai più illustri ricercatori scientifici internazionali, e dopo anni di studi e ricerche, è titolare dei brevetti per la Rigenerazione Tissutale e Ossea. Da qui nasce la linea di prodotti Bio RIGENERA, Dispositivi Medici CE, assolutamente sicuri e 100% naturali, privi di sostanze chimiche artificiali.',
+      ],
+      badge1: 'Prodotti notificati al Ministero della Salute Italiana',
+      badge2: 'Clinicamente testato da “Antropos”, Istituto Svizzero di Ricerca Scientifica e Universitaria, CH 6900 Lugano',
+      challengeTitle: 'La sfida clinica',
+      challengeIntro:
+        'In campo medico, oggi, ci troviamo di fronte a importanti patologie e problematiche non risolte o con soluzioni poco adeguate e molto migliorabili. Tra queste, la cura e la cicatrizzazione delle ferite post-chirurgiche o traumatiche rappresentano una sfida significativa. In particolare, ci riferiamo a:',
+      challengeList: [
+        'Ferite post-chirurgiche in generale',
+        'Lesioni del cavo orale e post-interventi odontoiatrici',
+        'Patologie e lesioni dermatologiche',
+        'Piaghe da decubito ulcerose in pazienti diabetici',
+      ],
+      challengeBody:
+        'Questi problemi sono estremamente rilevanti, sia dal punto di vista quantitativo che qualitativo, e si estendono a un vasto numero di patologie mediche. Le ferite post-chirurgiche, ad esempio, possono causare complicazioni significative se non trattate adeguatamente, portando a infezioni, dolore prolungato e tempi di recupero estesi. Le lesioni del cavo orale, spesso conseguenti a interventi odontoiatrici, possono compromettere la qualità della vita dei pazienti, rendendo difficile la masticazione e la deglutizione. Le patologie dermatologiche, come le ulcere da decubito nei pazienti diabetici, rappresentano un ulteriore problema critico, poiché queste lesioni tendono a guarire lentamente e possono portare a gravi infezioni.',
+      solutionTitle: 'La nostra soluzione',
+      solution: [
+        'La nostra soluzione è progettata per accelerare il processo di cicatrizzazione delle ferite, garantendo un significativo sollievo dal dolore e dalle sofferenze dei pazienti. Grazie a una formulazione innovativa e all’utilizzo di principi attivi naturali, il nostro prodotto accelera il processo di rigenerazione tissutale, favorendo una rapida ed efficace guarigione. Questo non solo migliora la qualità della vita dei pazienti, ma riduce anche i costi associati alle cure mediche prolungate e alle complicazioni post-operatorie.',
+        'Inoltre, la nostra soluzione è stata sviluppata tenendo conto delle esigenze specifiche dei pazienti con patologie croniche, come il diabete, che richiedono un’attenzione particolare nella gestione delle ferite. L’efficacia del nostro prodotto è stata dimostrata attraverso studi clinici e testimonianze di pazienti che hanno sperimentato una significativa riduzione dei tempi di guarigione e un miglioramento complessivo del loro stato di salute.',
+        'Siamo convinti che l’adozione di questa soluzione innovativa possa rappresentare un passo avanti significativo nel trattamento delle ferite post-chirurgiche e traumatiche, contribuendo a migliorare la qualità delle cure mediche e a ridurre il carico di sofferenza per i pazienti.',
+      ],
+    }
+  : {
+      intro: [
+        'BIOSTAMINA is a company specialised in the production of medicated phytotherapeutic Medical Devices for all lesions of the skin and oral cavity, with CE authorisations and a production site in Italy. For over twenty years it has collaborated with the most renowned international physicians for research and technological innovation in the field of Scientific Medicine.',
+        'BIOSTAMINA has specialised laboratories, working alongside the most distinguished international scientific researchers, and after years of study and research it holds the patents for Tissue and Bone Regeneration. From this comes the Bio RIGENERA product line — CE Medical Devices, absolutely safe and 100% natural, free from artificial chemical substances.',
+      ],
+      badge1: 'Products notified to the Italian Ministry of Health',
+      badge2: 'Clinically tested by “Antropos”, Swiss Institute of Scientific and University Research, CH 6900 Lugano',
+      challengeTitle: 'The clinical challenge',
+      challengeIntro:
+        'In the medical field today we face important pathologies and problems that remain unsolved or have inadequate, highly improvable solutions. Among these, the treatment and healing of post-surgical or traumatic wounds represent a significant challenge. In particular, we refer to:',
+      challengeList: [
+        'Post-surgical wounds in general',
+        'Lesions of the oral cavity and after dental procedures',
+        'Dermatological pathologies and lesions',
+        'Ulcerative pressure sores in diabetic patients',
+      ],
+      challengeBody:
+        'These problems are extremely relevant, both quantitatively and qualitatively, and extend across a vast number of medical conditions. Post-surgical wounds, for example, can cause significant complications if not treated properly, leading to infections, prolonged pain and extended recovery times. Lesions of the oral cavity, often following dental procedures, can compromise patients’ quality of life, making chewing and swallowing difficult. Dermatological pathologies, such as pressure ulcers in diabetic patients, represent a further critical problem, since these lesions tend to heal slowly and can lead to serious infections.',
+      solutionTitle: 'Our solution',
+      solution: [
+        'Our solution is designed to accelerate the wound-healing process, providing significant relief from patients’ pain and suffering. Thanks to an innovative formulation and the use of natural active ingredients, our product accelerates the process of tissue regeneration, promoting rapid and effective healing. This not only improves patients’ quality of life but also reduces the costs associated with prolonged medical care and post-operative complications.',
+        'In addition, our solution has been developed taking into account the specific needs of patients with chronic conditions, such as diabetes, who require particular attention in wound management. The effectiveness of our product has been demonstrated through clinical studies and testimonials from patients who experienced a significant reduction in healing times and an overall improvement in their state of health.',
+        'We are convinced that adopting this innovative solution can represent a significant step forward in the treatment of post-surgical and traumatic wounds, helping to improve the quality of medical care and reduce the burden of suffering for patients.',
+      ],
+    };
+
+const timeline = it
+  ? [
+      { y: '20+ anni', d: 'Esperienza nella ricerca sugli oli essenziali ozonizzati e la rigenerazione tissutale.' },
+      { y: '2017', d: 'Deposito dei brevetti sulla tecnologia di rigenerazione tissutale e ossea.' },
+      { y: 'Oggi', d: 'Linea Bio RIGENERA® O3 come dispositivi medici CE, prodotti da Biostamina KFT.' },
+    ]
+  : [
+      { y: '20+ years', d: 'Experience in ozonated essential-oil research and tissue regeneration.' },
+      { y: '2017', d: 'Filing of the tissue and bone regeneration technology patents.' },
+      { y: 'Today', d: 'Bio RIGENERA® O3 range as CE medical devices, manufactured by Biostamina KFT.' },
+    ];
+---
+<BaseLayout title={`${t('nav.about')} — Biostamina`} description={it ? 'Biostamina: dispositivi medici fitoterapici CE, sito produttivo in Italia, brevetti di rigenerazione tissutale e ossea, test Antropos (Lugano).' : 'Biostamina: CE phytotherapeutic medical devices, production site in Italy, tissue and bone regeneration patents, Antropos (Lugano) testing.'}>
+  <div class="mx-auto max-w-4xl px-5 py-14">
+    <p class="label-mono text-primary mb-3">{it ? 'Azienda' : 'Company'}</p>
+    <h1 class="text-4xl md:text-5xl mb-6">{t('nav.about')}</h1>
+
+    <!-- Intro istituzionale -->
+    <div class="prose-clinical">
+      {c.intro.map((p) => <p>{p}</p>)}
+    </div>
+
+    <!-- Notifiche / test -->
+    <div class="grid sm:grid-cols-2 gap-4 my-10">
+      <GlowCard as="div" class="rounded-[--radius-card] border border-hairline bg-tint/50 p-5" data-reveal>
+        <div class="flex gap-3 items-start">
+          <span class="label-mono grid place-items-center w-9 h-9 rounded-full bg-surface text-primary shrink-0">IT</span>
+          <p class="text-sm text-ink/85 leading-snug">{c.badge1}</p>
+        </div>
+      </GlowCard>
+      <GlowCard as="div" class="rounded-[--radius-card] border border-hairline bg-tint/50 p-5" data-reveal>
+        <div class="flex gap-3 items-start">
+          <span class="label-mono grid place-items-center w-9 h-9 rounded-full bg-surface text-primary shrink-0">CH</span>
+          <p class="text-sm text-ink/85 leading-snug">{c.badge2}</p>
+        </div>
+      </GlowCard>
+    </div>
+
+    <!-- La sfida clinica -->
+    <section class="mt-12" data-reveal>
+      <h2 class="text-2xl md:text-3xl mb-4">{c.challengeTitle}</h2>
+      <p class="text-ink/80 leading-relaxed mb-5">{c.challengeIntro}</p>
+      <ul class="grid sm:grid-cols-2 gap-x-6 gap-y-2.5 mb-6">
+        {c.challengeList.map((li) => (
+          <li class="flex gap-2.5 text-sm text-ink/85 leading-snug">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-primary shrink-0 mt-0.5" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M9 12l2 2 4-4" /></svg>
+            <span>{li}</span>
+          </li>
+        ))}
+      </ul>
+      <p class="text-ink/80 leading-relaxed">{c.challengeBody}</p>
+    </section>
+
+    <!-- La nostra soluzione -->
+    <section class="mt-12 rounded-[--radius-card] bg-tint/40 border border-hairline p-6 md:p-8" data-reveal>
+      <h2 class="text-2xl md:text-3xl mb-4">{c.solutionTitle}</h2>
+      <div class="prose-clinical">
+        {c.solution.map((p) => <p>{p}</p>)}
+      </div>
+    </section>
+
+    <!-- Timeline -->
+    <section class="mt-14">
+      <div class="space-y-4">
+        {timeline.map((row) => (
+          <GlowCard as="div" class="rounded-[--radius-card] border border-hairline bg-surface p-5" data-reveal>
+            <div class="flex gap-5 items-start">
+              <span class="font-display text-2xl text-primary shrink-0 w-28">{row.y}</span>
+              <p class="text-sm text-ink/80 leading-relaxed">{row.d}</p>
+            </div>
+          </GlowCard>
+        ))}
+      </div>
+    </section>
+
+    <!-- Entità -->
+    <div class="grid sm:grid-cols-2 gap-5 mt-10">
+      <GlowCard class="rounded-[--radius-card] bg-tint/50 border border-hairline p-6" data-reveal>
+        <p class="label-mono text-muted mb-2">{t('footer.manufacturer')}</p>
+        <p class="font-medium text-ink">{site.manufacturer.name}</p>
+        <p class="text-sm text-muted mt-1">{site.manufacturer.addr}</p>
+        <a href={site.manufacturer.site} target="_blank" rel="noopener" class="text-sm text-azure hover:underline mt-1 inline-block">{site.manufacturer.site.replace('https://', '')}</a>
+      </GlowCard>
+      <GlowCard class="rounded-[--radius-card] bg-tint/50 border border-hairline p-6" data-reveal>
+        <p class="label-mono text-muted mb-2">{t('footer.seller')}</p>
+        <p class="font-medium text-ink">{site.seller.name}</p>
+        <p class="text-sm text-muted mt-1">{site.seller.addr}</p>
+        <p class="text-sm text-muted">P.IVA {site.seller.vat}</p>
+      </GlowCard>
+    </div>
+
+    <!-- ⚠️ TODO cliente: foto sito produttivo/team -->
+  </div>
+</BaseLayout>

@@ -1,0 +1,90 @@
+---
+/**
+ * Sezione "Dal nostro canale" — canale @biostaminatv9809.
+ * Facade lazy: mostra la thumbnail YouTube + play; al click carica l'iframe
+ * e il video parte inline sul sito (niente iframe pesanti al load → Lighthouse).
+ * ID video dal prop o da site.youtubeVideos.
+ */
+import { getLangFromUrl } from '@/lib/i18n';
+import { site } from '@/config/site';
+
+interface Props { videoIds?: string[] }
+const { videoIds = [...site.youtubeVideos] } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const it = lang === 'it';
+const title = it ? 'Dal nostro canale' : 'From our channel';
+---
+<section class="mx-auto max-w-7xl px-5 py-16" aria-labelledby="yt-h">
+  <div class="flex items-end justify-between gap-4 mb-8">
+    <h2 id="yt-h" class="text-3xl md:text-4xl" data-reveal>{title}</h2>
+    <a href={site.social.yt} target="_blank" rel="noopener" class="text-sm text-azure hover:underline shrink-0" data-reveal>
+      @biostaminatv9809 →
+    </a>
+  </div>
+
+  {videoIds.length > 0 ? (
+    <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      {videoIds.map((id) => (
+        <div class="yt-facade group relative aspect-video rounded-[--radius-card] overflow-hidden border border-hairline bg-ink cursor-pointer" data-yt={id} data-reveal role="button" tabindex="0" aria-label={it ? 'Riproduci il video' : 'Play the video'}>
+          <img
+            src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`}
+            alt={it ? 'Anteprima video Biostamina' : 'Biostamina video preview'}
+            loading="lazy"
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+          <span class="absolute inset-0 grid place-items-center">
+            <span class="grid place-items-center w-16 h-16 rounded-full bg-[#FF0000] text-white shadow-float group-hover:scale-110 transition-transform">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+            </span>
+          </span>
+        </div>
+      ))}
+
+      <!-- Card sfumata: scopri gli altri video -->
+      <a
+        href={site.social.yt}
+        target="_blank"
+        rel="noopener"
+        class="group relative aspect-video rounded-[--radius-card] overflow-hidden border border-hairline grid place-items-center text-center p-6 text-white transition-transform hover:-translate-y-0.5"
+        style="background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-azure) 100%);"
+        data-reveal
+      >
+        <div>
+          <span class="grid place-items-center w-14 h-14 rounded-full bg-white/15 mx-auto mb-3 group-hover:bg-white/25 transition-colors">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23 12s0-3.2-.4-4.7a2.5 2.5 0 0 0-1.8-1.8C19.3 5 12 5 12 5s-7.3 0-8.8.5A2.5 2.5 0 0 0 1.4 7.3C1 8.8 1 12 1 12s0 3.2.4 4.7a2.5 2.5 0 0 0 1.8 1.8C4.7 19 12 19 12 19s7.3 0 8.8-.5a2.5 2.5 0 0 0 1.8-1.8C23 15.2 23 12 23 12ZM10 15V9l5 3-5 3Z"/></svg>
+          </span>
+          <p class="font-display text-xl leading-tight">{it ? 'Scopri gli altri video' : 'Discover more videos'}</p>
+          <span class="mt-1.5 inline-block text-sm text-white/85">@biostaminatv9809 →</span>
+        </div>
+      </a>
+    </div>
+  ) : (
+    <a href={site.social.yt} target="_blank" rel="noopener" class="block rounded-[--radius-card] border border-hairline bg-tint/40 p-10 text-center hover:bg-tint transition" data-reveal>
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor" class="text-primary mx-auto mb-3" aria-hidden="true"><path d="M23 12s0-3.2-.4-4.7a2.5 2.5 0 0 0-1.8-1.8C19.3 5 12 5 12 5s-7.3 0-8.8.5A2.5 2.5 0 0 0 1.4 7.3C1 8.8 1 12 1 12s0 3.2.4 4.7a2.5 2.5 0 0 0 1.8 1.8C4.7 19 12 19 12 19s7.3 0 8.8-.5a2.5 2.5 0 0 0 1.8-1.8C23 15.2 23 12 23 12ZM10 15V9l5 3-5 3Z"/></svg>
+      <p class="text-ink font-medium">{it ? 'Guarda i video sul canale YouTube' : 'Watch the videos on our YouTube channel'}</p>
+    </a>
+  )}
+</section>
+
+<script>
+  function loadVideo(el: HTMLElement) {
+    const id = el.dataset.yt;
+    if (!id || el.dataset.loaded) return;
+    el.dataset.loaded = 'true';
+    const iframe = document.createElement('iframe');
+    iframe.className = 'w-full h-full';
+    iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
+    iframe.title = 'Biostamina video';
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    iframe.allowFullscreen = true;
+    el.replaceChildren(iframe);
+    el.classList.remove('cursor-pointer');
+  }
+
+  document.querySelectorAll<HTMLElement>('.yt-facade').forEach((el) => {
+    el.addEventListener('click', () => loadVideo(el));
+    el.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); loadVideo(el); }
+    });
+  });
+</script>

@@ -1,0 +1,16 @@
+---
+import { getLangFromUrl, otherLang, switchLangPath, useTranslations } from '@/lib/i18n';
+
+const lang = getLangFromUrl(Astro.url);
+const target = otherLang(lang);
+const href = switchLangPath(Astro.url, target);
+const t = useTranslations(lang);
+---
+<a
+  href={href}
+  class="label-mono text-muted hover:text-primary transition-colors border border-hairline rounded-full px-3 py-1"
+  hreflang={target}
+  aria-label={`Switch language to ${target.toUpperCase()}`}
+>
+  {target.toUpperCase()}
+</a>

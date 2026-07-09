@@ -1,0 +1,36 @@
+---
+import { getLangFromUrl, useTranslations } from '@/lib/i18n';
+
+interface Props {
+  productClass: 'IIa' | 'IIb' | 'cosmetico';
+  deviceType: string;
+  format?: string;
+  manufacturer: string;
+  sku: string;
+}
+const { productClass, deviceType, format, manufacturer, sku } = Astro.props;
+const lang = useTranslations(getLangFromUrl(Astro.url));
+
+const isCosmetic = productClass === 'cosmetico';
+const classLabel = isCosmetic
+  ? lang('product.cosmetic')
+  : `${lang('product.class')} ${productClass} — ${lang('product.medicalDevice')}`;
+
+const rows = [
+  { k: lang('product.class'), v: classLabel },
+  ...(format ? [{ k: 'Formato', v: format }] : []),
+  { k: 'SKU', v: sku },
+  { k: lang('footer.manufacturer'), v: manufacturer },
+];
+---
+<section aria-labelledby="spec-h" data-reveal>
+  <h2 id="spec-h" class="text-xl mb-4">{lang('product.specs')}</h2>
+  <dl class="rounded-[--radius-card] border border-hairline overflow-hidden">
+    {rows.map((r, i) => (
+      <div class:list={['flex items-center justify-between gap-4 px-4 py-3', i % 2 === 0 ? 'bg-surface' : 'bg-tint/40']}>
+        <dt class="label-mono text-muted">{r.k}</dt>
+        <dd class="text-sm text-ink/90 text-right">{r.v}</dd>
+      </div>
+    ))}
+  </dl>
+</section>

@@ -1,0 +1,23 @@
+---
+import { getLangFromUrl, useTranslations } from '@/lib/i18n';
+
+interface Props { price: number | null; priceList?: number | null; inStock?: boolean }
+const { price, priceList = null, inStock = true } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const fmt = (n: number) =>
+  new Intl.NumberFormat(lang === 'it' ? 'it-IT' : 'en-GB', { style: 'currency', currency: 'EUR' }).format(n);
+const hasDiscount = price != null && priceList != null && priceList > price;
+---
+<div class="flex items-end gap-3 flex-wrap">
+  {price != null ? (
+    <span class="font-display text-3xl font-medium text-ink">{fmt(price)}</span>
+  ) : (
+    <span class="text-sm text-muted italic">{lang === 'it' ? 'Prezzo su richiesta' : 'Price on request'}</span>
+  )}
+  {hasDiscount && <span class="text-lg text-muted line-through">{fmt(priceList!)}</span>}
+  <span class:list={['label-mono px-2 py-1 rounded-full', inStock ? 'bg-tint text-primary' : 'bg-hairline text-muted']}>
+    {inStock ? t('product.inStock') : t('product.outStock')}
+  </span>
+</div>
