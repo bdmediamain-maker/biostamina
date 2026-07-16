@@ -1,9 +1,11 @@
 ---
 sku: "dental-o3-25ml"
 wooId: 0
+line: "dispositivi-medici"
 class: "IIa"
 deviceType: "dispositivo-medico"
 manufacturer: "Biostamina KFT"
+registration: "Made in Italy"   # ⚠️ registrazione Ministero della Salute DA CONFERMARE (addendum 2 §1.2)
 category: "odontoiatria"
 format: "Lipogel gengivale · 25 ml"
 price: 37.80

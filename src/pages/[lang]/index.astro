@@ -22,11 +22,11 @@ const t = useTranslations(lang);
 const products = (await getCollection('products', (p) => !p.data.draft)).sort((a, b) => a.data.order - b.data.order);
 
 const heroTitle = lang === 'it'
-  ? 'La rigenerazione tissutale, con l’ozono.'
-  : 'Tissue regeneration, powered by ozone.';
+  ? 'La rigenerazione tissutale e ossea, dalla molecola Prorigenera®.'
+  : 'Tissue and bone regeneration, from the Prorigenera® molecule.';
 const heroSub = lang === 'it'
-  ? 'Bio RIGENERA® O3 — dispositivi medici fitoterapici CE a base di oli essenziali arricchiti con ozono. Sviluppati da Biostamina KFT, testati e certificati.'
-  : 'Bio RIGENERA® O3 — CE phytotherapeutic medical devices based on ozone-enriched essential oils. Developed by Biostamina KFT, tested and certified.';
+  ? 'Due linee nate dai nostri brevetti: i dispositivi medici CE all’ozono e la linea rigenerativa alle cellule staminali vegetali. Fabbricante Biostamina KFT · Made in Italy · testati Antropos (Lugano).'
+  : 'Two lines born from our patents: the CE ozone medical devices and the regenerative plant-stem-cell line. Manufactured by Biostamina KFT · Made in Italy · tested by Antropos (Lugano).';
 
 const problems = lang === 'it'
   ? [
@@ -45,7 +45,7 @@ const problems = lang === 'it'
   <section class="relative overflow-hidden">
     <div class="mx-auto max-w-7xl px-5 pt-16 pb-20 md:pt-24 md:pb-28 grid lg:grid-cols-[1fr_1.15fr] gap-12 items-center">
       <div>
-        <p class="label-mono text-primary mb-4" data-reveal>{t('product.medicalDevice')} · CE · KFT</p>
+        <p class="label-mono text-primary mb-4" data-reveal>{lang === 'it' ? 'Made in Italy · Fabbricante Biostamina KFT' : 'Made in Italy · Manufactured by Biostamina KFT'}</p>
         <h1 class="text-4xl md:text-6xl leading-[1.05]" data-reveal>{heroTitle}</h1>
         <p class="mt-6 text-lg text-muted max-w-xl leading-relaxed" data-reveal>{heroSub}</p>
         <div class="mt-8 flex flex-wrap gap-3" data-reveal>
@@ -69,6 +69,19 @@ const problems = lang === 'it'
   <!-- TRUST -->
   <section class="mx-auto max-w-7xl px-5 pb-16">
     <TrustRow />
+  </section>
+
+  <!-- SLOGAN FITOTERAPIA (citazione) -->
+  <section class="section-blue border-y">
+    <div class="mx-auto max-w-4xl px-5 py-16 md:py-20 text-center" data-reveal>
+      <span class="label-mono text-white/70">{lang === 'it' ? 'Fitoterapia' : 'Phytotherapy'}</span>
+      <span class="block font-display text-6xl md:text-7xl leading-none text-white/25 mt-4 mb-1" aria-hidden="true">“</span>
+      <blockquote class="font-display text-2xl md:text-4xl leading-[1.25] text-white -mt-2 text-balance">
+        {lang === 'it'
+          ? 'Le proprietà dei semi di pompelmo e dell’ozono svolgono un’azione antibatterica e contribuiscono ad una veloce e corretta rigenerazione del tessuto epiteliale.'
+          : 'The properties of grapefruit seeds and ozone perform an antibacterial action and contribute to a fast and correct regeneration of the epithelial tissue.'}
+      </blockquote>
+    </div>
   </section>
 
   <!-- PRODUCT GRID -->

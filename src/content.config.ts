@@ -23,14 +23,19 @@ const products = defineCollection({
     z.object({
       sku: z.string(),
       wooId: z.number().default(0), // ← da WooCommerce (0 = non ancora mappato)
-      class: z.enum(['IIa', 'IIb', 'cosmetico']).describe('Classe dispositivo medico o cosmetico'),
-      deviceType: z.enum(['dispositivo-medico', 'cosmetico']).default('dispositivo-medico'),
+      // Due linee dalla molecola Prorigenera (addendum 2 §2)
+      line: z.enum(['dispositivi-medici', 'stem-cells']).default('dispositivi-medici'),
+      class: z.enum(['IIa', 'IIb', 'cosmetico', 'veterinario']).describe('Classe DM, cosmetico o veterinario'),
+      deviceType: z.enum(['dispositivo-medico', 'cosmetico', 'veterinario']).default('dispositivo-medico'),
       manufacturer: z.string().default('Biostamina KFT'),
+      // Framing regolatorio device (es. "Registrato al Ministero della Salute")
+      registration: z.string().optional(),
       category: z.string(),
       format: z.string().optional(), // es. "Lipogel 25 ml"
       price: z.number().nullable().default(null),
       priceList: z.number().nullable().default(null),
       inStock: z.boolean().default(true),
+      comingSoon: z.boolean().default(false), // "Presto disponibile" + waitlist (addendum 3 §2)
       featured: z.boolean().default(false),
       order: z.number().default(99),
       draft: z.boolean().default(false), // true = copy ufficiale non ancora disponibile (Pet, Anti-Age)

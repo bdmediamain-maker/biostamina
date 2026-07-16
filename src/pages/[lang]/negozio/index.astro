@@ -14,6 +14,27 @@ const products = (await getCollection('products', (p) => !p.data.draft)).sort((a
 
 // categorie presenti (per il filtro)
 const categories = [...new Set(products.map((p) => p.data.category))];
+
+// Due linee dalla molecola Prorigenera (addendum 2 §2)
+const it = lang === 'it';
+const groups = [
+  {
+    line: 'dispositivi-medici',
+    title: t('line.devices'),
+    desc: it
+      ? 'Dispositivi medici CE registrati al Ministero della Salute, per il trattamento coadiuvante di lesioni difficili di cute e mucosa.'
+      : 'CE medical devices registered with the Ministry of Health, as an adjunct in the treatment of difficult skin and mucosal lesions.',
+    items: products.filter((p) => p.data.line === 'dispositivi-medici'),
+  },
+  {
+    line: 'stem-cells',
+    title: t('line.stemCells'),
+    desc: it
+      ? 'Linea rigenerativa alle cellule staminali vegetali (brevetti Prorigenera): cosmetica anti-age e veterinario professionale.'
+      : 'Regenerative line with plant stem cells (Prorigenera patents): anti-age cosmetics and professional veterinary.',
+    items: products.filter((p) => p.data.line === 'stem-cells'),
+  },
+].filter((g) => g.items.length > 0);
 ---
 <BaseLayout title={`${t('nav.shop')} — Biostamina`} description={lang === 'it' ? 'La linea Bio RIGENERA® O3: dispositivi medici fitoterapici CE per odontoiatria, cicatrizzazione e dermatologia.' : 'The Bio RIGENERA® O3 range: CE phytotherapeutic medical devices for dentistry, wound healing and dermatology.'}>
   <div class="mx-auto max-w-7xl px-5 py-12">
@@ -22,20 +43,30 @@ const categories = [...new Set(products.map((p) => p.data.category))];
       <span class="mx-1.5">/</span><span class="text-ink/70">{t('nav.shop')}</span>
     </nav>
     <h1 class="text-4xl md:text-5xl mb-3">{t('nav.shop')}</h1>
-    <p class="text-muted max-w-2xl mb-6">{lang === 'it' ? 'Tutti i dispositivi Bio RIGENERA® O3 disponibili. Copy e indicazioni dai bugiardini ufficiali.' : 'All available Bio RIGENERA® O3 devices. Copy and indications from official IFUs.'}</p>
+    <p class="text-muted max-w-2xl mb-6">{it ? 'Due linee nate dalla molecola brevettata Prorigenera: i dispositivi medici all’ozono e la linea rigenerativa alle cellule staminali.' : 'Two lines born from the patented Prorigenera molecule: the ozone medical devices and the regenerative stem-cell line.'}</p>
 
-    <div class="flex flex-wrap gap-2 mb-8" role="group" aria-label="Filtro categorie">
-      <button type="button" class="cat-btn label-mono px-3 py-1.5 rounded-full" data-filter="all" aria-pressed="true">{lang === 'it' ? 'Tutti' : 'All'}</button>
+    <div class="flex flex-wrap gap-2 mb-10" role="group" aria-label="Filtro categorie">
+      <button type="button" class="cat-btn label-mono px-3 py-1.5 rounded-full" data-filter="all" aria-pressed="true">{it ? 'Tutti' : 'All'}</button>
       {categories.map((c) => (
         <button type="button" class="cat-btn label-mono px-3 py-1.5 rounded-full normal-case tracking-normal" data-filter={c} aria-pressed="false">{c}</button>
       ))}
     </div>
 
-    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" data-product-grid>
-      {products.map((p) => <ProductCard product={p} />)}
+    <div data-product-grid class="space-y-14">
+      {groups.map((g) => (
+        <section data-line-group aria-labelledby={`line-${g.line}`}>
+          <div class="mb-6">
+            <h2 id={`line-${g.line}`} class="text-2xl md:text-3xl">{g.title}</h2>
+            <p class="text-sm text-muted mt-1 max-w-2xl">{g.desc}</p>
+          </div>
+          <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {g.items.map((p) => <ProductCard product={p} />)}
+          </div>
+        </section>
+      ))}
     </div>
 
-    <p data-no-results hidden class="text-muted mt-8">{lang === 'it' ? 'Nessun prodotto in questa categoria.' : 'No products in this category.'}</p>
+    <p data-no-results hidden class="text-muted mt-8">{it ? 'Nessun prodotto in questa categoria.' : 'No products in this category.'}</p>
   </div>
 
   <style>
@@ -57,6 +88,7 @@ const categories = [...new Set(products.map((p) => p.data.category))];
   <script>
     const buttons = Array.from(document.querySelectorAll<HTMLButtonElement>('.cat-btn'));
     const items = Array.from(document.querySelectorAll<HTMLElement>('[data-product-grid] .product-item'));
+    const groups = Array.from(document.querySelectorAll<HTMLElement>('[data-line-group]'));
     const noResults = document.querySelector<HTMLElement>('[data-no-results]');
 
     buttons.forEach((btn) => {
@@ -68,6 +100,11 @@ const categories = [...new Set(products.map((p) => p.data.category))];
           const show = filter === 'all' || it.dataset.category === filter;
           it.style.display = show ? '' : 'none';
           if (show) visible++;
+        });
+        // Nasconde una sezione-linea se non ha prodotti visibili
+        groups.forEach((g) => {
+          const anyVisible = Array.from(g.querySelectorAll<HTMLElement>('.product-item')).some((it) => it.style.display !== 'none');
+          g.style.display = anyVisible ? '' : 'none';
         });
         if (noResults) noResults.hidden = visible > 0;
       });

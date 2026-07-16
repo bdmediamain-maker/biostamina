@@ -14,6 +14,7 @@ import INCIList from '@/components/product/INCIList.astro';
 import ReviewList from '@/components/product/ReviewList.astro';
 import ReviewStars from '@/components/product/ReviewStars.astro';
 import ProductCard from '@/components/product/ProductCard.astro';
+import CamelCase from '@/components/product/CamelCase.astro';
 
 interface Props {
   product: CollectionEntry<'products'>;
@@ -27,8 +28,12 @@ const d = product.data;
 const loc = d[lang];
 const reviews = reviewsFor(product.id);
 const rating = ratingFor(product.id);
-const isCosmetic = d.class === 'cosmetico';
-const classBadge = isCosmetic ? t('product.cosmetic') : `${t('product.class')} ${d.class} · ${t('product.medicalDevice')}`;
+const isDevice = d.class === 'IIa' || d.class === 'IIb';
+const classShort =
+  d.class === 'cosmetico' ? t('product.cosmetic')
+  : d.class === 'veterinario' ? t('product.veterinary')
+  : `${t('product.class')} ${d.class}`;
+const classBadge = isDevice ? `${t('product.class')} ${d.class} · ${t('product.medicalDevice')}` : classShort;
 const path = Astro.url.pathname;
 
 // schema.org Product + AggregateRating (dalle recensioni reali)
@@ -83,7 +88,7 @@ const crumbs = breadcrumbSchema([
           ) : (
             <span class="font-display text-3xl text-primary/40">Bio RIGENERA®</span>
           )}
-          <span class="absolute top-4 left-4 label-mono px-2.5 py-1 rounded-full bg-surface/90 border border-hairline text-primary">{isCosmetic ? t('product.cosmetic') : `${t('product.class')} ${d.class}`}</span>
+          <span class="absolute top-4 left-4 label-mono px-2.5 py-1 rounded-full bg-surface/90 border border-hairline text-primary">{classShort}</span>
         </div>
         {d.images.length > 1 && (
           <div class="mt-4 grid grid-cols-4 gap-3">
@@ -106,8 +111,8 @@ const crumbs = breadcrumbSchema([
 
         <p class="text-ink/80 leading-relaxed">{loc.description}</p>
 
-        <PriceBlock price={d.price} priceList={d.priceList} inStock={d.inStock} />
-        <AddToCart wooId={d.wooId} productName={loc.name} inStock={d.inStock} />
+        <PriceBlock price={d.price} priceList={d.priceList} inStock={d.inStock} comingSoon={d.comingSoon} />
+        <AddToCart wooId={d.wooId} productName={loc.name} inStock={d.inStock} comingSoon={d.comingSoon} />
 
         {product.id === 'dental' && (
           <a href={localePath(lang, 'bio-rigenera-dental')} class="inline-flex items-center gap-2 text-sm text-azure hover:underline">
@@ -136,7 +141,7 @@ const crumbs = breadcrumbSchema([
               <p class="text-sm text-ink/85 leading-relaxed">{loc.usage}</p>
             </section>
           )}
-          <SpecTable productClass={d.class} deviceType={d.deviceType} format={d.format} manufacturer={d.manufacturer} sku={d.sku} />
+          <SpecTable productClass={d.class} deviceType={d.deviceType} format={d.format} manufacturer={d.manufacturer} sku={d.sku} registration={d.registration} />
           <INCIList inci={d.inci} />
           {loc.warnings && (
             <section data-reveal aria-labelledby="warn-h">
@@ -154,6 +159,9 @@ const crumbs = breadcrumbSchema([
         <ReviewList reviews={reviews} />
       </div>
     )}
+
+    <!-- Caso clinico Dubai Camel Hospital — solo Pet -->
+    {product.id === 'pet' && <CamelCase />}
 
     <!-- Related -->
     {related.length > 0 && (

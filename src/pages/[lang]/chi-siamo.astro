@@ -119,10 +119,41 @@ const timeline = it
     </section>
 
     <!-- La nostra soluzione -->
-    <section class="mt-12 rounded-[--radius-card] bg-tint/40 border border-hairline p-6 md:p-8" data-reveal>
+    <section class="section-blue mt-12 rounded-[--radius-card] border p-6 md:p-8 shadow-soft" data-reveal>
       <h2 class="text-2xl md:text-3xl mb-4">{c.solutionTitle}</h2>
       <div class="prose-clinical">
         {c.solution.map((p) => <p>{p}</p>)}
+      </div>
+    </section>
+
+    <!-- LA MOLECOLA PRORIGENERA (addendum 2 §2) -->
+    <section class="mt-14" aria-labelledby="prorigenera-h">
+      <p class="label-mono text-azure mb-3" data-reveal>{it ? 'La scienza' : 'The science'}</p>
+      <h2 id="prorigenera-h" class="text-2xl md:text-3xl mb-4" data-reveal>{it ? 'Prorigenera® — l’esclusiva molecola proprietaria alla base di Bio RIGENERA®' : 'Prorigenera® — the exclusive proprietary molecule behind Bio RIGENERA®'}</h2>
+      <p class="text-ink/80 leading-relaxed mb-4 max-w-3xl" data-reveal>{it
+        ? 'Dalla molecola Prorigenera® — ozono e piante medicinali, frutto dei nostri brevetti per la rigenerazione tissutale e ossea — nascono le medicazioni avanzate Bio RIGENERA®.'
+        : 'From the Prorigenera® molecule — ozone and medicinal plants, the fruit of our patents for tissue and bone regeneration — come the Bio RIGENERA® advanced dressings.'}</p>
+      <p class="text-ink/80 leading-relaxed mb-8 max-w-3xl" data-reveal>{it
+        ? 'Da un’unica molecola proprietaria nascono due linee distinte — è questa la ragione strutturale che separa i dispositivi medici dalla linea cosmetica.'
+        : 'From a single proprietary molecule come two distinct lines — this is the structural reason that separates the medical devices from the cosmetic line.'}</p>
+
+      <div class="grid gap-5 md:grid-cols-2">
+        <GlowCard as="article" class="rounded-[--radius-card] border border-hairline bg-surface p-6" data-reveal>
+          <p class="label-mono text-primary mb-2">{it ? 'Linea 1' : 'Line 1'}</p>
+          <h3 class="text-xl mb-2">{it ? 'Dispositivi Medici' : 'Medical Devices'}</h3>
+          <p class="text-sm text-ink/80 leading-relaxed mb-3">{it
+            ? 'Per cute e mucosa lesa. Registrati al Ministero della Salute, venduti in farmacia, Made in Italy: trattamento coadiuvante di lesioni difficili.'
+            : 'For injured skin and mucosa. Registered with the Ministry of Health, sold in pharmacies, Made in Italy: adjunct treatment of difficult lesions.'}</p>
+          <p class="label-mono text-muted">Dermal IIb · Cicatren IIb · Dental IIa</p>
+        </GlowCard>
+        <GlowCard as="article" class="rounded-[--radius-card] border border-hairline bg-surface p-6" data-reveal>
+          <p class="label-mono text-primary mb-2">{it ? 'Linea 2' : 'Line 2'}</p>
+          <h3 class="text-xl mb-2">{it ? 'Cellule Staminali' : 'Stem Cells'}</h3>
+          <p class="text-sm text-ink/80 leading-relaxed mb-3">{it
+            ? 'Linea rigenerativa-cosmetica: sfrutta i brevetti per stimolare i fibroblasti e la produzione naturale di acido ialuronico, con cellule staminali vegetali.'
+            : 'Regenerative-cosmetic line: it uses the patents to stimulate fibroblasts and the natural production of hyaluronic acid, with plant stem cells.'}</p>
+          <p class="label-mono text-muted">Anti-Age Stem Cells · Pet</p>
+        </GlowCard>
       </div>
     </section>
 

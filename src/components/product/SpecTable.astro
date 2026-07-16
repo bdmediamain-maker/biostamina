@@ -2,23 +2,26 @@
 import { getLangFromUrl, useTranslations } from '@/lib/i18n';
 
 interface Props {
-  productClass: 'IIa' | 'IIb' | 'cosmetico';
+  productClass: 'IIa' | 'IIb' | 'cosmetico' | 'veterinario';
   deviceType: string;
   format?: string;
   manufacturer: string;
   sku: string;
+  registration?: string;
 }
-const { productClass, deviceType, format, manufacturer, sku } = Astro.props;
+const { productClass, deviceType, format, manufacturer, sku, registration } = Astro.props;
 const lang = useTranslations(getLangFromUrl(Astro.url));
 
-const isCosmetic = productClass === 'cosmetico';
-const classLabel = isCosmetic
-  ? lang('product.cosmetic')
+const classLabel =
+  productClass === 'cosmetico' ? lang('product.cosmetic')
+  : productClass === 'veterinario' ? lang('product.veterinary')
   : `${lang('product.class')} ${productClass} — ${lang('product.medicalDevice')}`;
+const classKey = productClass === 'veterinario' ? lang('product.veterinary') : lang('product.class');
 
 const rows = [
-  { k: lang('product.class'), v: classLabel },
+  { k: classKey, v: classLabel },
   ...(format ? [{ k: 'Formato', v: format }] : []),
+  ...(registration ? [{ k: 'Registrazione', v: registration }] : []),
   { k: 'SKU', v: sku },
   { k: lang('footer.manufacturer'), v: manufacturer },
 ];

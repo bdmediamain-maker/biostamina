@@ -34,7 +34,7 @@ const products = (await getCollection('products', (p) => !p.data.draft)).sort((a
       })}
     </div>
 
-    <div class="mt-10 rounded-[--radius-card] bg-tint/50 border border-hairline p-6" data-reveal>
+    <div class="section-blue mt-10 rounded-[--radius-card] border p-6 md:p-8 shadow-soft" data-reveal>
       <h2 class="text-lg mb-2">{t('product.warnings')}</h2>
       <p class="text-sm text-muted leading-relaxed">{it
         ? 'Leggere sempre le avvertenze complete sulla scheda di ciascun prodotto e sul bugiardino. Non utilizzare in caso di ipersensibilità nota ai componenti. Tenere fuori dalla portata dei bambini.'

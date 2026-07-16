@@ -30,7 +30,9 @@ const org = orgSchema(aggregateRating());
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <title>{title}</title>
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
@@ -108,6 +110,47 @@ const org = orgSchema(aggregateRating());
           card.addEventListener('mouseleave', () => {
             gsap.to(card, { rotateX: 0, rotateY: 0, duration: 0.4, ease: 'power2.out' });
           });
+        });
+      }
+
+      // Split-text: titoli di sezione (H2) animati lettera per lettera allo scroll
+      // (fade + slide-up + riduzione blur). Mai gli hero/titoli-pagina (che sono <h1>).
+      // Solo H2 di solo testo; guard reduced-motion; aria-label preserva l'accessibilità.
+      if (!reduce) {
+        const splitIO = new IntersectionObserver(
+          (entries, obs) => {
+            entries.forEach((e) => {
+              if (!e.isIntersecting) return;
+              gsap.to(e.target.querySelectorAll('.split-char'), {
+                opacity: 1,
+                yPercent: 0,
+                filter: 'blur(0px)',
+                duration: 0.5,
+                ease: 'power3.out',
+                stagger: 0.018,
+              });
+              obs.unobserve(e.target);
+            });
+          },
+          { rootMargin: '0px 0px -12% 0px' },
+        );
+        document.querySelectorAll<HTMLHeadingElement>('h2:not([data-split-done])').forEach((h) => {
+          if (h.children.length > 0) return; // salta titoli con markup interno
+          const text = h.textContent || '';
+          if (!text.trim()) return;
+          h.setAttribute('data-split-done', '');
+          h.setAttribute('aria-label', text);
+          const frag = document.createDocumentFragment();
+          for (const ch of text) {
+            if (ch === ' ') { frag.appendChild(document.createTextNode(' ')); continue; }
+            const s = document.createElement('span');
+            s.className = 'split-char';
+            s.textContent = ch;
+            frag.appendChild(s);
+          }
+          h.replaceChildren(frag);
+          gsap.set(h.querySelectorAll('.split-char'), { opacity: 0, yPercent: 45, filter: 'blur(6px)' });
+          splitIO.observe(h);
         });
       }
     </script>

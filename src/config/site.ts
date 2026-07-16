@@ -46,6 +46,7 @@ export const site = {
   formspree: {
     contatti: 'https://formspree.io/f/TODO_CONTATTI',
     professionisti: 'https://formspree.io/f/TODO_PRO',
+    notify: 'https://formspree.io/f/TODO_WAITLIST', // "Avvisami quando torna" (waitlist Anti-Age)
   },
 
   social: {
@@ -56,7 +57,7 @@ export const site = {
   },
 
   // Video in evidenza (canale @biostaminatv9809) → sezione "Dal nostro canale"
-  youtubeVideos: ['KZYcrj1j5Lg', 'hVrgRLGnq24'],
+  youtubeVideos: ['KZYcrj1j5Lg', 'hVrgRLGnq24', 'Wytl0gfMnUM'],
 
   // Recensioni reali → aggregateRating schema.org (biostamina.net + farmaciaigea.com)
   reviews: {

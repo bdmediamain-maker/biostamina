@@ -1,0 +1,106 @@
+---
+/**
+ * Caso clinico Dubai Camel Hospital — solo per la scheda Pet.
+ * Foto forti (ferite del cammello) sfocate per default; clic per rivelare
+ * (con conferma), rispetto per sensibilità pubblico. Foto contesto libere.
+ * Fonte: Brochure "Biostamina KFT 2017 – Supply of BioRigenera Pet for Dubai
+ * Veterinary Clinic of Sceik" (allegato cliente).
+ */
+import { Image } from 'astro:assets';
+import { getLangFromUrl } from '@/lib/i18n';
+import hospital from '@/assets/products/pet-caso-cammello-hospital.jpg';
+import team from '@/assets/products/pet-caso-cammello-team.jpg';
+import contesto from '@/assets/products/pet-caso-cammello-contesto.jpg';
+import med1 from '@/assets/products/pet-caso-cammello-med1-blur.jpg';
+import med2 from '@/assets/products/pet-caso-cammello-med2-blur.jpg';
+import med3 from '@/assets/products/pet-caso-cammello-med3-blur.jpg';
+import med4 from '@/assets/products/pet-caso-cammello-med4-blur.jpg';
+import guarigione from '@/assets/products/pet-caso-cammello-guarigione-blur.jpg';
+
+const lang = getLangFromUrl(Astro.url);
+const it = lang === 'it';
+
+const clinical = [
+  { img: med1, cap: it ? '1ª medicazione' : '1st dressing' },
+  { img: med2, cap: it ? '2ª medicazione' : '2nd dressing' },
+  { img: med3, cap: it ? '3ª medicazione' : '3rd dressing' },
+  { img: med4, cap: it ? '4ª medicazione' : '4th dressing' },
+  { img: guarigione, cap: it ? 'Guarigione dopo 30 giorni' : 'Healing after 30 days' },
+];
+---
+<section class="mt-16 not-prose" aria-labelledby="camel-h" data-reveal>
+  <p class="label-mono text-azure mb-2">{it ? 'Caso clinico · 2017' : 'Clinical case · 2017'}</p>
+  <h2 id="camel-h" class="text-2xl md:text-3xl mb-3">{it ? 'Dubai Camel Hospital' : 'Dubai Camel Hospital'}</h2>
+  <p class="text-ink/80 leading-relaxed max-w-3xl mb-2">{it
+    ? 'Nel 2017 Biostamina KFT ha fornito Bio RIGENERA® Pet al Dubai Camel Hospital, la clinica veterinaria dello Sceicco, per il trattamento di ferite lacero-contuse su cammelli. Ferita estesa trattata con 3 medicazioni a settimana; guarigione documentata a 30 giorni.'
+    : 'In 2017 Biostamina KFT supplied Bio RIGENERA® Pet to the Dubai Camel Hospital, the Sheikh’s veterinary clinic, for the treatment of lacerocontused wounds on camels. Extensive wound treated with 3 dressings per week; healing documented at 30 days.'}</p>
+  <p class="text-xs text-muted italic mb-6">{it
+    ? 'Le foto cliniche sono sfocate per sensibilità del pubblico e possono essere rivelate al clic. Materiale illustrativo di esperienze individuali — non costituisce garanzia di risultato.'
+    : 'Clinical photos are blurred out of respect for the audience and can be revealed on click. Illustrative material of individual experiences — does not constitute a guarantee of results.'}</p>
+
+  <!-- Foto contesto (libere) -->
+  <div class="grid gap-4 sm:grid-cols-3 mb-8">
+    <figure class="rounded-[--radius-card] overflow-hidden border border-hairline bg-surface">
+      <Image src={hospital} alt="Facciata del Dubai Camel Hospital" width={720} height={380} class="w-full h-auto" />
+      <figcaption class="px-3 py-2.5 text-xs text-muted">{it ? 'Dubai Camel Hospital' : 'Dubai Camel Hospital'}</figcaption>
+    </figure>
+    <figure class="rounded-[--radius-card] overflow-hidden border border-hairline bg-surface">
+      <Image src={team} alt="Team Biostamina con veterinari del Dubai Camel Hospital" width={720} height={420} class="w-full h-auto" />
+      <figcaption class="px-3 py-2.5 text-xs text-muted">{it ? 'Team Biostamina + veterinari (Dubai, 2017)' : 'Biostamina team + vets (Dubai, 2017)'}</figcaption>
+    </figure>
+    <figure class="rounded-[--radius-card] overflow-hidden border border-hairline bg-surface">
+      <Image src={contesto} alt="Cammello alla clinica veterinaria di Dubai" width={720} height={480} class="w-full h-auto" />
+      <figcaption class="px-3 py-2.5 text-xs text-muted">{it ? 'Cammello alla clinica' : 'Camel at the clinic'}</figcaption>
+    </figure>
+  </div>
+
+  <!-- Progressione clinica (sfocata; clic per rivelare) -->
+  <h3 class="text-lg mb-3">{it ? 'Progressione della medicazione' : 'Dressing progression'}</h3>
+  <p class="text-xs text-muted mb-4">{it ? '3 medicazioni a settimana. Fai clic su una foto per rivelarla (contenuto forte).' : '3 dressings per week. Click a photo to reveal it (strong content).'}</p>
+  <div class="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+    {clinical.map((c) => (
+      <figure class="clinical-photo rounded-[--radius-card] overflow-hidden border border-hairline bg-surface">
+        <button
+          type="button"
+          class="reveal-btn relative block w-full aspect-square focus:outline-none focus-visible:ring-2 focus-visible:ring-primary group"
+          aria-label={it ? `Rivela: ${c.cap}` : `Reveal: ${c.cap}`}
+        >
+          <span class="clinical-blur block absolute inset-0" style="filter: blur(2px);">
+            <Image src={c.img} alt={c.cap} width={480} height={480} class="w-full h-full object-cover" />
+          </span>
+          <span class="absolute inset-0 grid place-items-center bg-ink/40 text-white text-xs font-medium tracking-wide transition-opacity group-hover:bg-ink/30 hint-overlay">
+            {it ? 'Clic per rivelare' : 'Click to reveal'}
+          </span>
+        </button>
+        <figcaption class="px-3 py-2.5 text-xs text-muted">{c.cap}</figcaption>
+      </figure>
+    ))}
+  </div>
+
+  <p class="mt-6 text-xs text-muted italic">{it
+    ? 'Fonte: brochure Biostamina KFT — Dubai Camel Hospital (2017).'
+    : 'Source: Biostamina KFT brochure — Dubai Camel Hospital (2017).'}</p>
+</section>
+
+<style is:global>
+  .clinical-photo.revealed .hint-overlay { opacity: 0; pointer-events: none; }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.clinical-photo .reveal-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const fig = btn.closest('.clinical-photo') as HTMLElement | null;
+      if (!fig) return;
+      const revealed = fig.classList.toggle('revealed');
+      const img = fig.querySelector<HTMLImageElement>('.clinical-img');
+      const overlay = fig.querySelector<HTMLElement>('.hint-overlay');
+      const wrapper = fig.querySelector<HTMLElement>('.clinical-blur');
+      if (wrapper) {
+        // rimuovi filter completamente al reveal (più affidabile del blur(0))
+        if (revealed) wrapper.style.removeProperty('filter');
+        else wrapper.style.filter = 'blur(2px)';
+      }
+      if (overlay) overlay.style.opacity = revealed ? '0' : '';
+    });
+  });
+</script>

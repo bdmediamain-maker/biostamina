@@ -123,6 +123,46 @@ html.lenis, html.lenis body { height: auto; }
 }
 .skip-link:focus { left: 0; }
 
+/* ============================================================
+   Sezione a sfondo BLU pieno — testo/bordi/superfici invertiti in bianco.
+   Uso: <section class="section-blue …"> su 1 sezione "statement" per pagina.
+   ============================================================ */
+.section-blue {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+.section-blue :is(h1, h2, h3, h4, h5, p, li, dt, dd, blockquote, figcaption, summary, strong, em, a) {
+  color: #fff;
+}
+/* Testo secondario → bianco attenuato */
+.section-blue [class*="text-muted"],
+.section-blue [class*="text-ink"],
+.section-blue .prose-clinical p,
+.section-blue .prose-clinical li {
+  color: rgba(255, 255, 255, 0.78);
+}
+/* Accenti (azure / primary) su blu → bianco */
+.section-blue [class*="text-azure"],
+.section-blue [class*="text-primary"] {
+  color: rgba(255, 255, 255, 0.92);
+}
+.section-blue .prose-clinical a {
+  color: #fff;
+  text-decoration-color: rgba(255, 255, 255, 0.5);
+}
+/* Bordi e superfici interne */
+.section-blue [class*="border-hairline"] { border-color: rgba(255, 255, 255, 0.22); }
+.section-blue [class*="bg-surface"],
+.section-blue [class*="bg-tint"] { background-color: rgba(255, 255, 255, 0.08); }
+.section-blue [class*="bg-primary/10"] { background-color: rgba(255, 255, 255, 0.15); }
+
+/* Split-text: singola lettera animata (fade + slide + blur) sui titoli H2 di sezione */
+.split-char {
+  display: inline-block;
+  will-change: transform, filter, opacity;
+}
+
 /* Ombre morbide condivise */
 .shadow-soft  { box-shadow: 0 10px 40px -14px rgba(20, 25, 43, 0.14); }
 .shadow-float { box-shadow: 0 30px 70px -22px rgba(20, 25, 43, 0.26); }

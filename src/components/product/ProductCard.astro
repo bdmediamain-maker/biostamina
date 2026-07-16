@@ -14,9 +14,11 @@ const d = product.data;
 const loc = d[lang];
 const href = localePath(lang, `prodotto/${product.id}`);
 const rating = ratingFor(product.id);
-const isCosmetic = d.class === 'cosmetico';
-const classBadge = isCosmetic ? t('product.cosmetic') : `${t('product.class')} ${d.class}`;
-const onSale = d.price != null && d.priceList != null && d.priceList > d.price;
+const classBadge =
+  d.class === 'cosmetico' ? t('product.cosmetic')
+  : d.class === 'veterinario' ? t('product.veterinary')
+  : `${t('product.class')} ${d.class}`;
+const onSale = !d.comingSoon && d.price != null && d.priceList != null && d.priceList > d.price;
 const fmt = (n: number) => new Intl.NumberFormat(lang === 'it' ? 'it-IT' : 'en-GB', { style: 'currency', currency: 'EUR' }).format(n);
 ---
 <a href={href} data-category={d.category} class="product-item group flex flex-col rounded-[--radius-card] border border-hairline bg-surface overflow-hidden hover:shadow-soft transition-shadow" data-reveal>
@@ -28,7 +30,9 @@ const fmt = (n: number) => new Intl.NumberFormat(lang === 'it' ? 'it-IT' : 'en-G
       <span class="font-display text-2xl text-primary/40">Bio RIGENERA®</span>
     )}
     <span class="absolute top-3 left-3 label-mono px-2 py-1 rounded-full bg-surface/90 border border-hairline text-primary">{classBadge}</span>
-    {onSale && (
+    {d.comingSoon ? (
+      <span class="absolute top-3 right-3 label-mono px-2 py-1 rounded-full bg-azure text-white normal-case tracking-normal">{t('product.comingSoon')}</span>
+    ) : onSale && (
       <span class="absolute top-3 right-3 label-mono px-2 py-1 rounded-full bg-azure text-white normal-case tracking-normal">{lang === 'it' ? 'In offerta' : 'On sale'}</span>
     )}
   </div>
