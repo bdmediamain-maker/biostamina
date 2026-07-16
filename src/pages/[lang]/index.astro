@@ -22,11 +22,11 @@ const t = useTranslations(lang);
 const products = (await getCollection('products', (p) => !p.data.draft)).sort((a, b) => a.data.order - b.data.order);
 
 const heroTitle = lang === 'it'
-  ? 'La rigenerazione tissutale e ossea, dalla molecola Prorigenera®.'
-  : 'Tissue and bone regeneration, from the Prorigenera® molecule.';
+  ? 'Rigenerazione tissutale e ossea, dalla molecola ProRigenera®.'
+  : 'Tissue and bone regeneration, from the ProRigenera® molecule.';
 const heroSub = lang === 'it'
-  ? 'Due linee nate dai nostri brevetti: i dispositivi medici CE all’ozono e la linea rigenerativa alle cellule staminali vegetali. Fabbricante Biostamina KFT · Made in Italy · testati Antropos (Lugano).'
-  : 'Two lines born from our patents: the CE ozone medical devices and the regenerative plant-stem-cell line. Manufactured by Biostamina KFT · Made in Italy · tested by Antropos (Lugano).';
+  ? 'Biostamina KFT è la proprietaria esclusiva dei brevetti della molecola ProRigenera®, un’innovazione sviluppata per favorire i processi di rigenerazione tissutale e ossea attraverso l’impiego di molecole di ozono.'
+  : 'Biostamina KFT is the exclusive owner of the patents for the ProRigenera® molecule, an innovation developed to support tissue and bone regeneration processes through the use of ozone molecules.';
 
 const problems = lang === 'it'
   ? [
@@ -47,7 +47,7 @@ const problems = lang === 'it'
       <div>
         <p class="label-mono text-primary mb-4" data-reveal>{lang === 'it' ? 'Made in Italy · Fabbricante Biostamina KFT' : 'Made in Italy · Manufactured by Biostamina KFT'}</p>
         <h1 class="text-4xl md:text-6xl leading-[1.05]" data-reveal>{heroTitle}</h1>
-        <p class="mt-6 text-lg text-muted max-w-xl leading-relaxed" data-reveal>{heroSub}</p>
+        <p class="mt-5 text-sm md:text-base text-muted max-w-xl leading-relaxed" data-reveal>{heroSub}</p>
         <div class="mt-8 flex flex-wrap gap-3" data-reveal>
           <NeonButton href={localePath(lang, 'negozio')} variant="solid">{t('cta.discover')} →</NeonButton>
           <NeonButton href={localePath(lang, 'certificazioni')} variant="default">{t('nav.certifications')}</NeonButton>

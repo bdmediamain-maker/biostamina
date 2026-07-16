@@ -28,6 +28,18 @@ export default defineConfig({
 
   vite: {
     plugins: [tailwindcss()],
+    // Proxy same-origin verso la Store API di WooCommerce (evita CORS in dev).
+    // In produzione lo stesso path /store-api è gestito dal rewrite in netlify.toml.
+    server: {
+      proxy: {
+        '/store-api': {
+          target: (process.env.PUBLIC_WOO_URL || 'https://biostamina.net') + '/wp-json/wc/store/v1',
+          changeOrigin: true,
+          secure: true,
+          rewrite: (p) => p.replace(/^\/store-api/, ''),
+        },
+      },
+    },
   },
 
   image: {

@@ -1,24 +1,45 @@
 ---
 /**
- * Bottone carrello. Woo headless: mostra il conteggio quando lo Store API
- * è configurato; oggi (stub) è un link neutro al negozio.
+ * Bottone carrello nell'header.
+ * Woo attivo → apre il drawer carrello (grafica sito nuovo) e mostra il
+ * conteggio live via evento `cart:updated`. Altrimenti link al negozio locale.
  */
-import { getLangFromUrl } from '@/lib/i18n';
-import { localePath } from '@/lib/i18n';
+import { getLangFromUrl, localePath } from '@/lib/i18n';
 import { wooEnabled } from '@/lib/woo';
 
 const lang = getLangFromUrl(Astro.url);
+const label = lang === 'it' ? 'Carrello' : 'Cart';
 ---
-<a
-  href={localePath(lang, 'negozio')}
-  class="relative inline-flex items-center justify-center w-10 h-10 rounded-full hover:bg-tint transition-colors"
-  aria-label="Carrello"
->
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
-    <circle cx="9" cy="20" r="1" /><circle cx="18" cy="20" r="1" />
-    <path d="M2 3h2l2.4 12.5a2 2 0 0 0 2 1.5h8.7a2 2 0 0 0 2-1.6L22 7H6" />
-  </svg>
-  {wooEnabled && (
-    <span data-cart-count class="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 rounded-full bg-primary text-white text-[11px] font-medium grid place-items-center">0</span>
-  )}
-</a>
+{wooEnabled ? (
+  <button
+    type="button"
+    data-cart-open
+    class="relative inline-flex items-center justify-center w-10 h-10 rounded-full hover:bg-tint transition-colors"
+    aria-label={label}
+  >
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+      <circle cx="9" cy="20" r="1" /><circle cx="18" cy="20" r="1" />
+      <path d="M2 3h2l2.4 12.5a2 2 0 0 0 2 1.5h8.7a2 2 0 0 0 2-1.6L22 7H6" />
+    </svg>
+    <span data-cart-count class="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 rounded-full bg-primary text-white text-[11px] font-medium grid place-items-center scale-0 transition-transform">0</span>
+  </button>
+) : (
+  <a href={localePath(lang, 'negozio')} class="relative inline-flex items-center justify-center w-10 h-10 rounded-full hover:bg-tint transition-colors" aria-label={label}>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+      <circle cx="9" cy="20" r="1" /><circle cx="18" cy="20" r="1" />
+      <path d="M2 3h2l2.4 12.5a2 2 0 0 0 2 1.5h8.7a2 2 0 0 0 2-1.6L22 7H6" />
+    </svg>
+  </a>
+)}
+
+<script>
+  import { openCart, type Cart } from '@/lib/cart';
+  document.querySelectorAll('[data-cart-open]').forEach((b) => b.addEventListener('click', openCart));
+  window.addEventListener('cart:updated', (e) => {
+    const n = (e as CustomEvent<Cart>).detail?.items_count ?? 0;
+    document.querySelectorAll<HTMLElement>('[data-cart-count]').forEach((el) => {
+      el.textContent = String(n);
+      el.style.transform = n > 0 ? 'scale(1)' : 'scale(0)';
+    });
+  });
+</script>

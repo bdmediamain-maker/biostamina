@@ -12,6 +12,7 @@ priceList: 60.00
 inStock: true
 featured: false
 order: 4
+wooId: 238
 draft: false
 heroImage: ../../assets/products/pet-01.jpg
 images:

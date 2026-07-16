@@ -3,7 +3,9 @@ import '@/styles/global.css';
 import { getLangFromUrl, useTranslations } from '@/lib/i18n';
 import { canonical, alternates, orgSchema } from '@/lib/seo';
 import { aggregateRating } from '@/data/reviews';
+import Analytics from '@/components/Analytics.astro';
 import Header from '@/components/nav/Header.astro';
+import CartDrawer from '@/components/cart/CartDrawer.astro';
 import Footer from '@/components/layout/Footer.astro';
 import WhatsAppFab from '@/components/layout/WhatsAppFab.astro';
 import AssistantSlot from '@/components/layout/AssistantSlot.astro';
@@ -51,6 +53,9 @@ const org = orgSchema(aggregateRating());
     <link rel="sitemap" href="/sitemap-index.xml" />
     <script type="application/ld+json" set:html={JSON.stringify(org)} />
     {jsonLd.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
+
+    <!-- Consenso (Iubenda) + Analytics (GA4 + Google Ads) — solo in produzione -->
+    <Analytics />
   </head>
   <body>
     <a href="#main" class="skip-link">{t('skip')}</a>
@@ -61,6 +66,7 @@ const org = orgSchema(aggregateRating());
     <Footer />
     <WhatsAppFab />
     <AssistantSlot />
+    <CartDrawer />
 
     <!-- Lenis smooth scroll + GSAP reveal (rispetta reduced-motion) -->
     <script>

@@ -1,6 +1,6 @@
 ---
 sku: "cicatren-o3"
-wooId: 0
+wooId: 136
 line: "dispositivi-medici"
 class: "IIb"
 deviceType: "dispositivo-medico"

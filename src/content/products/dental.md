@@ -1,6 +1,6 @@
 ---
 sku: "dental-o3-25ml"
-wooId: 0
+wooId: 137
 line: "dispositivi-medici"
 class: "IIa"
 deviceType: "dispositivo-medico"

@@ -1,6 +1,6 @@
 ---
 sku: "dermal-o3"
-wooId: 0
+wooId: 138
 line: "dispositivi-medici"
 class: "IIb"
 deviceType: "dispositivo-medico"

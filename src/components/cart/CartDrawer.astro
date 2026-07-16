@@ -1,0 +1,173 @@
+---
+/**
+ * Drawer carrello — pannello laterale con la grafica del sito nuovo.
+ * Legge/scrive sul carrello WooCommerce via Store API (lib/cart.ts).
+ * Presente su ogni pagina (incluso in BaseLayout). Il checkout è Fase 2.
+ */
+import { getLangFromUrl } from '@/lib/i18n';
+import { wooEnabled, checkoutUrl } from '@/lib/woo';
+
+const lang = getLangFromUrl(Astro.url);
+const it = lang === 'it';
+const co = checkoutUrl();
+---
+{wooEnabled && (
+  <div id="cart-drawer" class="fixed inset-0 z-[70] pointer-events-none" aria-hidden="true">
+    <!-- backdrop -->
+    <div data-cart-backdrop class="absolute inset-0 bg-ink/40"></div>
+
+    <!-- pannello -->
+    <aside
+      class="absolute top-0 right-0 h-full w-full max-w-md bg-paper shadow-2xl flex flex-col"
+      role="dialog"
+      aria-modal="true"
+      aria-label={it ? 'Carrello' : 'Cart'}
+      data-cart-panel
+    >
+      <header class="flex items-center justify-between px-5 py-4 border-b border-hairline">
+        <h2 class="text-lg font-display">{it ? 'Il tuo carrello' : 'Your cart'}</h2>
+        <button type="button" data-cart-close class="w-9 h-9 grid place-items-center rounded-full hover:bg-tint transition" aria-label={it ? 'Chiudi' : 'Close'}>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </header>
+
+      <!-- stato vuoto -->
+      <div data-cart-empty class="flex-1 grid place-items-center px-6 text-center">
+        <div>
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" class="mx-auto mb-4 text-muted"><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M2 3h2l2.4 12.5a2 2 0 0 0 2 1.5h8.7a2 2 0 0 0 2-1.6L22 7H6"/></svg>
+          <p class="text-muted">{it ? 'Il carrello è vuoto.' : 'Your cart is empty.'}</p>
+        </div>
+      </div>
+
+      <!-- lista articoli -->
+      <ul data-cart-items class="flex-1 overflow-y-auto px-5 py-4 space-y-4 hidden"></ul>
+
+      <!-- footer totali -->
+      <footer data-cart-footer class="border-t border-hairline px-5 py-4 hidden">
+        <div class="flex items-center justify-between mb-1">
+          <span class="text-muted text-sm">{it ? 'Subtotale' : 'Subtotal'}</span>
+          <span data-cart-subtotal class="text-lg font-medium">—</span>
+        </div>
+        <p class="text-xs text-muted mb-4">{it ? 'Spedizione e tasse calcolate al checkout.' : 'Shipping and taxes calculated at checkout.'}</p>
+        <a href={co} data-cart-checkout class="block w-full text-center rounded-full bg-primary text-white px-6 py-3.5 text-sm font-medium hover:bg-primary-dark transition">
+          {it ? 'Procedi al checkout' : 'Proceed to checkout'} →
+        </a>
+        <button type="button" data-cart-close class="block w-full text-center mt-2 text-sm text-azure hover:underline">
+          {it ? 'Continua gli acquisti' : 'Continue shopping'}
+        </button>
+      </footer>
+    </aside>
+  </div>
+)}
+
+<style is:global>
+  /* Posizione e opacità guidate da aria-hidden (transform controllato da noi,
+     niente conflitto con l'utility Tailwind translate-x-full). */
+  #cart-drawer [data-cart-panel] { transform: translateX(100%); transition: transform .3s ease; }
+  #cart-drawer[aria-hidden="false"] [data-cart-panel] { transform: translateX(0); }
+  #cart-drawer [data-cart-backdrop] { opacity: 0; transition: opacity .3s ease; }
+  #cart-drawer[aria-hidden="false"] [data-cart-backdrop] { opacity: 1; }
+</style>
+
+<script>
+  import { cartApi, formatMoney, addMinor, type Cart } from '@/lib/cart';
+
+  const drawer = document.getElementById('cart-drawer');
+  if (drawer) {
+    const backdrop = drawer.querySelector<HTMLElement>('[data-cart-backdrop]')!;
+    const panel = drawer.querySelector<HTMLElement>('[data-cart-panel]')!;
+    const empty = drawer.querySelector<HTMLElement>('[data-cart-empty]')!;
+    const list = drawer.querySelector<HTMLUListElement>('[data-cart-items]')!;
+    const footer = drawer.querySelector<HTMLElement>('[data-cart-footer]')!;
+    const subtotal = drawer.querySelector<HTMLElement>('[data-cart-subtotal]')!;
+
+    // NB: Tailwind v4 usa la proprietà CSS `translate` (non `transform`) per
+    // translate-x-full → il pannello si muove impostando panel.style.translate.
+    // Stato iniziale + transizione sono in CSS; qui impostiamo transform/opacity
+    // inline (garantito, non dipende dal ricalcolo stile al cambio attributo).
+    const open = () => {
+      drawer.style.pointerEvents = 'auto';
+      drawer.setAttribute('aria-hidden', 'false');
+      panel.style.transform = 'translateX(0)';
+      backdrop.style.opacity = '1';
+      document.documentElement.style.overflow = 'hidden';
+    };
+    const close = () => {
+      drawer.setAttribute('aria-hidden', 'true');
+      panel.style.transform = 'translateX(100%)';
+      backdrop.style.opacity = '0';
+      document.documentElement.style.overflow = '';
+      setTimeout(() => { drawer.style.pointerEvents = 'none'; }, 300);
+    };
+
+    window.addEventListener('cart:open', open);
+    backdrop.addEventListener('click', close);
+    drawer.querySelectorAll('[data-cart-close]').forEach((b) => b.addEventListener('click', close));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+
+    function render(cart: Cart) {
+      const items = cart.items || [];
+      if (!items.length) {
+        empty.classList.remove('hidden');
+        list.classList.add('hidden');
+        footer.classList.add('hidden');
+        return;
+      }
+      empty.classList.add('hidden');
+      list.classList.remove('hidden');
+      footer.classList.remove('hidden');
+
+      list.innerHTML = items.map((i) => {
+        const img = i.images?.[0]?.thumbnail || i.images?.[0]?.src || '';
+        const line = formatMoney(addMinor(i.totals.line_total, i.totals.line_total_tax), i.totals.currency_minor_unit, i.totals.currency_code);
+        return `
+          <li class="flex gap-3" data-key="${i.key}">
+            <div class="w-16 h-16 rounded-lg border border-hairline bg-surface overflow-hidden shrink-0">
+              ${img ? `<img src="${img}" alt="" class="w-full h-full object-cover"/>` : ''}
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-medium leading-snug line-clamp-2">${i.name}</p>
+              <div class="flex items-center justify-between mt-2">
+                <div class="inline-flex items-center border border-hairline rounded-full">
+                  <button type="button" data-qty-dec class="w-7 h-7 grid place-items-center text-muted hover:text-ink" aria-label="−">−</button>
+                  <span class="w-7 text-center text-sm">${i.quantity}</span>
+                  <button type="button" data-qty-inc class="w-7 h-7 grid place-items-center text-muted hover:text-ink" aria-label="+">+</button>
+                </div>
+                <span class="text-sm font-medium">${line}</span>
+              </div>
+            </div>
+            <button type="button" data-remove class="self-start text-muted hover:text-danger" aria-label="Rimuovi">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 6 6 18M6 6l12 12"/></svg>
+            </button>
+          </li>`;
+      }).join('');
+
+      subtotal.textContent = formatMoney(addMinor(cart.totals.total_items, cart.totals.total_items_tax), cart.totals.currency_minor_unit, cart.totals.currency_code);
+    }
+
+    // Delegazione eventi: +/- e rimozione
+    list.addEventListener('click', async (e) => {
+      const btn = (e.target as HTMLElement).closest('button');
+      if (!btn) return;
+      const li = btn.closest<HTMLElement>('[data-key]');
+      if (!li) return;
+      const key = li.dataset.key!;
+      const qtyEl = li.querySelector('span.w-7');
+      const current = parseInt(qtyEl?.textContent || '1', 10);
+      li.style.opacity = '0.5';
+      try {
+        if (btn.hasAttribute('data-remove')) await cartApi.remove(key);
+        else if (btn.hasAttribute('data-qty-inc')) await cartApi.setQty(key, current + 1);
+        else if (btn.hasAttribute('data-qty-dec')) {
+          if (current <= 1) await cartApi.remove(key);
+          else await cartApi.setQty(key, current - 1);
+        }
+      } catch { li.style.opacity = '1'; }
+    });
+
+    window.addEventListener('cart:updated', (e) => render((e as CustomEvent<Cart>).detail));
+
+    // idrata all'avvio
+    cartApi.get().catch(() => {});
+  }
+</script>

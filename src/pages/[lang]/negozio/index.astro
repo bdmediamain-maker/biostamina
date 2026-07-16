@@ -15,23 +15,23 @@ const products = (await getCollection('products', (p) => !p.data.draft)).sort((a
 // categorie presenti (per il filtro)
 const categories = [...new Set(products.map((p) => p.data.category))];
 
-// Due linee dalla molecola Prorigenera (addendum 2 §2)
+// Due linee dalla molecola ProRigenera (addendum 2 §2)
 const it = lang === 'it';
 const groups = [
   {
     line: 'dispositivi-medici',
-    title: t('line.devices'),
+    title: 'BioRigenera® Medical',
     desc: it
-      ? 'Dispositivi medici CE registrati al Ministero della Salute, per il trattamento coadiuvante di lesioni difficili di cute e mucosa.'
-      : 'CE medical devices registered with the Ministry of Health, as an adjunct in the treatment of difficult skin and mucosal lesions.',
+      ? 'Dispositivi Medici medicamentosi biorigeneranti e bioriparatori a base di molecole di ozono e oli essenziali, notificati al Ministero della Salute Italiano, studiati per supportare i fisiologici processi di riparazione dei tessuti.'
+      : 'Medicated medical devices, bio-regenerating and bio-repairing, based on ozone molecules and essential oils, notified to the Italian Ministry of Health, designed to support the physiological tissue-repair processes.',
     items: products.filter((p) => p.data.line === 'dispositivi-medici'),
   },
   {
     line: 'stem-cells',
     title: t('line.stemCells'),
     desc: it
-      ? 'Linea rigenerativa alle cellule staminali vegetali (brevetti Prorigenera): cosmetica anti-age e veterinario professionale.'
-      : 'Regenerative line with plant stem cells (Prorigenera patents): anti-age cosmetics and professional veterinary.',
+      ? 'Linea rigenerativa alle cellule staminali vegetali (brevetti ProRigenera): cosmetica anti-age e veterinario professionale.'
+      : 'Regenerative line with plant stem cells (ProRigenera patents): anti-age cosmetics and professional veterinary.',
     items: products.filter((p) => p.data.line === 'stem-cells'),
   },
 ].filter((g) => g.items.length > 0);
@@ -43,7 +43,7 @@ const groups = [
       <span class="mx-1.5">/</span><span class="text-ink/70">{t('nav.shop')}</span>
     </nav>
     <h1 class="text-4xl md:text-5xl mb-3">{t('nav.shop')}</h1>
-    <p class="text-muted max-w-2xl mb-6">{it ? 'Due linee nate dalla molecola brevettata Prorigenera: i dispositivi medici all’ozono e la linea rigenerativa alle cellule staminali.' : 'Two lines born from the patented Prorigenera molecule: the ozone medical devices and the regenerative stem-cell line.'}</p>
+    <p class="text-muted max-w-2xl mb-6">{it ? 'Due linee nate dalla molecola brevettata ProRigenera: i dispositivi medici all’ozono e la linea rigenerativa alle cellule staminali.' : 'Two lines born from the patented ProRigenera molecule: the ozone medical devices and the regenerative stem-cell line.'}</p>
 
     <div class="flex flex-wrap gap-2 mb-10" role="group" aria-label="Filtro categorie">
       <button type="button" class="cat-btn label-mono px-3 py-1.5 rounded-full" data-filter="all" aria-pressed="true">{it ? 'Tutti' : 'All'}</button>

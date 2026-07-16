@@ -12,6 +12,7 @@ inStock: false
 comingSoon: true                 # "Presto disponibile" — produzione in corso (addendum 3 §2)
 featured: false
 order: 6
+wooId: 139
 draft: false
 heroImage: ../../assets/products/antiage-01.jpg
 images:
@@ -20,12 +21,12 @@ inci: []                          # ⚠️ scheda ufficiale del 2° anti-age anc
 it:
   name: "Bio RIGENERA® Dermocosmetico Anti-Age Siero Strong 25 ml"
   description: |
-    Siero dermocosmetico anti-age della linea rigenerativa Biostamina alle cellule staminali vegetali (brevetti Prorigenera). Prodotto cosmetico: migliora l'aspetto della pelle, la aiuta a mantenersi compatta e luminosa, senza finalità terapeutiche. In produzione: la scheda ingredienti (INCI) e la copy ufficiale complete saranno pubblicate al ritorno del prodotto.
+    Siero dermocosmetico anti-age della linea rigenerativa Biostamina alle cellule staminali vegetali (brevetti ProRigenera). Prodotto cosmetico: migliora l'aspetto della pelle, la aiuta a mantenersi compatta e luminosa, senza finalità terapeutiche. In produzione: la scheda ingredienti (INCI) e la copy ufficiale complete saranno pubblicate al ritorno del prodotto.
   indications: []
 en:
   name: "Bio RIGENERA® Dermocosmetic Anti-Age Strong Serum 25 ml"
   description: |
-    Anti-age dermocosmetic serum from Biostamina's regenerative plant-stem-cell line (Prorigenera patents). Cosmetic product: it improves the appearance of the skin, helping it stay firm and radiant, with no therapeutic purpose. In production: the full ingredient list (INCI) and official copy will be published when the product returns.
+    Anti-age dermocosmetic serum from Biostamina's regenerative plant-stem-cell line (ProRigenera patents). Cosmetic product: it improves the appearance of the skin, helping it stay firm and radiant, with no therapeutic purpose. In production: the full ingredient list (INCI) and official copy will be published when the product returns.
   indications: []
 ---
 

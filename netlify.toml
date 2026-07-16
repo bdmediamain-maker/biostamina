@@ -8,6 +8,17 @@
   NODE_VERSION = "20"
 
 # ------------------------------------------------------------------
+# Proxy same-origin → WooCommerce Store API (carrello headless, niente CORS).
+# ⚙️ Alla migrazione, quando Woo passerà su un sottodominio, aggiornare l'URL
+#    di destinazione (es. https://shop.biostamina.net/wp-json/wc/store/v1/:splat).
+# ------------------------------------------------------------------
+[[redirects]]
+  from = "/store-api/*"
+  to = "https://biostamina.net/wp-json/wc/store/v1/:splat"
+  status = 200
+  force = true
+
+# ------------------------------------------------------------------
 # Root "/" → lingua: EN se il browser è inglese, altrimenti IT.
 # force = true così bypassa /index.html (meta-refresh di fallback).
 # ------------------------------------------------------------------

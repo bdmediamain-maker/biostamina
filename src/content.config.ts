@@ -23,7 +23,7 @@ const products = defineCollection({
     z.object({
       sku: z.string(),
       wooId: z.number().default(0), // ← da WooCommerce (0 = non ancora mappato)
-      // Due linee dalla molecola Prorigenera (addendum 2 §2)
+      // Due linee dalla molecola ProRigenera (addendum 2 §2)
       line: z.enum(['dispositivi-medici', 'stem-cells']).default('dispositivi-medici'),
       class: z.enum(['IIa', 'IIb', 'cosmetico', 'veterinario']).describe('Classe DM, cosmetico o veterinario'),
       deviceType: z.enum(['dispositivo-medico', 'cosmetico', 'veterinario']).default('dispositivo-medico'),
