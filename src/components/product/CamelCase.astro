@@ -65,7 +65,7 @@ const clinical = [
           class="reveal-btn relative block w-full aspect-square focus:outline-none focus-visible:ring-2 focus-visible:ring-primary group"
           aria-label={it ? `Rivela: ${c.cap}` : `Reveal: ${c.cap}`}
         >
-          <span class="clinical-blur block absolute inset-0" style="filter: blur(2px);">
+          <span class="clinical-blur block absolute inset-0" style="filter: blur(20px);">
             <Image src={c.img} alt={c.cap} width={480} height={480} class="w-full h-full object-cover" />
           </span>
           <span class="absolute inset-0 grid place-items-center bg-ink/40 text-white text-xs font-medium tracking-wide transition-opacity group-hover:bg-ink/30 hint-overlay">
@@ -98,7 +98,7 @@ const clinical = [
       if (wrapper) {
         // rimuovi filter completamente al reveal (più affidabile del blur(0))
         if (revealed) wrapper.style.removeProperty('filter');
-        else wrapper.style.filter = 'blur(2px)';
+        else wrapper.style.filter = 'blur(20px)';
       }
       if (overlay) overlay.style.opacity = revealed ? '0' : '';
     });
