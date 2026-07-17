@@ -22,8 +22,17 @@ export const ui = {
     'cta.cart': 'Aggiungi al carrello',
     'cta.whatsapp': 'Chiedi info su WhatsApp',
     'cta.discover': 'Scopri la linea',
+    'cta.certifications': 'Le certificazioni',
     'cta.viewProduct': 'Vedi prodotto',
     'cta.allProducts': 'Tutti i prodotti',
+    // HOME — hero product-forward: prima i prodotti, poi le attestazioni.
+    // ⚠️ COMPLIANCE: nessun riferimento a "rigenerazione ossea" nell'H1 (non è
+    // tra le indicazioni registrate). L'ossea resta solo nel badge brevetti.
+    'hero.eyebrow': 'BIO RIGENERA® · DALLA RICERCA BIOSTAMINA',
+    'hero.title': 'Dalla nostra ricerca, i prodotti per la rigenerazione dei tessuti.',
+    'hero.sub':
+      'Bio RIGENERA®: dispositivi medici fitoterapici e trattamenti rigenerativi, dalle piante officinali arricchite con ozono e cellule staminali vegetali.',
+    'home.productsHeading': 'I nostri prodotti — la linea Bio RIGENERA®',
     'product.class': 'Classe',
     'product.medicalDevice': 'Dispositivo medico CE',
     'product.cosmetic': 'Cosmetico',
@@ -50,10 +59,18 @@ export const ui = {
     'reviews.professional': 'Professionista',
     'reviews.disclaimer':
       'Le esperienze riportate sono individuali e non costituiscono garanzia di risultato.',
-    'trust.ministry': 'Notificato al Ministero della Salute',
-    'trust.antropos': 'Test Antropos · Lugano',
-    'trust.ce': 'Marcatura CE',
+    // Fascia attestazioni (home, sotto i prodotti + /certificazioni).
+    // ⚠️ "rigenerazione tissutale e ossea" compare SOLO qui, come oggetto dei
+    // brevetti dell'azienda — mai come ciò che il prodotto fa.
+    'trust.patents': 'Brevetti ProRigenera® (rigenerazione tissutale e ossea)',
+    'trust.ce': 'Dispositivi medici CE (classe IIa/IIb)',
+    'trust.ministry': 'Notificati al Ministero della Salute',
+    'trust.antropos': 'Testato da «Antropos», Lugano',
     'trust.manufacturer': 'Fabbricante Biostamina KFT',
+    // ⚠️ COMPLIANCE: CE/classe valgono solo per i dispositivi medici, non per
+    // Pet (veterinario) né per gli anti-age (cosmetici).
+    'trust.note':
+      'La marcatura CE e la classe si riferiscono ai soli dispositivi medici (Dental IIa; Cicatren e Dermal IIb). Pet: prodotto veterinario professionale. Anti-age: prodotti cosmetici.',
     'footer.manufacturer': 'Fabbricante',
     'footer.seller': 'Venditore',
     'footer.legal': 'Note legali',
@@ -76,9 +93,16 @@ export const ui = {
     'nav.contact': 'Contact',
     'cta.cart': 'Add to cart',
     'cta.whatsapp': 'Ask for info on WhatsApp',
-    'cta.discover': 'Discover the range',
+    'cta.discover': 'Explore the line',
+    'cta.certifications': 'Certifications',
     'cta.viewProduct': 'View product',
     'cta.allProducts': 'All products',
+    // HOME — product-forward hero (no "bone regeneration" claim in the H1).
+    'hero.eyebrow': 'BIO RIGENERA® · FROM BIOSTAMINA RESEARCH',
+    'hero.title': 'From our research, products for tissue regeneration.',
+    'hero.sub':
+      'Bio RIGENERA®: phytotherapeutic medical devices and regenerative treatments, made from officinal plants enriched with ozone and vegetable stem cells.',
+    'home.productsHeading': 'Our products — the Bio RIGENERA® line',
     'product.class': 'Class',
     'product.medicalDevice': 'CE medical device',
     'product.cosmetic': 'Cosmetic',
@@ -105,10 +129,15 @@ export const ui = {
     'reviews.professional': 'Professional',
     'reviews.disclaimer':
       'Individual experiences reported here do not constitute a guarantee of results.',
-    'trust.ministry': 'Notified to the Ministry of Health',
-    'trust.antropos': 'Antropos test · Lugano',
-    'trust.ce': 'CE marking',
+    // Attestations band — "tissue and bone regeneration" appears ONLY here, as
+    // the object of the company's patents, never as a product claim.
+    'trust.patents': 'ProRigenera® patents (tissue and bone regeneration)',
+    'trust.ce': 'CE medical devices (Class IIa/IIb)',
+    'trust.ministry': 'Notified to the Italian Ministry of Health',
+    'trust.antropos': 'Tested by “Antropos”, Lugano',
     'trust.manufacturer': 'Manufacturer Biostamina KFT',
+    'trust.note':
+      'CE marking and class refer only to the medical devices (Dental IIa; Cicatren and Dermal IIb). Pet: professional veterinary product. Anti-age: cosmetic products.',
     'footer.manufacturer': 'Manufacturer',
     'footer.seller': 'Seller',
     'footer.legal': 'Legal',

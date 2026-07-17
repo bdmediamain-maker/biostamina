@@ -21,12 +21,13 @@ const t = useTranslations(lang);
 
 const products = (await getCollection('products', (p) => !p.data.draft)).sort((a, b) => a.data.order - b.data.order);
 
-const heroTitle = lang === 'it'
-  ? 'Rigenerazione tissutale e ossea, dalla molecola ProRigenera®.'
-  : 'Tissue and bone regeneration, from the ProRigenera® molecule.';
-const heroSub = lang === 'it'
-  ? 'Biostamina KFT è la proprietaria esclusiva dei brevetti della molecola ProRigenera®, un’innovazione sviluppata per favorire i processi di rigenerazione tissutale e ossea attraverso l’impiego di molecole di ozono.'
-  : 'Biostamina KFT is the exclusive owner of the patents for the ProRigenera® molecule, an innovation developed to support tissue and bone regeneration processes through the use of ozone molecules.';
+// Hero product-forward: prima i prodotti ("dalla nostra ricerca"), poi le
+// attestazioni come conferma (fascia TrustRow sotto la griglia prodotti).
+// ⚠️ COMPLIANCE: l'H1 parla di "rigenerazione dei tessuti" — NIENTE "ossea":
+// non è tra le indicazioni registrate, quindi come claim pubblico non è
+// sostenibile. L'ossea resta solo nel badge brevetti (proprietà brevettuale).
+const heroTitle = t('hero.title');
+const heroSub = t('hero.sub');
 
 const problems = lang === 'it'
   ? [
@@ -45,12 +46,12 @@ const problems = lang === 'it'
   <section class="relative overflow-hidden">
     <div class="mx-auto max-w-7xl px-5 pt-16 pb-20 md:pt-24 md:pb-28 grid lg:grid-cols-[1fr_1.15fr] gap-12 items-center">
       <div>
-        <p class="label-mono text-primary mb-4" data-reveal>{lang === 'it' ? 'Made in Italy · Fabbricante Biostamina KFT' : 'Made in Italy · Manufactured by Biostamina KFT'}</p>
+        <p class="label-mono text-primary mb-4" data-reveal>{t('hero.eyebrow')}</p>
         <h1 class="text-4xl md:text-6xl leading-[1.05]" data-reveal>{heroTitle}</h1>
         <p class="mt-5 text-sm md:text-base text-muted max-w-xl leading-relaxed" data-reveal>{heroSub}</p>
         <div class="mt-8 flex flex-wrap gap-3" data-reveal>
           <NeonButton href={localePath(lang, 'negozio')} variant="solid">{t('cta.discover')} →</NeonButton>
-          <NeonButton href={localePath(lang, 'certificazioni')} variant="default">{t('nav.certifications')}</NeonButton>
+          <NeonButton href={localePath(lang, 'certificazioni')} variant="default">{t('cta.certifications')}</NeonButton>
         </div>
       </div>
       <div class="relative rounded-[--radius-card] bg-surface border border-hairline shadow-soft overflow-hidden" data-reveal>
@@ -66,7 +67,18 @@ const problems = lang === 'it'
     </div>
   </section>
 
-  <!-- TRUST -->
+  <!-- PRODUCT GRID — subito sotto l'hero: prima i prodotti ("i nostri") -->
+  <section class="mx-auto max-w-7xl px-5 pt-4 pb-16">
+    <div class="flex items-end justify-between gap-4 mb-8">
+      <h2 class="text-3xl md:text-4xl" data-reveal>{t('home.productsHeading')}</h2>
+      <a href={localePath(lang, 'negozio')} class="text-sm text-azure hover:underline shrink-0" data-reveal>{t('cta.allProducts')} →</a>
+    </div>
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {products.map((p) => <ProductCard product={p} />)}
+    </div>
+  </section>
+
+  <!-- ATTESTAZIONI — DOPO i prodotti: prima li mostriamo, poi le prove -->
   <section class="mx-auto max-w-7xl px-5 pb-16">
     <TrustRow />
   </section>
@@ -81,17 +93,6 @@ const problems = lang === 'it'
           ? 'Le proprietà dei semi di pompelmo e dell’ozono svolgono un’azione antibatterica e contribuiscono ad una veloce e corretta rigenerazione del tessuto epiteliale.'
           : 'The properties of grapefruit seeds and ozone perform an antibacterial action and contribute to a fast and correct regeneration of the epithelial tissue.'}
       </blockquote>
-    </div>
-  </section>
-
-  <!-- PRODUCT GRID -->
-  <section class="mx-auto max-w-7xl px-5 py-16">
-    <div class="flex items-end justify-between gap-4 mb-8">
-      <h2 class="text-3xl md:text-4xl" data-reveal>{t('nav.products')}</h2>
-      <a href={localePath(lang, 'negozio')} class="text-sm text-azure hover:underline shrink-0" data-reveal>{t('cta.allProducts')} →</a>
-    </div>
-    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {products.map((p) => <ProductCard product={p} />)}
     </div>
   </section>
 

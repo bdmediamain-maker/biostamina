@@ -1,4 +1,16 @@
 ---
+/**
+ * Fascia attestazioni — usata in home (SOTTO la griglia prodotti: prima i
+ * prodotti, poi le prove) e in /certificazioni.
+ *
+ * ⚠️ COMPLIANCE:
+ *  - "rigenerazione tissutale e ossea" compare SOLO nel badge brevetti, come
+ *    oggetto della proprietà brevettuale dell'azienda — mai come claim di ciò
+ *    che il prodotto fa (l'ossea non è tra le indicazioni registrate).
+ *  - CE e classe IIa/IIb valgono SOLO per i dispositivi medici (Dental IIa;
+ *    Cicatren e Dermal IIb): la nota sotto evita di far intendere che tutta la
+ *    gamma (Pet veterinario, anti-age cosmetici) sia dispositivo medico CE.
+ */
 import { getLangFromUrl, useTranslations } from '@/lib/i18n';
 
 interface Props { compact?: boolean }
@@ -7,17 +19,21 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const items = [
+  { key: t('trust.patents'), sub: '®' },
   { key: t('trust.ce'), sub: 'CE' },
   { key: t('trust.ministry'), sub: 'IT' },
   { key: t('trust.antropos'), sub: 'CH' },
   { key: t('trust.manufacturer'), sub: 'KFT' },
 ];
 ---
-<div class:list={['grid gap-3', compact ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-2 md:grid-cols-4']}>
-  {items.map((it) => (
-    <div class="flex items-center gap-3 rounded-[--radius-card] border border-hairline bg-surface px-4 py-3" data-reveal>
-      <span class="label-mono grid place-items-center w-9 h-9 rounded-full bg-tint text-primary shrink-0">{it.sub}</span>
-      <span class="text-sm leading-snug text-ink/85">{it.key}</span>
-    </div>
-  ))}
+<div>
+  <div class:list={['grid gap-3', compact ? 'grid-cols-2 md:grid-cols-3 lg:grid-cols-5' : 'grid-cols-2 md:grid-cols-3 lg:grid-cols-5']}>
+    {items.map((it) => (
+      <div class="flex items-center gap-3 rounded-[--radius-card] border border-hairline bg-surface px-4 py-3" data-reveal>
+        <span class="label-mono grid place-items-center w-9 h-9 rounded-full bg-tint text-primary shrink-0">{it.sub}</span>
+        <span class="text-sm leading-snug text-ink/85">{it.key}</span>
+      </div>
+    ))}
+  </div>
+  <p class="mt-3 text-xs text-muted leading-relaxed max-w-4xl" data-reveal>{t('trust.note')}</p>
 </div>
