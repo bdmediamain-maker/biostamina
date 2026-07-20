@@ -37,7 +37,7 @@ inci:
 it:
   name: "Bio RIGENERA® Pet — Gel Rigenerante e Cicatrizzante con Cellule Staminali Vegetali"
   description: |
-    Prodotto fitoterapico per animali domestici, a base vegetale, con cellule staminali vegetali di gardenia e oli essenziali di piante medicinali. Il fitocomplesso — in particolare iperico (Hypericum perforatum) e semi di pompelmo — garantisce una veloce rigenerazione del tessuto epiteliale con azione antibatterica e antisettica naturale, agendo come disinfettante locale contro funghi, batteri e parassiti. Gel rigenerante e cicatrizzante, non tossico all'ingestione accidentale.
+    Dalla molecola ProRigenera® nasce un prodotto fitoterapico per animali domestici, a base vegetale, con cellule staminali vegetali di gardenia e oli essenziali di piante medicinali. Il fitocomplesso — in particolare iperico (Hypericum perforatum) e semi di pompelmo — garantisce una veloce rigenerazione del tessuto epiteliale con azione antibatterica e antisettica naturale, agendo come disinfettante locale contro funghi, batteri e parassiti. Gel rigenerante e cicatrizzante, non tossico all'ingestione accidentale.
   indications:
     - "Gel topico per ferite ed ustioni della pelle"
     - "Stimola la riparazione della cute dell'animale in tutte le lesioni esterne, favorendo la riepitelizzazione della lesione alla guarigione"
@@ -55,7 +55,7 @@ it:
 en:
   name: "Bio RIGENERA® Pet — Regenerating & Cicatrizing Gel with Plant Stem Cells"
   description: |
-    Phytotherapeutic product for pets, plant-based, with gardenia plant stem cells and essential oils of medicinal plants. The phytocomplex — in particular St. John's wort (Hypericum perforatum) and grapefruit seed — ensures fast regeneration of the epithelial tissue with a natural antibacterial and antiseptic action, acting as a local disinfectant against fungi, bacteria and parasites. A regenerating and cicatrizing gel, non-toxic if accidentally ingested.
+    From the ProRigenera® molecule comes a phytotherapeutic product for pets, plant-based, with gardenia plant stem cells and essential oils of medicinal plants. The phytocomplex — in particular St. John's wort (Hypericum perforatum) and grapefruit seed — ensures fast regeneration of the epithelial tissue with a natural antibacterial and antiseptic action, acting as a local disinfectant against fungi, bacteria and parasites. A regenerating and cicatrizing gel, non-toxic if accidentally ingested.
   indications:
     - "Topical gel for skin wounds and burns"
     - "Stimulates the repair of the animal's skin in all external lesions, promoting reepithelization of the lesion to healing"

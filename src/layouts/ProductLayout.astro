@@ -111,6 +111,34 @@ const crumbs = breadcrumbSchema([
 
         <p class="text-ink/80 leading-relaxed">{loc.description}</p>
 
+        {/* Mini-presentazione di linea — SOLO sui 3 dispositivi medici CE.
+            Esclusi Pet (veterinario) e anti-age (cosmetici): il testo parla di
+            "medical devices marcatura CE", non applicabile a quelle categorie. */}
+        {d.deviceType === 'dispositivo-medico' && (
+          <div class="rounded-[--radius-card] border border-hairline bg-tint/40 px-5 py-4">
+            <p class="text-sm text-ink/85 leading-relaxed">{t('device.intro')}</p>
+            <p class="mt-2 flex gap-2 items-start text-sm font-medium text-ink leading-relaxed">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" class="text-primary shrink-0 mt-1" aria-hidden="true">
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+              <span>{t('device.introCe')}</span>
+            </p>
+          </div>
+        )}
+
+        {/* Variante veterinaria (Pet): stem cell vegetali, NON composizione ozonizzata. */}
+        {d.deviceType === 'veterinario' && (
+          <div class="rounded-[--radius-card] border border-hairline bg-tint/40 px-5 py-4">
+            <p class="text-sm font-medium text-ink leading-relaxed">{t('pet.introTitle')}</p>
+            <p class="mt-2 flex gap-2 items-start text-sm font-medium text-ink leading-relaxed">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" class="text-primary shrink-0 mt-1" aria-hidden="true">
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+              <span>{t('pet.introCe')}</span>
+            </p>
+          </div>
+        )}
+
         <PriceBlock price={d.price} priceList={d.priceList} inStock={d.inStock} comingSoon={d.comingSoon} />
         <AddToCart wooId={d.wooId} productName={loc.name} inStock={d.inStock} comingSoon={d.comingSoon} />
 

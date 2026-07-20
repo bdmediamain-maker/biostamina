@@ -38,15 +38,27 @@ export const ui = {
     // vive nell'eyebrow (evita la ripetizione e accorcia l'H1), e il paragrafo
     // è spezzato nei suoi 4 punti naturali per renderlo leggibile.
     'hero.eyebrow': 'BIO RIGENERA® · DALLA RICERCA BIOSTAMINA',
+    // ⚠️ "COMPOSIZIONE FITOTERAPICA": qui l'aggettivo qualifica la COMPOSIZIONE
+    // BREVETTATA, non il dispositivo medico. La costruzione vietata
+    // dall'ingegnere era "dispositivi medici fitoterapici" (che mescola due
+    // categorie regolatorie) e resta bandita altrove sul sito.
     'hero.title':
-      'Brevetti esclusivi scientifici della molecola ProRigenera® ozonizzata, per la rigenerazione tissutale e ossea.',
+      'Brevetti Biostamina®: composizione fitoterapica ozonizzata per la rigenerazione tissutale e ossea.',
     'hero.lead':
-      'Dalla molecola nasce la linea medicamentosa: Bio RIGENERA® O3, biorigenerante e bioriparatore.',
-    'hero.point1': 'Medical Devices autorizzati CE e notificati al Ministero della Salute.',
-    'hero.point2':
-      'Formulazione Lipogel al 100% naturale di soli oli essenziali di piante medicinali arricchite con Ozono.',
-    'hero.point3':
-      'Espletando una azione filmogena, citoprotettiva e antibatterica sulla lesione con sollievo del dolore, contribuisce a una veloce e sana corretta rigenerazione dei tessuti.',
+      'Dalla molecola ProRigenera® nasce la linea Medicamentosa: Bio RIGENERA® O3, Biorigenerante e Bioriparatore.',
+    'hero.ce': 'Medical devices marcatura CE notificati al Ministero della Salute.',
+    // Mini-presentazione ripetuta sulle 3 schede dei dispositivi medici
+    // (Dental, Cicatren, Dermal). NON su Pet (veterinario) né sugli anti-age
+    // (cosmetici): il testo parla di "medical devices marcatura CE".
+    'device.intro':
+      'Dalla molecola ProRigenera® nasce la linea Medicamentosa: Bio RIGENERA® O3, Biorigenerante e Bioriparatore.',
+    'device.introCe': 'Medical devices marcatura CE notificati al Ministero della Salute.',
+    // Variante Pet (veterinario). NB: il Pet NON contiene ozono — infatti qui si
+    // parla di "stem cell vegetali", non di composizione ozonizzata. La
+    // rigenerazione "tissutale e ossea" resta riferita ai BREVETTI, non al prodotto.
+    'pet.introTitle':
+      'Brevetti Biostamina®: composizione fitoterapica con stem cell vegetali per la rigenerazione tissutale e ossea.',
+    'pet.introCe': 'Prodotto fitoterapico CE · Autorizzazione 818/1/2016 NÉBIH ÁTI.',
     'home.productsHeading': 'I nostri prodotti — la linea Bio RIGENERA®',
     'product.class': 'Classe',
     'product.medicalDevice': 'Dispositivo medico CE',
@@ -118,14 +130,19 @@ export const ui = {
     // line" still to be re-validated by the client's engineer).
     'hero.eyebrow': 'BIO RIGENERA® · FROM BIOSTAMINA RESEARCH',
     'hero.title':
-      'Exclusive scientific patents for the ozonated ProRigenera® molecule, for tissue and bone regeneration.',
+      'Biostamina® patents: ozonated phytotherapeutic composition for tissue and bone regeneration.',
     'hero.lead':
-      'From the molecule comes the medicated line: Bio RIGENERA® O3, bio-regenerating and bio-repairing.',
-    'hero.point1': 'Medical Devices CE-authorised and notified to the Italian Ministry of Health.',
-    'hero.point2':
-      'A 100% natural Lipogel formulation of essential oils from medicinal plants enriched with Ozone.',
-    'hero.point3':
-      'Performing a film-forming, cytoprotective and antibacterial action on the lesion with pain relief, it contributes to a fast and correct regeneration of the tissues.',
+      'From the ProRigenera® molecule comes the Medicated line: Bio RIGENERA® O3, Bio-regenerating and Bio-repairing.',
+    'hero.ce': 'Medical devices with CE marking, notified to the Italian Ministry of Health.',
+    'device.intro':
+      'From the ProRigenera® molecule comes the Medicated line: Bio RIGENERA® O3, Bio-regenerating and Bio-repairing.',
+    'device.introCe': 'Medical devices with CE marking, notified to the Italian Ministry of Health.',
+    // Pet variant (veterinary). NB: Pet contains NO ozone — hence "vegetable stem
+    // cells" rather than an ozonated composition. "Tissue and bone regeneration"
+    // still refers to the PATENTS, not to what the product does.
+    'pet.introTitle':
+      'Biostamina® patents: phytotherapeutic composition with vegetable stem cells for tissue and bone regeneration.',
+    'pet.introCe': 'CE phytotherapeutic product · Authorisation 818/1/2016 NÉBIH ÁTI.',
     'home.productsHeading': 'Our products — the Bio RIGENERA® line',
     'product.class': 'Class',
     'product.medicalDevice': 'CE medical device',
