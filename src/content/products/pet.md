@@ -1,10 +1,10 @@
 ---
 sku: "pet-gel-staminali-25ml"
 line: "stem-cells"
-class: "veterinario"              # NON dispositivo medico — niente CE/classe (addendum 2/3)
+class: "veterinario"              # NON dispositivo medico di classe IIa/IIb (resta veterinario)
 deviceType: "veterinario"
 manufacturer: "Biostamina KFT"
-registration: "Prodotto Fitoterapico · Autorizzazione 818/1/2016 NÉBIH ÁTI"   # NON "Marcatura CE"
+registration: "Prodotto Fitoterapico CE · Autorizzazione 818/1/2016 NÉBIH ÁTI"
 category: "veterinario"
 format: "Gel · 25 ml"
 price: 38.40
@@ -73,8 +73,15 @@ en:
 ---
 
 <!--
-  Copy verbatim dal bugiardino Pet ufficiale (scansione). NON dispositivo medico:
-  "Prodotto Fitoterapico per animali domestici · Autorizzazione 818/1/2016 NÉBIH ÁTI".
+  Copy verbatim dal bugiardino Pet ufficiale (scansione). NON è un dispositivo medico
+  di classe IIa/IIb: resta prodotto fitoterapico veterinario professionale.
+
+  ⚠️ MARCATURA CE: il bugiardino scansionato e l'addendum 3 riportavano solo
+  "Prodotto Fitoterapico · Autorizzazione 818/1/2016 NÉBIH ÁTI" (senza CE).
+  Il "CE" è stato aggiunto su conferma esplicita del cliente, che dichiara di
+  possedere la Dichiarazione di Conformità CE. → RECUPERARE IL PDF DELLA DoC
+  per l'archivio: è il documento che sostiene il claim in caso di verifica.
+  NB: NÉBIH ÁTI (autorizzazione veterinaria ungherese) ≠ marcatura CE.
   ⚠️ Pet NON contiene ozono (INCI: Prunus Amygdalus Dulcis Oil non ozonizzato).
   ⚠️ Sito di produzione sul bugiardino = MGM Cosmetics (VR); il cliente vuole uniformare a
   NYL spa → DA CONFERMARE prima di stamparlo (per ora non mostrato in pagina). Testato Antropos.

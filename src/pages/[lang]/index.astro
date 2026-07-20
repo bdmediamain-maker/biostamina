@@ -21,13 +21,13 @@ const t = useTranslations(lang);
 
 const products = (await getCollection('products', (p) => !p.data.draft)).sort((a, b) => a.data.order - b.data.order);
 
-// Hero product-forward: prima i prodotti ("dalla nostra ricerca"), poi le
-// attestazioni come conferma (fascia TrustRow sotto la griglia prodotti).
-// ⚠️ COMPLIANCE: l'H1 parla di "rigenerazione dei tessuti" — NIENTE "ossea":
-// non è tra le indicazioni registrate, quindi come claim pubblico non è
-// sostenibile. L'ossea resta solo nel badge brevetti (proprietà brevettuale).
+// Hero: copy del cliente, strutturata per essere leggibile (una frase di 20
+// parole non funziona come display type). "ProRigenera®" viene evidenziata in
+// colore accento per dare all'occhio un punto d'aggancio: divido il titolo sul
+// nome del marchio, che è identico in IT e EN.
 const heroTitle = t('hero.title');
-const heroSub = t('hero.sub');
+const [titleBefore, titleAfter = ''] = heroTitle.split('ProRigenera®');
+const heroPoints = [t('hero.point1'), t('hero.point2'), t('hero.point3')];
 
 const problems = lang === 'it'
   ? [
@@ -41,15 +41,28 @@ const problems = lang === 'it'
       { t: 'Dermatology', d: 'Acne, psoriasis, dermatitis, erythema.', slug: 'dermal' },
     ];
 ---
-<BaseLayout title="Biostamina — Bio RIGENERA® O3 · Dispositivi medici fitoterapici CE" description={site.tagline[lang]}>
+<BaseLayout title="Biostamina — Bio RIGENERA® O3 · Dispositivi medici CE" description={site.tagline[lang]}>
   <!-- HERO -->
   <section class="relative overflow-hidden">
-    <div class="mx-auto max-w-7xl px-5 pt-16 pb-20 md:pt-24 md:pb-28 grid lg:grid-cols-[1fr_1.15fr] gap-12 items-center">
+    <!-- pt ridotto di 20px (era pt-16 / md:pt-24) per stringere lo stacco titolo-navbar -->
+    <div class="mx-auto max-w-7xl px-5 pt-[44px] pb-20 md:pt-[76px] md:pb-28 grid lg:grid-cols-[1fr_1.15fr] gap-12 items-center">
       <div>
         <p class="label-mono text-primary mb-4" data-reveal>{t('hero.eyebrow')}</p>
-        <h1 class="text-4xl md:text-6xl leading-[1.05]" data-reveal>{heroTitle}</h1>
-        <p class="mt-5 text-sm md:text-base text-muted max-w-xl leading-relaxed" data-reveal>{heroSub}</p>
-        <div class="mt-8 flex flex-wrap gap-3" data-reveal>
+        <h1 class="text-2xl sm:text-3xl lg:text-[2.5rem] leading-[1.15] text-balance" data-reveal>
+          {titleBefore}<span class="text-primary">ProRigenera®</span>{titleAfter}
+        </h1>
+        <p class="mt-4 text-base text-ink/80 max-w-xl leading-relaxed" data-reveal>{t('hero.lead')}</p>
+        <ul class="mt-4 space-y-2 max-w-xl" data-reveal>
+          {heroPoints.map((p) => (
+            <li class="flex gap-2.5 text-sm text-muted leading-relaxed">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" class="text-primary shrink-0 mt-1" aria-hidden="true">
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+              <span>{p}</span>
+            </li>
+          ))}
+        </ul>
+        <div class="mt-6 flex flex-wrap gap-3" data-reveal>
           <NeonButton href={localePath(lang, 'negozio')} variant="solid">{t('cta.discover')} →</NeonButton>
           <NeonButton href={localePath(lang, 'certificazioni')} variant="default">{t('cta.certifications')}</NeonButton>
         </div>

@@ -60,7 +60,7 @@ export const GET: APIRoute = async () => {
   <channel>
     <title>Biostamina — Bio RIGENERA®</title>
     <link>${base}</link>
-    <description>Dispositivi medici fitoterapici e cosmetici rigeneranti Bio RIGENERA®</description>${items.join('')}
+    <description>Dispositivi medici e cosmetici rigeneranti Bio RIGENERA®</description>${items.join('')}
   </channel>
 </rss>`;
 

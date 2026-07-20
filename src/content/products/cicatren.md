@@ -5,7 +5,7 @@ line: "dispositivi-medici"
 class: "IIb"
 deviceType: "dispositivo-medico"
 manufacturer: "Biostamina KFT"
-registration: "Registrato al Ministero della Salute · Venduto in farmacia · Made in Italy"
+registration: "Dispositivo medico CE · Registrato al Ministero della Salute · Venduto in farmacia · Made in Italy"
 category: "cicatrizzazione"
 format: "Lipogel cicatrizzante"
 price: 37.80

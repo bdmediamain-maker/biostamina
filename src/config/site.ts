@@ -13,8 +13,8 @@
 export const site = {
   name: 'Biostamina',
   tagline: {
-    it: 'Rigenerazione tissutale. Dispositivi medici fitoterapici CE.',
-    en: 'Tissue regeneration. CE phytotherapeutic medical devices.',
+    it: 'Rigenerazione tissutale. Dispositivi medici CE a base di oli essenziali ozonizzati.',
+    en: 'Tissue regeneration. CE medical devices based on ozonated essential oils.',
   },
   domain: 'biostamina.net',
   url: 'https://biostamina.net',

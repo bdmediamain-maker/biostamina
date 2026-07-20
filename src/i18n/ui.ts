@@ -25,13 +25,28 @@ export const ui = {
     'cta.certifications': 'Le certificazioni',
     'cta.viewProduct': 'Vedi prodotto',
     'cta.allProducts': 'Tutti i prodotti',
-    // HOME — hero product-forward: prima i prodotti, poi le attestazioni.
-    // ⚠️ COMPLIANCE: nessun riferimento a "rigenerazione ossea" nell'H1 (non è
-    // tra le indicazioni registrate). L'ossea resta solo nel badge brevetti.
+    // HOME — copy fornita dal cliente (validata dal suo ingegnere).
+    // ⚠️ TERMINOLOGIA: vietato "dispositivo medico fitoterapico" (mescola due
+    // categorie regolatorie: un DM agisce per via fisica, non farmacologica).
+    // "Prodotto fitoterapico" resta valido SOLO per il Pet (veterinario, non DM).
+    // ⚠️ "rigenerazione tissutale e ossea" è qui riferita ai BREVETTI (proprietà
+    // brevettuale dell'azienda), non a ciò che fa il prodotto.
+    // ⚠️ DA VALIDARE: "linea medicamentosa" — un dispositivo medico NON è un
+    // medicinale; il termine evoca l'azione farmacologica. Testo pubblicato su
+    // richiesta esplicita del cliente, da far riconfermare al suo ingegnere.
+    // Testo identico a quello fornito dal cliente, solo strutturato: "Biostamina:"
+    // vive nell'eyebrow (evita la ripetizione e accorcia l'H1), e il paragrafo
+    // è spezzato nei suoi 4 punti naturali per renderlo leggibile.
     'hero.eyebrow': 'BIO RIGENERA® · DALLA RICERCA BIOSTAMINA',
-    'hero.title': 'Dalla nostra ricerca, i prodotti per la rigenerazione dei tessuti.',
-    'hero.sub':
-      'Bio RIGENERA®: dispositivi medici fitoterapici e trattamenti rigenerativi, dalle piante officinali arricchite con ozono e cellule staminali vegetali.',
+    'hero.title':
+      'Brevetti esclusivi scientifici della molecola ProRigenera® ozonizzata, per la rigenerazione tissutale e ossea.',
+    'hero.lead':
+      'Dalla molecola nasce la linea medicamentosa: Bio RIGENERA® O3, biorigenerante e bioriparatore.',
+    'hero.point1': 'Medical Devices autorizzati CE e notificati al Ministero della Salute.',
+    'hero.point2':
+      'Formulazione Lipogel al 100% naturale di soli oli essenziali di piante medicinali arricchite con Ozono.',
+    'hero.point3':
+      'Espletando una azione filmogena, citoprotettiva e antibatterica sulla lesione con sollievo del dolore, contribuisce a una veloce e sana corretta rigenerazione dei tessuti.',
     'home.productsHeading': 'I nostri prodotti — la linea Bio RIGENERA®',
     'product.class': 'Classe',
     'product.medicalDevice': 'Dispositivo medico CE',
@@ -67,16 +82,17 @@ export const ui = {
     'trust.ministry': 'Notificati al Ministero della Salute',
     'trust.antropos': 'Testato da «Antropos», Lugano',
     'trust.manufacturer': 'Fabbricante Biostamina KFT',
-    // ⚠️ COMPLIANCE: CE/classe valgono solo per i dispositivi medici, non per
-    // Pet (veterinario) né per gli anti-age (cosmetici).
+    // ⚠️ COMPLIANCE: la CLASSE (IIa/IIb) vale solo per i dispositivi medici.
+    // Il Pet è CE ma NON è un dispositivo medico di classe; gli anti-age sono
+    // cosmetici. Serve a non far intendere che tutta la gamma sia "DM CE IIa/IIb".
     'trust.note':
-      'La marcatura CE e la classe si riferiscono ai soli dispositivi medici (Dental IIa; Cicatren e Dermal IIb). Pet: prodotto veterinario professionale. Anti-age: prodotti cosmetici.',
+      'La classe (IIa/IIb) si riferisce ai soli dispositivi medici: Dental IIa; Cicatren e Dermal IIb. Pet: prodotto fitoterapico veterinario professionale con marcatura CE. Anti-age: prodotti cosmetici.',
     'footer.manufacturer': 'Fabbricante',
     'footer.seller': 'Venditore',
     'footer.legal': 'Note legali',
     'footer.rights': 'Tutti i diritti riservati.',
     'footer.medicalNote':
-      'Dispositivi medici fitoterapici a base di oli essenziali ozonizzati. Leggere attentamente le avvertenze e le istruzioni per l’uso.',
+      'Dispositivi medici a base di oli essenziali ozonizzati. Leggere attentamente le avvertenze e le istruzioni per l’uso.',
     'assistant.soon': 'Assistente · presto disponibile',
     'lang.switch': 'English',
     'skip': 'Vai al contenuto',
@@ -97,11 +113,19 @@ export const ui = {
     'cta.certifications': 'Certifications',
     'cta.viewProduct': 'View product',
     'cta.allProducts': 'All products',
-    // HOME — product-forward hero (no "bone regeneration" claim in the H1).
+    // HOME — client-supplied copy (see IT notes: no "phytotherapeutic medical
+    // device"; "tissue and bone regeneration" refers to the PATENTS; "medicated
+    // line" still to be re-validated by the client's engineer).
     'hero.eyebrow': 'BIO RIGENERA® · FROM BIOSTAMINA RESEARCH',
-    'hero.title': 'From our research, products for tissue regeneration.',
-    'hero.sub':
-      'Bio RIGENERA®: phytotherapeutic medical devices and regenerative treatments, made from officinal plants enriched with ozone and vegetable stem cells.',
+    'hero.title':
+      'Exclusive scientific patents for the ozonated ProRigenera® molecule, for tissue and bone regeneration.',
+    'hero.lead':
+      'From the molecule comes the medicated line: Bio RIGENERA® O3, bio-regenerating and bio-repairing.',
+    'hero.point1': 'Medical Devices CE-authorised and notified to the Italian Ministry of Health.',
+    'hero.point2':
+      'A 100% natural Lipogel formulation of essential oils from medicinal plants enriched with Ozone.',
+    'hero.point3':
+      'Performing a film-forming, cytoprotective and antibacterial action on the lesion with pain relief, it contributes to a fast and correct regeneration of the tissues.',
     'home.productsHeading': 'Our products — the Bio RIGENERA® line',
     'product.class': 'Class',
     'product.medicalDevice': 'CE medical device',
@@ -137,13 +161,13 @@ export const ui = {
     'trust.antropos': 'Tested by “Antropos”, Lugano',
     'trust.manufacturer': 'Manufacturer Biostamina KFT',
     'trust.note':
-      'CE marking and class refer only to the medical devices (Dental IIa; Cicatren and Dermal IIb). Pet: professional veterinary product. Anti-age: cosmetic products.',
+      'The class (IIa/IIb) refers only to the medical devices: Dental IIa; Cicatren and Dermal IIb. Pet: CE-marked professional veterinary phytotherapeutic product. Anti-age: cosmetic products.',
     'footer.manufacturer': 'Manufacturer',
     'footer.seller': 'Seller',
     'footer.legal': 'Legal',
     'footer.rights': 'All rights reserved.',
     'footer.medicalNote':
-      'Phytotherapeutic medical devices based on ozonated essential oils. Read the warnings and instructions for use carefully.',
+      'Medical devices based on ozonated essential oils. Read the warnings and instructions for use carefully.',
     'assistant.soon': 'Assistant · coming soon',
     'lang.switch': 'Italiano',
     'skip': 'Skip to content',
