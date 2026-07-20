@@ -4,6 +4,7 @@ line: "stem-cells"
 class: "cosmetico"
 deviceType: "cosmetico"
 manufacturer: "Biostamina KFT"
+registration: "Cosmetico · Made in Italy"
 category: "anti-age"
 format: "Siero dermocosmetico · 25 ml"
 price: 37.80

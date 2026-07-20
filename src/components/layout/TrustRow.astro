@@ -18,16 +18,19 @@ const { compact = false } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
+// NB: la sigla del Ministero è "MS" (Ministero Salute) per lasciare "IT" al
+// badge Made in Italy, che indica il sito produttivo.
 const items = [
   { key: t('trust.patents'), sub: '®' },
   { key: t('trust.ce'), sub: 'CE' },
-  { key: t('trust.ministry'), sub: 'IT' },
+  { key: t('trust.ministry'), sub: 'MS' },
   { key: t('trust.antropos'), sub: 'CH' },
+  { key: t('trust.madeInItaly'), sub: 'IT' },
   { key: t('trust.manufacturer'), sub: 'KFT' },
 ];
 ---
 <div>
-  <div class:list={['grid gap-3', compact ? 'grid-cols-2 md:grid-cols-3 lg:grid-cols-5' : 'grid-cols-2 md:grid-cols-3 lg:grid-cols-5']}>
+  <div class="grid gap-3 grid-cols-2 md:grid-cols-3">
     {items.map((it) => (
       <div class="flex items-center gap-3 rounded-[--radius-card] border border-hairline bg-surface px-4 py-3" data-reveal>
         <span class="label-mono grid place-items-center w-9 h-9 rounded-full bg-tint text-primary shrink-0">{it.sub}</span>

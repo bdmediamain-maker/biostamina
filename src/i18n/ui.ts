@@ -93,6 +93,9 @@ export const ui = {
     'trust.ce': 'Dispositivi medici CE (classe IIa/IIb)',
     'trust.ministry': 'Notificati al Ministero della Salute',
     'trust.antropos': 'Testato da «Antropos», Lugano',
+    // Sito produttivo in Italia. NB: il fabbricante legale (Biostamina KFT) è
+    // ungherese — non è una contraddizione, sono due cose distinte.
+    'trust.madeInItaly': 'Tutti i prodotti Made in Italy',
     'trust.manufacturer': 'Fabbricante Biostamina KFT',
     // ⚠️ COMPLIANCE: la CLASSE (IIa/IIb) vale solo per i dispositivi medici.
     // Il Pet è CE ma NON è un dispositivo medico di classe; gli anti-age sono
@@ -176,6 +179,7 @@ export const ui = {
     'trust.ce': 'CE medical devices (Class IIa/IIb)',
     'trust.ministry': 'Notified to the Italian Ministry of Health',
     'trust.antropos': 'Tested by “Antropos”, Lugano',
+    'trust.madeInItaly': 'All products Made in Italy',
     'trust.manufacturer': 'Manufacturer Biostamina KFT',
     'trust.note':
       'The class (IIa/IIb) refers only to the medical devices: Dental IIa; Cicatren and Dermal IIb. Pet: CE-marked professional veterinary phytotherapeutic product. Anti-age: cosmetic products.',

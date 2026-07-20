@@ -4,7 +4,7 @@ line: "stem-cells"
 class: "veterinario"              # NON dispositivo medico di classe IIa/IIb (resta veterinario)
 deviceType: "veterinario"
 manufacturer: "Biostamina KFT"
-registration: "Prodotto Fitoterapico CE · Autorizzazione 818/1/2016 NÉBIH ÁTI"
+registration: "Prodotto Fitoterapico CE · Autorizzazione 818/1/2016 NÉBIH ÁTI · Made in Italy"
 category: "veterinario"
 format: "Gel · 25 ml"
 price: 38.40
