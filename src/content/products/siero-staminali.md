@@ -6,7 +6,7 @@ deviceType: "cosmetico"
 manufacturer: "Biostamina KFT"
 registration: "Cosmetico · Made in Italy · Testato presso Antropos, Lugano (Svizzera)"
 category: "anti-age"
-format: "Siero · 15 ml · ~20 applicazioni"
+format: "Siero · 15 ml colmato a 20 ml · 25 applicazioni"
 price: null
 priceList: null
 inStock: false
@@ -43,7 +43,7 @@ inci:
   - "Linalool"
   - "Xanthan Gum"
 it:
-  name: "BioRigenera® Stem Cell Anti-Age"
+  name: "BioRigenera® Dermocosmetico Stem Cell Anti-Age"
   description: |
     Linea dermocosmetica rigenerativa: siero anti-età a base di cellule staminali vegetali, sviluppata per favorire il rinnovamento fisiologico della pelle e contrastare i segni dell’invecchiamento. Azione bio rigenerante e bio riparatrice. Lussuoso siero puro, al 100% naturale, composto unicamente da estratti di oli essenziali e arricchito con Cellule Staminali di Gardenia (anidro, privo di acqua o sostanze chimiche). Prodotto innovativo unico al mondo, ricavato da 16 pregiati estratti di oli essenziali di piante medicinali derivate da coltivazioni italiane di origine controllata. Effetti: microfilm protettivo, nutre e rassoda, idrata e tonifica, dona compattezza e plasticità al viso, effetto luminoso con pelle liscia e vellutata, attenuazione delle rughe.
   properties: |
@@ -53,7 +53,7 @@ it:
   warnings: |
     Un eventuale leggero rossore di breve durata può indicare un processo di riparazione dell'epidermide. Non utilizzare in caso di ipersensibilità o allergia note verso uno o più componenti. Conservare a temperatura di 5/24 °C. Scadenza 3 anni dalla produzione e 12 mesi dall'apertura. Peso 56,05 g · confezione 5,02 × 5,02 × h 3,08 cm. Prodotto cosmetico: agisce sull'aspetto della pelle, senza finalità terapeutiche.
 en:
-  name: "BioRigenera® Stem Cell Anti-Age"
+  name: "BioRigenera® Dermocosmetico Stem Cell Anti-Age"
   description: |
     Regenerative dermocosmetic line: an anti-ageing serum based on plant stem cells, developed to support the skin’s physiological renewal and counteract the signs of ageing. Bio-regenerating and bio-repairing action. A luxurious pure serum, 100% natural, made exclusively from essential-oil extracts and enriched with Gardenia Stem Cells (anhydrous, free of water or chemicals). A unique, one-of-a-kind product obtained from 16 fine essential-oil extracts of medicinal plants from controlled Italian cultivations. Effects: protective micro-film, nourishes and firms, hydrates and tones, gives compactness and elasticity to the face, a radiant effect with smooth, velvety skin, and attenuation of wrinkles.
   properties: |
