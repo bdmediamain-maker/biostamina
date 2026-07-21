@@ -14,7 +14,15 @@ const localized = z.object({
   properties: z.string().optional(), // Dental non ha PROPRIETÀ separata
   phyto: z.string().optional(),
   usage: z.string().optional(),
+  // Protocollo professionale (odontoiatra / medico / veterinario), fornito dal
+  // cliente: è un consiglio d'uso rivolto ai professionisti, distinto dalla
+  // modalità d'uso del bugiardino. Titolo + corpo, così resta chiaro chi lo firma.
+  protocolTitle: z.string().optional(),
+  protocol: z.string().optional(),
   warnings: z.string().optional(),
+  // Modalità di conservazione. NON sugli anti-age, che hanno condizioni proprie
+  // (5/24 °C) già nelle avvertenze del loro bugiardino.
+  storage: z.string().optional(),
 });
 
 const products = defineCollection({

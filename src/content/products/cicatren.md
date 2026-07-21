@@ -50,8 +50,16 @@ it:
     Le proprietà dei semi di pompelmo e dell'ozono svolgono un'azione antibatterica e contribuiscono ad una veloce e corretta rigenerazione del tessuto epiteliale.
   usage: |
     Va applicato sulla parte da trattare, una o due volte al giorno fino alla completa guarigione.
+  protocolTitle: "Il medico consiglia"
+  protocol: |
+    Detergere e disinfettare la ferita, possibilmente con Tea tree oil o ammoni quaternari (Bialcol). Applicare uno strato di 3-4 mm di Bio RIGENERA® e stenderlo in maniera omogenea sulla superficie esposta, aiutandosi con una stecca di legno abbassalingua per non sprecare il prodotto, e coprire con 3-4 veli di garza sterile traspirante. Medicazioni 1-2 volte al dì, a seconda di come reagisce la ferita, tenendola sempre in un ambiente umido grazie al lipogel. Nella medicazione successiva non asportare la fibrina creatasi sulla ferita. Qualora vi fosse una severa ulcerazione con perdita di sostanza, sentire il medico per prescrivere del collagene (Condress o Connettivina), aggiungendo sopra un altro strato di Bio RIGENERA® e richiudendo la ferita con garza traspirante, senza mai soffocarla.
   warnings: |
     Non utilizzare in caso di ipersensibilità o allergia note verso uno o più componenti. Evitare il contatto con gli occhi; in caso di contatto risciacquare con abbondante acqua fresca. Se dovessero verificarsi intolleranze o altri effetti avversi, sospendere l'uso ed eventualmente consultare il medico. Tenere fuori dalla portata dei bambini. La data di scadenza si riferisce al prodotto integro e correttamente conservato in luogo asciutto. Si consiglia di usare il prodotto entro 12 mesi dall'apertura. Non sono conosciute interazioni. Per l'uso contemporaneo a trattamenti farmacologici topici, consultare il medico. Eventuali variazioni del prodotto quali consistenza e colore, sono da attribuire alla variabilità del raccolto di ingredienti vegetali. Evitare l'esposizione diretta ai raggi solari.
+  storage: |
+    Conservare da 15 °C a 22 °C, al riparo dalla luce.
+    La data di scadenza si riferisce al prodotto integro e correttamente conservato in luogo asciutto.
+    Si consiglia di usare il prodotto entro 12 mesi dall'apertura.
+    Validità a confezionamento integro: 36 mesi.
 en:
   name: "Bio RIGENERA® O3 Cicatren — Cicatrizing Lipogel"
   description: |
@@ -70,8 +78,16 @@ en:
     The properties of grapefruit seeds and ozone have an antibacterial effect and contribute to quick and correct epithelial tissue regeneration.
   usage: |
     Apply to the area to be treated one or two times a day, until the entire healing.
+  protocolTitle: "The physician recommends"
+  protocol: |
+    Cleanse and disinfect the wound, possibly with Tea tree oil or quaternary ammonium compounds (Bialcol). Apply a 3-4 mm layer of Bio RIGENERA® and spread it evenly over the exposed surface, using a wooden tongue depressor to avoid wasting product, then cover with 3-4 layers of breathable sterile gauze. Dressings 1-2 times a day depending on how the wound reacts, always keeping it in a moist environment thanks to the lipogel. At the next dressing, do not remove the fibrin formed on the wound. Should there be severe ulceration with loss of substance, consult the physician to prescribe collagen (Condress or Connettivina), adding another layer of Bio RIGENERA® on top and closing the wound with breathable gauze, never suffocating it.
   warnings: |
     Do not use in case of confirmed or suspected hypersensitivity or allergy to one or more components. Avoid contact with eyes; in case of contact rinse with fresh water. If you experience allergies or other adverse effects, discontinue to use it and consult your doctor. Keep out of reach of children. The expiry date refers to the product intact and properly stored in a dry place. It is recommended to use the product within 12 months from opening. No reported side effects. For the simultaneous use of topical medication treatments, consult your doctor. Any variations in the product, such as consistency and colour, are to be attributed to the variability of the crop of vegetable ingredients. Avoid exposure to direct sunlight.
+  storage: |
+    Store between 15 °C and 22 °C, away from light.
+    The expiry date refers to the product intact and correctly stored in a dry place.
+    It is recommended to use the product within 12 months of opening.
+    Shelf life in intact packaging: 36 months.
 ---
 
 <!--

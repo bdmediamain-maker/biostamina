@@ -51,8 +51,16 @@ it:
     Le proprietà dei semi di pompelmo e dell'iperico svolgono un'azione antibatterica e antisettica e contribuiscono a una veloce e corretta rigenerazione del tessuto epiteliale.
   usage: |
     Detergere la ferita, applicare il prodotto sulla parte interessata previa disinfezione e pulizia della zona, due volte al giorno fino alla completa guarigione della ferita.
+  protocolTitle: "Il medico veterinario consiglia"
+  protocol: |
+    Detergere e disinfettare la ferita, possibilmente con Tea tree oil o ammoni quaternari (Bialcol). Applicare uno strato di 3-4 mm di Bio RIGENERA® e stenderlo in maniera omogenea sulla superficie esposta, aiutandosi con una stecca di legno abbassalingua per non sprecare il prodotto, e coprire con 3-4 veli di garza sterile traspirante. Medicazioni 1-2 volte al dì, a seconda di come reagisce la ferita, tenendola sempre in un ambiente umido grazie al lipogel. Nella medicazione successiva non asportare la fibrina creatasi sulla ferita. Qualora vi fosse una severa ulcerazione con perdita di sostanza, sentire il medico veterinario per prescrivere del collagene (Condress o Connettivina), aggiungendo sopra un altro strato di Bio RIGENERA® e richiudendo la ferita con garza traspirante, senza mai soffocarla. Qualora la lesione fosse localizzata a una delle zampe, sarà utile usare una rete elastica per trattenere la medicazione. Nota: non tossico in caso di ingestione accidentale dell'animale, in quanto naturale.
   warnings: |
     Ipersensibilità accertata o presunta verso uno o più componenti. Non sono segnalati effetti indesiderati. Evitare l'esposizione diretta ai raggi solari. Evitare il contatto con gli occhi e tenere fuori dalla portata dei bambini. Conservare a temperatura ambiente, in luogo asciutto e lontano da fonti di calore. Non tossico all'ingestione.
+  storage: |
+    Conservare da 15 °C a 22 °C, al riparo dalla luce.
+    La data di scadenza si riferisce al prodotto integro e correttamente conservato in luogo asciutto.
+    Si consiglia di usare il prodotto entro 12 mesi dall'apertura.
+    Validità a confezionamento integro: 36 mesi.
 en:
   name: "Bio RIGENERA® Pet — Regenerating & Cicatrizing Gel with Plant Stem Cells"
   description: |
@@ -69,8 +77,16 @@ en:
     The properties of grapefruit seeds and St. John's wort have an antibacterial and antiseptic action and contribute to a fast and correct regeneration of the epithelial tissue.
   usage: |
     Cleanse the wound, apply the product to the affected area after disinfecting and cleaning it, twice a day until the wound is completely healed.
+  protocolTitle: "The veterinarian recommends"
+  protocol: |
+    Cleanse and disinfect the wound, possibly with Tea tree oil or quaternary ammonium compounds (Bialcol). Apply a 3-4 mm layer of Bio RIGENERA® and spread it evenly over the exposed surface, using a wooden tongue depressor to avoid wasting product, then cover with 3-4 layers of breathable sterile gauze. Dressings 1-2 times a day depending on how the wound reacts, always keeping it in a moist environment thanks to the lipogel. At the next dressing, do not remove the fibrin formed on the wound. Should there be severe ulceration with loss of substance, consult the veterinarian to prescribe collagen (Condress or Connettivina), adding another layer of Bio RIGENERA® on top and closing the wound with breathable gauze, never suffocating it. If the lesion is on one of the paws, an elastic net is useful to hold the dressing in place. Note: non-toxic if accidentally ingested by the animal, as it is natural.
   warnings: |
     Confirmed or suspected hypersensitivity to one or more components. No adverse effects reported. Avoid direct sun exposure. Avoid contact with the eyes and keep out of reach of children. Store at room temperature, in a dry place away from heat sources. Non-toxic if ingested.
+  storage: |
+    Store between 15 °C and 22 °C, away from light.
+    The expiry date refers to the product intact and correctly stored in a dry place.
+    It is recommended to use the product within 12 months of opening.
+    Shelf life in intact packaging: 36 months.
 ---
 
 <!--

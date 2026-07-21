@@ -167,10 +167,25 @@ const crumbs = breadcrumbSchema([
             <section data-reveal>
               <h2 class="text-xl mb-3">{t('product.usage')}</h2>
               <p class="text-sm text-ink/85 leading-relaxed">{loc.usage}</p>
+
+              {/* Protocollo professionale (odontoiatra / medico / veterinario):
+                  consiglio d'uso, distinto dalla modalità d'uso del bugiardino. */}
+              {loc.protocol && (
+                <div class="mt-4 rounded-[--radius-card] bg-tint/50 border border-hairline p-5">
+                  <p class="label-mono text-primary mb-2">{loc.protocolTitle}</p>
+                  <p class="text-sm text-ink/85 leading-relaxed whitespace-pre-line">{loc.protocol}</p>
+                </div>
+              )}
             </section>
           )}
           <SpecTable productClass={d.class} deviceType={d.deviceType} format={d.format} manufacturer={d.manufacturer} sku={d.sku} ean={d.ean} registration={d.registration} />
           <INCIList inci={d.inci} />
+          {loc.storage && (
+            <section data-reveal aria-labelledby="storage-h">
+              <h2 id="storage-h" class="text-xl mb-3">{t('product.storage')}</h2>
+              <p class="text-sm text-ink/85 leading-relaxed whitespace-pre-line bg-tint/40 border border-hairline rounded-[--radius-card] p-4">{loc.storage}</p>
+            </section>
+          )}
           {loc.warnings && (
             <section data-reveal aria-labelledby="warn-h">
               <h2 id="warn-h" class="text-xl mb-3">{t('product.warnings')}</h2>
