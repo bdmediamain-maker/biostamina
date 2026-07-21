@@ -1,5 +1,6 @@
 ---
 sku: "dermal-o3"
+ean: "5999887574086"
 wooId: 138
 line: "dispositivi-medici"
 class: "IIb"

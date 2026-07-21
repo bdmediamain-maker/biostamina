@@ -169,7 +169,7 @@ const crumbs = breadcrumbSchema([
               <p class="text-sm text-ink/85 leading-relaxed">{loc.usage}</p>
             </section>
           )}
-          <SpecTable productClass={d.class} deviceType={d.deviceType} format={d.format} manufacturer={d.manufacturer} sku={d.sku} registration={d.registration} />
+          <SpecTable productClass={d.class} deviceType={d.deviceType} format={d.format} manufacturer={d.manufacturer} sku={d.sku} ean={d.ean} registration={d.registration} />
           <INCIList inci={d.inci} />
           {loc.warnings && (
             <section data-reveal aria-labelledby="warn-h">

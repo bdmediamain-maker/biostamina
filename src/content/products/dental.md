@@ -1,5 +1,6 @@
 ---
 sku: "dental-o3-25ml"
+ean: "5999887574092"
 wooId: 137
 line: "dispositivi-medici"
 class: "IIa"

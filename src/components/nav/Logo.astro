@@ -22,7 +22,7 @@ const width = Math.round((height * logo.width) / logo.height);
 ---
 {linked ? (
   <a href={localePath(lang)} aria-label="Biostamina — home" class="inline-flex items-center shrink-0">
-    <Image src={logo} alt={alt} height={height} width={width} class:list={['w-auto', className]} loading="eager" />
+    <Image src={logo} alt={alt} height={height} width={width} densities={[1, 2]} class:list={['w-auto', className]} loading="eager" />
   </a>
 ) : (
   <Image src={logo} alt={alt} height={height} width={width} class:list={['w-auto', className]} loading="eager" />

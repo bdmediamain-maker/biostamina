@@ -7,9 +7,10 @@ interface Props {
   format?: string;
   manufacturer: string;
   sku: string;
+  ean?: string;
   registration?: string;
 }
-const { productClass, deviceType, format, manufacturer, sku, registration } = Astro.props;
+const { productClass, deviceType, format, manufacturer, sku, ean, registration } = Astro.props;
 const lang = useTranslations(getLangFromUrl(Astro.url));
 
 const classLabel =
@@ -22,6 +23,7 @@ const rows = [
   { k: classKey, v: classLabel },
   ...(format ? [{ k: 'Formato', v: format }] : []),
   ...(registration ? [{ k: 'Registrazione', v: registration }] : []),
+  ...(ean ? [{ k: 'Cod. EAN', v: ean }] : []),
   { k: 'SKU', v: sku },
   { k: lang('footer.manufacturer'), v: manufacturer },
 ];

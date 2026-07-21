@@ -1,5 +1,6 @@
 ---
 sku: "cicatren-o3"
+ean: "5999887574078"
 wooId: 136
 line: "dispositivi-medici"
 class: "IIb"

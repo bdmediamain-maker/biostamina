@@ -22,6 +22,7 @@ const products = defineCollection({
   schema: ({ image }) =>
     z.object({
       sku: z.string(),
+      ean: z.string().optional(), // codice a barre EAN-13 → mostrato in scheda/card e usato come GTIN nel feed Google
       wooId: z.number().default(0), // ← da WooCommerce (0 = non ancora mappato)
       // Due linee dalla molecola ProRigenera (addendum 2 §2)
       line: z.enum(['dispositivi-medici', 'stem-cells']).default('dispositivi-medici'),

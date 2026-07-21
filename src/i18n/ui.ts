@@ -46,6 +46,8 @@ export const ui = {
       'Brevetti Biostamina®: composizione fitoterapica ozonizzata per la rigenerazione tissutale e ossea.',
     'hero.lead':
       'Dalla molecola ProRigenera® nasce la linea Medicamentosa: Bio RIGENERA® O3, Biorigenerante e Bioriparatore.',
+    'hero.natural':
+      'Prodotti esclusivamente naturali di soli oli essenziali e ozono o cellule staminali vegetali.',
     'hero.ce': 'Medical devices marcatura CE notificati al Ministero della Salute.',
     // Mini-presentazione ripetuta sulle 3 schede dei dispositivi medici
     // (Dental, Cicatren, Dermal). NON su Pet (veterinario) né sugli anti-age
@@ -89,10 +91,11 @@ export const ui = {
     // Fascia attestazioni (home, sotto i prodotti + /certificazioni).
     // ⚠️ "rigenerazione tissutale e ossea" compare SOLO qui, come oggetto dei
     // brevetti dell'azienda — mai come ciò che il prodotto fa.
-    'trust.patents': 'Brevetti ProRigenera® (rigenerazione tissutale e ossea)',
+    // Numero brevetto riportato come fornito dal cliente (troncato all'origine).
+    'trust.patents': 'Brevetti ProRigenera® (rigenerazione tissutale e ossea) · Brev. No. 102018000……',
     'trust.ce': 'Dispositivi medici CE (classe IIa/IIb)',
-    'trust.ministry': 'Notificati al Ministero della Salute',
-    'trust.antropos': 'Testato da «Antropos», Lugano',
+    'trust.ministry': 'Notificati al Ministero della Salute Italiana',
+    'trust.antropos': 'Testato da Istituto Antropos S.A., Lugano',
     // Sito produttivo in Italia. NB: il fabbricante legale (Biostamina KFT) è
     // ungherese — non è una contraddizione, sono due cose distinte.
     'trust.madeInItaly': 'Tutti i prodotti Made in Italy',
@@ -136,6 +139,8 @@ export const ui = {
       'Biostamina® patents: ozonated phytotherapeutic composition for tissue and bone regeneration.',
     'hero.lead':
       'From the ProRigenera® molecule comes the Medicated line: Bio RIGENERA® O3, Bio-regenerating and Bio-repairing.',
+    'hero.natural':
+      'Exclusively natural products, made only from essential oils and ozone or vegetable stem cells.',
     'hero.ce': 'Medical devices with CE marking, notified to the Italian Ministry of Health.',
     'device.intro':
       'From the ProRigenera® molecule comes the Medicated line: Bio RIGENERA® O3, Bio-regenerating and Bio-repairing.',
@@ -175,10 +180,10 @@ export const ui = {
       'Individual experiences reported here do not constitute a guarantee of results.',
     // Attestations band — "tissue and bone regeneration" appears ONLY here, as
     // the object of the company's patents, never as a product claim.
-    'trust.patents': 'ProRigenera® patents (tissue and bone regeneration)',
+    'trust.patents': 'ProRigenera® patents (tissue and bone regeneration) · Patent No. 102018000……',
     'trust.ce': 'CE medical devices (Class IIa/IIb)',
     'trust.ministry': 'Notified to the Italian Ministry of Health',
-    'trust.antropos': 'Tested by “Antropos”, Lugano',
+    'trust.antropos': 'Tested by Istituto Antropos S.A., Lugano',
     'trust.madeInItaly': 'All products Made in Italy',
     'trust.manufacturer': 'Manufacturer Biostamina KFT',
     'trust.note':

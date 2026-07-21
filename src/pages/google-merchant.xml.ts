@@ -48,7 +48,7 @@ export const GET: APIRoute = async () => {
       <g:price>${(listPrice as number).toFixed(2)} EUR</g:price>${salePrice}
       <g:brand>Bio RIGENERA</g:brand>
       <g:condition>new</g:condition>
-      <g:identifier_exists>no</g:identifier_exists>
+      ${d.ean ? `<g:gtin>${d.ean}</g:gtin>` : '<g:identifier_exists>no</g:identifier_exists>'}
       <g:google_product_category>Health &amp; Beauty &gt; Personal Care</g:google_product_category>
       <g:mpn>${esc(d.sku)}</g:mpn>
     </item>`;

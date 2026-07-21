@@ -1,5 +1,6 @@
 ---
 sku: "pet-gel-staminali-25ml"
+ean: "5999887574115"
 line: "stem-cells"
 class: "veterinario"              # NON dispositivo medico di classe IIa/IIb (resta veterinario)
 deviceType: "veterinario"
