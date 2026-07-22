@@ -57,7 +57,7 @@ it:
   warnings: |
     Ipersensibilità accertata o presunta verso uno o più componenti. Non sono segnalati effetti indesiderati. Evitare l'esposizione diretta ai raggi solari. Evitare il contatto con gli occhi e tenere fuori dalla portata dei bambini. Conservare a temperatura ambiente, in luogo asciutto e lontano da fonti di calore. Non tossico all'ingestione.
   storage: |
-    Conservare da 15 °C a 22 °C, al riparo dalla luce.
+    Conservare da 10 °C a 24 °C, al riparo dalla luce.
     La data di scadenza si riferisce al prodotto integro e correttamente conservato in luogo asciutto.
     Si consiglia di usare il prodotto entro 12 mesi dall'apertura.
     Validità a confezionamento integro: 36 mesi.
@@ -83,7 +83,7 @@ en:
   warnings: |
     Confirmed or suspected hypersensitivity to one or more components. No adverse effects reported. Avoid direct sun exposure. Avoid contact with the eyes and keep out of reach of children. Store at room temperature, in a dry place away from heat sources. Non-toxic if ingested.
   storage: |
-    Store between 15 °C and 22 °C, away from light.
+    Store between 10 °C and 24 °C, away from light.
     The expiry date refers to the product intact and correctly stored in a dry place.
     It is recommended to use the product within 12 months of opening.
     Shelf life in intact packaging: 36 months.

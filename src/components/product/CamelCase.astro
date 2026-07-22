@@ -1,7 +1,7 @@
 ---
 /**
  * Caso clinico Dubai Camel Hospital — solo per la scheda Pet.
- * Foto forti (ferite del cammello) sfocate per default; clic per rivelare
+ * Foto forti (ferite del dromedario) sfocate per default; clic per rivelare
  * (con conferma), rispetto per sensibilità pubblico. Foto contesto libere.
  * Fonte: Brochure "Biostamina KFT 2017 – Supply of BioRigenera Pet for Dubai
  * Veterinary Clinic of Sceik" (allegato cliente).
@@ -49,8 +49,8 @@ const clinical = [
       <figcaption class="px-3 py-2.5 text-xs text-muted">{it ? 'Team Biostamina + veterinari (Dubai, 2017)' : 'Biostamina team + vets (Dubai, 2017)'}</figcaption>
     </figure>
     <figure class="rounded-[--radius-card] overflow-hidden border border-hairline bg-surface">
-      <Image src={contesto} alt="Cammello alla clinica veterinaria di Dubai" width={720} height={480} class="w-full h-auto" />
-      <figcaption class="px-3 py-2.5 text-xs text-muted">{it ? 'Cammello alla clinica' : 'Camel at the clinic'}</figcaption>
+      <Image src={contesto} alt={it ? 'Dromedario alla clinica veterinaria di Dubai' : 'Dromedary at the Dubai veterinary clinic'} width={720} height={480} class="w-full h-auto" />
+      <figcaption class="px-3 py-2.5 text-xs text-muted">{it ? 'Il dromedario alla clinica' : 'The dromedary at the clinic'}</figcaption>
     </figure>
   </div>
 

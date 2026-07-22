@@ -176,6 +176,14 @@ const crumbs = breadcrumbSchema([
                   <p class="text-sm text-ink/85 leading-relaxed whitespace-pre-line">{loc.protocol}</p>
                 </div>
               )}
+
+              {/* Il protocollo psoriasi vive SOLO nel blog (richiesta cliente):
+                  qui resta un rimando, così chi guarda il prodotto lo trova. */}
+              {product.id === 'dermal' && (
+                <a href={localePath(lang, 'blog/consiglio-medico-trattamento-psoriasi')} class="mt-4 inline-flex items-center gap-1.5 text-sm text-azure hover:underline">
+                  {lang === 'it' ? 'Il consiglio del medico: psoriasi sulle mani' : 'The physician’s advice: psoriasis on the hands'} →
+                </a>
+              )}
             </section>
           )}
           <SpecTable productClass={d.class} deviceType={d.deviceType} format={d.format} manufacturer={d.manufacturer} sku={d.sku} ean={d.ean} registration={d.registration} />

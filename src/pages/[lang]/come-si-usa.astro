@@ -2,7 +2,6 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { useTranslations, localePath, type Lang } from '@/lib/i18n';
-import GlowCard from '@/components/ui/GlowCard.astro';
 
 export function getStaticPaths() {
   return [{ params: { lang: 'it' } }, { params: { lang: 'en' } }];
@@ -34,22 +33,9 @@ const products = (await getCollection('products', (p) => !p.data.draft)).sort((a
             }</p>
             <h2 class="text-xl mb-3">{loc.name}</h2>
             <p class="text-sm text-ink/85 leading-relaxed">{loc.usage}</p>
-
-            {/* Protocollo professionale come card dedicata: è un consiglio del
-                professionista, distinto dalla modalità d'uso del bugiardino. */}
-            {loc.protocol && (
-              <GlowCard as="article" class="mt-5 rounded-[--radius-card] border border-hairline bg-tint/40 p-5 md:p-6">
-                <div class="flex items-center gap-2.5 mb-3">
-                  <span class="shrink-0 w-8 h-8 rounded-full bg-primary/10 grid place-items-center text-primary" aria-hidden="true">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 15h6M9 11h3"/>
-                    </svg>
-                  </span>
-                  <h3 class="text-base font-medium leading-snug">{loc.protocolTitle}</h3>
-                </div>
-                <p class="text-sm text-ink/85 leading-relaxed whitespace-pre-line">{loc.protocol}</p>
-              </GlowCard>
-            )}
+            {/* I protocolli professionali NON stanno più qui: vivono nel blog,
+                sezione "Il consiglio del medico sulle medicazioni" (e nella
+                scheda prodotto). Richiesta cliente. */}
             <a href={localePath(lang, `prodotto/${p.id}`)} class="mt-3 inline-block text-sm text-azure hover:underline">{t('cta.viewProduct')} →</a>
           </section>
         );

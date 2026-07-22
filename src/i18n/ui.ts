@@ -112,6 +112,9 @@ export const ui = {
     'footer.rights': 'Tutti i diritti riservati.',
     'footer.medicalNote':
       'Dispositivi medici a base di oli essenziali ozonizzati. Leggere attentamente le avvertenze e le istruzioni per l’uso.',
+    'search.label': 'Cerca nel sito',
+    'search.placeholder': 'Cerca prodotti, articoli, pagine…',
+    'search.hint': 'Cerca prodotti, articoli e pagine…',
     'assistant.soon': 'Assistente · presto disponibile',
     'lang.switch': 'English',
     'skip': 'Vai al contenuto',
@@ -196,6 +199,9 @@ export const ui = {
     'footer.rights': 'All rights reserved.',
     'footer.medicalNote':
       'Medical devices based on ozonated essential oils. Read the warnings and instructions for use carefully.',
+    'search.label': 'Search the site',
+    'search.placeholder': 'Search products, articles, pages…',
+    'search.hint': 'Search products, articles and pages…',
     'assistant.soon': 'Assistant · coming soon',
     'lang.switch': 'Italiano',
     'skip': 'Skip to content',

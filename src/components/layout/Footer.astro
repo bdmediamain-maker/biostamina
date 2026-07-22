@@ -3,6 +3,7 @@ import { getLangFromUrl, useTranslations, localePath } from '@/lib/i18n';
 import { getImage } from 'astro:assets';
 import { site } from '@/config/site';
 import Logo from '@/components/nav/Logo.astro';
+import PaymentMethods from '@/components/product/PaymentMethods.astro';
 import studioImg from '@/assets/team/studio-microscopio.jpg';
 
 const lang = getLangFromUrl(Astro.url);
@@ -84,6 +85,7 @@ const cols = [
 
   <div class="relative z-10 border-t border-hairline">
     <div class="mx-auto max-w-7xl px-5 py-6 text-xs text-muted space-y-2">
+      <PaymentMethods compact note={false} class="pb-1" />
       <p class="leading-relaxed">{t('footer.medicalNote')}</p>
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pt-2">
         <p>

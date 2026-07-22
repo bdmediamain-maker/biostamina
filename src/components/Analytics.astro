@@ -46,8 +46,17 @@ const lang = getLangFromUrl(Astro.url);
         e lingua del banner allineata alla lingua della pagina. */}
     <script is:inline define:vars={{ bannerLang: lang }}>
       var _iub = _iub || [];
-      _iub.csConfiguration = {"floatingPreferencesButtonDisplay":false,"lang":bannerLang,"siteId":3996940,"cookiePolicyId":24179786,"whitelabel":false,"banner":{"closeButtonDisplay":false,"listPurposes":true,"explicitWithdrawal":true,"rejectButtonDisplay":true,"acceptButtonDisplay":true,"customizeButtonDisplay":true,"closeButtonRejects":true,"position":"float-top-center","style":"dark"},"perPurposeConsent":true,"googleAdditionalConsentMode":true,"enableTcf":true,"tcfPurposes":{"1":true,"2":"consent_only","3":"consent_only","4":"consent_only","5":"consent_only","6":"consent_only","7":"consent_only","8":"consent_only","9":"consent_only","10":"consent_only"}};
+      _iub.csConfiguration = {"floatingPreferencesButtonDisplay":false,"lang":bannerLang,"siteId":3996940,"cookiePolicyId":24179786,"whitelabel":true,"banner":{"closeButtonDisplay":false,"listPurposes":true,"explicitWithdrawal":true,"rejectButtonDisplay":true,"acceptButtonDisplay":true,"customizeButtonDisplay":true,"closeButtonRejects":true,"position":"float-top-center","style":"dark"},"perPurposeConsent":true,"googleAdditionalConsentMode":true,"enableTcf":true,"tcfPurposes":{"1":true,"2":"consent_only","3":"consent_only","4":"consent_only","5":"consent_only","6":"consent_only","7":"consent_only","8":"consent_only","9":"consent_only","10":"consent_only"}};
     </script>
+    {/* Nasconde il marchio Iubenda nel banner. whitelabel:true lo toglie se il
+        piano Iubenda del cliente lo include; questo CSS è la rete di sicurezza.
+        ⚠️ NB: senza l'opzione whitelabel nel piano, nascondere il brand è contro
+        i ToS Iubenda — verificare il piano del cliente. */}
+    <style is:inline>
+      #iubenda-cs-banner .iubenda-cs-brand,
+      #iubenda-cs-banner [class*="logo-container"],
+      .iubenda-cs-brand { display: none !important; }
+    </style>
     <script is:inline type="text/javascript" src="https://cdn.iubenda.com/cs/tcf/stub-v2.js"></script>
     <script is:inline type="text/javascript" src="https://cdn.iubenda.com/cs/tcf/safe-tcf-v2.js"></script>
     <script is:inline type="text/javascript" src="https://cdn.iubenda.com/cs/iubenda_cs.js" charset="UTF-8" async></script>

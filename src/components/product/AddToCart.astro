@@ -7,6 +7,7 @@
 import { getLangFromUrl, useTranslations } from '@/lib/i18n';
 import { site } from '@/config/site';
 import { wooEnabled } from '@/lib/woo';
+import PaymentMethods from './PaymentMethods.astro';
 
 interface Props { wooId: number; productName: string; inStock?: boolean; comingSoon?: boolean }
 const { wooId, productName, inStock = true, comingSoon = false } = Astro.props;
@@ -45,6 +46,7 @@ const cartActive = wooEnabled && wooId > 0 && inStock;
     <p class="text-xs text-muted">⚠️ Formspree waitlist da configurare in <code>src/config/site.ts</code>.</p>
   </div>
 ) : (
+<Fragment>
 <div class="flex flex-col sm:flex-row gap-3">
   {cartActive ? (
     <button
@@ -85,6 +87,9 @@ const cartActive = wooEnabled && wooId > 0 && inStock;
     {t('cta.whatsapp')}
   </a>
 </div>
+
+<PaymentMethods class="mt-4" />
+</Fragment>
 )}
 
 <script>

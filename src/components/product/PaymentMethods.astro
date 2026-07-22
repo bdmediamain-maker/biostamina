@@ -1,0 +1,37 @@
+---
+/**
+ * Metodi di pagamento accettati — badge informativi.
+ * I pagamenti sono processati dal checkout WooCommerce, dove risultano attivi
+ * (verificato via Store API): WooPayments (carte Visa/Mastercard/Amex, Apple e
+ * Google Pay), PayPal (ppcp-gateway), Klarna (klarna_payments), bonifico (bacs).
+ * Qui li mostriamo nei punti di conversione: scheda prodotto, drawer carrello, footer.
+ */
+import { getLangFromUrl } from '@/lib/i18n';
+
+interface Props {
+  class?: string;
+  /** mostra la riga "anche in 3 rate" (default true) */
+  note?: boolean;
+  /** versione compatta senza etichetta "Pagamenti sicuri" */
+  compact?: boolean;
+}
+const { class: className = '', note = true, compact = false } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const it = lang === 'it';
+
+const methods = ['PayPal', 'Klarna', 'Visa', 'Mastercard', it ? 'Bonifico' : 'Bank transfer'];
+---
+<div class:list={[className]}>
+  {!compact && <p class="label-mono text-muted mb-2">{it ? 'Pagamenti sicuri' : 'Secure payments'}</p>}
+  <ul class="flex flex-wrap items-center gap-1.5">
+    <li aria-hidden="true" class="mr-0.5 text-muted">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    </li>
+    {methods.map((m) => (
+      <li class="px-2.5 py-1 rounded-full border border-hairline bg-surface text-xs font-medium text-ink/80">{m}</li>
+    ))}
+  </ul>
+  {note && (
+    <p class="mt-2 text-xs text-muted">{it ? 'Anche in 3 rate con PayPal o Klarna.' : 'Pay in 3 instalments with PayPal or Klarna.'}</p>
+  )}
+</div>

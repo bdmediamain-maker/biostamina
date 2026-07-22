@@ -1,0 +1,153 @@
+---
+/**
+ * Ricerca sito — overlay aperto dalla lente nell'header ([data-search-open]).
+ * Scarica l'indice statico /search-{lang}.json alla prima apertura (poi cache)
+ * e filtra client-side: prodotti (foto + prezzo), articoli, pagine.
+ * Pattern modal identico al popup Antropos (hidden/flex, niente transizioni
+ * critiche). Esc o backdrop per chiudere; Ctrl/Cmd+K apre da tastiera.
+ */
+import { getLangFromUrl, useTranslations } from '@/lib/i18n';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+<div
+  id="search-modal"
+  data-lang={lang}
+  class="fixed inset-0 z-[85] hidden items-start justify-center p-4 pt-[8vh] md:pt-[12vh]"
+  aria-hidden="true"
+  role="dialog"
+  aria-modal="true"
+  aria-label={t('search.label')}
+>
+  <div data-search-backdrop class="absolute inset-0 bg-ink/50"></div>
+
+  <div class="relative w-full max-w-xl bg-paper rounded-[--radius-card] shadow-2xl overflow-hidden flex flex-col max-h-[70vh]">
+    <div class="flex items-center gap-3 px-4 py-3.5 border-b border-hairline shrink-0">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-muted shrink-0" aria-hidden="true">
+        <circle cx="11" cy="11" r="7" /><path d="m21 21-4.3-4.3" />
+      </svg>
+      <input
+        data-search-input
+        type="search"
+        placeholder={t('search.placeholder')}
+        autocomplete="off"
+        spellcheck="false"
+        class="flex-1 bg-transparent outline-none text-base text-ink placeholder:text-muted"
+      />
+      <button type="button" data-search-close class="w-8 h-8 grid place-items-center rounded-full hover:bg-tint transition shrink-0" aria-label={lang === 'it' ? 'Chiudi' : 'Close'}>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 6 6 18M6 6l12 12" /></svg>
+      </button>
+    </div>
+
+    <div data-search-results class="overflow-y-auto p-2 min-h-[80px]">
+      <p class="px-3 py-5 text-sm text-muted">{t('search.hint')}</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById('search-modal');
+  if (modal) {
+    const lang = modal.dataset.lang || 'it';
+    const input = modal.querySelector<HTMLInputElement>('[data-search-input]')!;
+    const results = modal.querySelector<HTMLElement>('[data-search-results]')!;
+    const L = {
+      it: { products: 'Prodotti', articles: 'Articoli', pages: 'Pagine', empty: 'Nessun risultato per', hint: 'Cerca prodotti, articoli e pagine…' },
+      en: { products: 'Products', articles: 'Articles', pages: 'Pages', empty: 'No results for', hint: 'Search products, articles and pages…' },
+    }[lang as 'it' | 'en'];
+
+    type Item = { t: 'p' | 'a' | 'g'; title: string; desc: string; url: string; extra?: string; img?: string; price?: number | null };
+    let index: (Item & { hay: string })[] | null = null;
+
+    const norm = (s: string) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+    const fmtPrice = (n: number) => new Intl.NumberFormat(lang === 'it' ? 'it-IT' : 'en-GB', { style: 'currency', currency: 'EUR' }).format(n);
+    const escapeHtml = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+    async function load() {
+      if (index) return;
+      const res = await fetch(`/search-${lang}.json`);
+      const raw = (await res.json()) as Item[];
+      index = raw.map((i) => ({ ...i, hay: norm(`${i.title} ${i.desc} ${i.extra || ''}`) }));
+    }
+
+    function group(items: Item[], type: Item['t'], label: string): string {
+      const g = items.filter((i) => i.t === type);
+      if (!g.length) return '';
+      const rows = g
+        .map((i) => {
+          if (i.t === 'p') {
+            return `<a href="${i.url}" class="flex items-center gap-3 rounded-lg px-3 py-2.5 hover:bg-tint transition-colors">
+              ${i.img ? `<img src="${i.img}" alt="" width="44" height="44" class="w-11 h-11 rounded-md border border-hairline bg-surface object-contain shrink-0"/>` : ''}
+              <span class="min-w-0 flex-1">
+                <span class="block text-sm font-medium text-ink truncate">${escapeHtml(i.title)}</span>
+                <span class="block text-xs text-muted truncate">${escapeHtml(i.desc)}</span>
+              </span>
+              ${i.price ? `<span class="text-sm font-medium text-ink shrink-0">${fmtPrice(i.price)}</span>` : ''}
+            </a>`;
+          }
+          return `<a href="${i.url}" class="block rounded-lg px-3 py-2.5 hover:bg-tint transition-colors">
+            <span class="block text-sm font-medium text-ink truncate">${escapeHtml(i.title)}</span>
+            <span class="block text-xs text-muted truncate">${escapeHtml(i.desc)}</span>
+          </a>`;
+        })
+        .join('');
+      return `<p class="label-mono text-primary px-3 pt-3 pb-1">${label}</p>${rows}`;
+    }
+
+    function render(q: string) {
+      if (!index) return;
+      const nq = norm(q.trim());
+      if (nq.length < 2) {
+        results.innerHTML = `<p class="px-3 py-5 text-sm text-muted">${L.hint}</p>`;
+        return;
+      }
+      // Stemming leggero IT: per parole ≥5 lettere che finiscono in vocale si
+      // cerca la radice senza l'ultima vocale → "gengive" trova anche
+      // "gengivale"/"gengiviti", "ferite" trova "ferita", ecc.
+      const tokens = nq.split(/\s+/).map((tk) =>
+        tk.length >= 4 && /[aeiou]$/.test(tk) ? tk.slice(0, -1) : tk,
+      );
+      const hits = index
+        .filter((i) => tokens.every((tk) => i.hay.includes(tk)))
+        .sort((a, b) => {
+          // prima chi ha il match nel titolo, poi prodotti > articoli > pagine
+          const at = norm(a.title).includes(nq) ? 0 : 1;
+          const bt = norm(b.title).includes(nq) ? 0 : 1;
+          if (at !== bt) return at - bt;
+          const order = { p: 0, a: 1, g: 2 } as const;
+          return order[a.t] - order[b.t];
+        })
+        .slice(0, 20);
+      if (!hits.length) {
+        results.innerHTML = `<p class="px-3 py-5 text-sm text-muted">${L.empty} “${escapeHtml(q.trim())}”.</p>`;
+        return;
+      }
+      results.innerHTML = group(hits, 'p', L.products) + group(hits, 'a', L.articles) + group(hits, 'g', L.pages);
+    }
+
+    const open = () => {
+      modal!.classList.remove('hidden');
+      modal!.classList.add('flex');
+      modal!.setAttribute('aria-hidden', 'false');
+      document.documentElement.style.overflow = 'hidden';
+      load().then(() => render(input.value));
+      setTimeout(() => input.focus(), 50);
+    };
+    const close = () => {
+      modal!.classList.add('hidden');
+      modal!.classList.remove('flex');
+      modal!.setAttribute('aria-hidden', 'true');
+      document.documentElement.style.overflow = '';
+    };
+
+    document.querySelectorAll('[data-search-open]').forEach((b) => b.addEventListener('click', open));
+    modal.querySelector('[data-search-close]')!.addEventListener('click', close);
+    modal.querySelector('[data-search-backdrop]')!.addEventListener('click', close);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') close();
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); open(); }
+    });
+    input.addEventListener('input', () => render(input.value));
+  }
+</script>

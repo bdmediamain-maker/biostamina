@@ -56,7 +56,7 @@ it:
   warnings: |
     Non utilizzare in caso di ipersensibilità o allergia note verso uno o più componenti. Evitare il contatto con gli occhi; in caso di contatto risciacquare con abbondante acqua fresca. Se dovessero verificarsi intolleranze o altri effetti avversi, sospendere l'uso ed eventualmente consultare il medico. Tenere fuori dalla portata dei bambini. La data di scadenza si riferisce al prodotto integro e correttamente conservato in luogo asciutto. Si consiglia di usare il prodotto entro 12 mesi dall'apertura. Non sono conosciute interazioni. Per l'uso contemporaneo a trattamenti farmacologici topici, consultare il medico. Eventuali variazioni del prodotto quali consistenza e colore, sono da attribuire alla variabilità del raccolto di ingredienti vegetali. Evitare l'esposizione diretta ai raggi solari.
   storage: |
-    Conservare da 15 °C a 22 °C, al riparo dalla luce.
+    Conservare da 10 °C a 24 °C, al riparo dalla luce.
     La data di scadenza si riferisce al prodotto integro e correttamente conservato in luogo asciutto.
     Si consiglia di usare il prodotto entro 12 mesi dall'apertura.
     Validità a confezionamento integro: 36 mesi.
@@ -84,7 +84,7 @@ en:
   warnings: |
     Do not use in case of confirmed or suspected hypersensitivity or allergy to one or more components. Avoid contact with eyes; in case of contact rinse with fresh water. If you experience allergies or other adverse effects, discontinue to use it and consult your doctor. Keep out of reach of children. The expiry date refers to the product intact and properly stored in a dry place. It is recommended to use the product within 12 months from opening. No reported side effects. For the simultaneous use of topical medication treatments, consult your doctor. Any variations in the product, such as consistency and colour, are to be attributed to the variability of the crop of vegetable ingredients. Avoid exposure to direct sunlight.
   storage: |
-    Store between 15 °C and 22 °C, away from light.
+    Store between 10 °C and 24 °C, away from light.
     The expiry date refers to the product intact and correctly stored in a dry place.
     It is recommended to use the product within 12 months of opening.
     Shelf life in intact packaging: 36 months.
