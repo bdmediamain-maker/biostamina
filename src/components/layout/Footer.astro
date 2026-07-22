@@ -67,6 +67,16 @@ const cols = [
           {col.links.map((l) => (
             <li><a href={l.href} class="text-sm text-ink/80 hover:text-primary transition-colors">{l.label}</a></li>
           ))}
+          {col.title === t('footer.legal') && (
+            <li>
+              {/* Revoca/modifica consenso: sostituisce il bottone flottante Iubenda
+                  (che compariva su ogni pagina e si sovrapponeva al widget Assistente).
+                  Attivo solo in produzione, dove Iubenda è caricato. */}
+              <button type="button" data-cookie-prefs class="text-sm text-ink/80 hover:text-primary transition-colors">
+                {lang === 'it' ? 'Preferenze cookie' : 'Cookie preferences'}
+              </button>
+            </li>
+          )}
         </ul>
       </div>
     ))}
@@ -86,3 +96,13 @@ const cols = [
     </div>
   </div>
 </footer>
+
+<script>
+  // Apre il pannello preferenze di Iubenda (solo in produzione, dove è caricato).
+  document.querySelectorAll<HTMLButtonElement>('[data-cookie-prefs]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const iub = (window as any)._iub;
+      if (iub?.cs?.api?.openPreferences) iub.cs.api.openPreferences();
+    });
+  });
+</script>

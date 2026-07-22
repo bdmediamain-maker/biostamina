@@ -11,8 +11,16 @@
  *   attuale → storico conversioni e remarketing invariati.
  *
  * Caricato SOLO in produzione (niente banner/tracking in dev).
+ *
+ * COMPORTAMENTO BANNER (verificato sul build): appare finché l'utente non
+ * sceglie (obbligo di legge); dopo Accetta/Rifiuta il consenso persiste nei
+ * cookie e il banner NON riappare al cambio pagina. Il bottone flottante
+ * Iubenda è disattivato (si sovrapponeva al widget Assistente): la revoca
+ * del consenso passa dal link "Preferenze cookie" nel footer.
  */
+import { getLangFromUrl } from '@/lib/i18n';
 const prod = import.meta.env.PROD;
+const lang = getLangFromUrl(Astro.url);
 ---
 {prod && (
   <Fragment>
@@ -33,10 +41,12 @@ const prod = import.meta.env.PROD;
     </script>
     <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-NPV6T6107M"></script>
 
-    {/* Iubenda Cookie Solution — config identica al sito attuale */}
-    <script is:inline>
+    {/* Iubenda Cookie Solution — config del sito attuale, con due differenze:
+        niente bottone flottante (revoca dal link "Preferenze cookie" nel footer)
+        e lingua del banner allineata alla lingua della pagina. */}
+    <script is:inline define:vars={{ bannerLang: lang }}>
       var _iub = _iub || [];
-      _iub.csConfiguration = {"floatingPreferencesButtonDisplay":"bottom-right","lang":"it","siteId":3996940,"cookiePolicyId":24179786,"whitelabel":false,"banner":{"closeButtonDisplay":false,"listPurposes":true,"explicitWithdrawal":true,"rejectButtonDisplay":true,"acceptButtonDisplay":true,"customizeButtonDisplay":true,"closeButtonRejects":true,"position":"float-top-center","style":"dark"},"perPurposeConsent":true,"googleAdditionalConsentMode":true,"enableTcf":true,"tcfPurposes":{"1":true,"2":"consent_only","3":"consent_only","4":"consent_only","5":"consent_only","6":"consent_only","7":"consent_only","8":"consent_only","9":"consent_only","10":"consent_only"}};
+      _iub.csConfiguration = {"floatingPreferencesButtonDisplay":false,"lang":bannerLang,"siteId":3996940,"cookiePolicyId":24179786,"whitelabel":false,"banner":{"closeButtonDisplay":false,"listPurposes":true,"explicitWithdrawal":true,"rejectButtonDisplay":true,"acceptButtonDisplay":true,"customizeButtonDisplay":true,"closeButtonRejects":true,"position":"float-top-center","style":"dark"},"perPurposeConsent":true,"googleAdditionalConsentMode":true,"enableTcf":true,"tcfPurposes":{"1":true,"2":"consent_only","3":"consent_only","4":"consent_only","5":"consent_only","6":"consent_only","7":"consent_only","8":"consent_only","9":"consent_only","10":"consent_only"}};
     </script>
     <script is:inline type="text/javascript" src="https://cdn.iubenda.com/cs/tcf/stub-v2.js"></script>
     <script is:inline type="text/javascript" src="https://cdn.iubenda.com/cs/tcf/safe-tcf-v2.js"></script>
